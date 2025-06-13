@@ -72,6 +72,7 @@ const response = await instance.post(endpoints.users, newUser)
     }
 }
 
+
 export async function login(email, password) {
 
     try {
@@ -195,23 +196,20 @@ export async function updatePassword(id, currentPassword, newPassword) {
 }
  
 
-export async function updateInfo(id, updateInfo) {
-    try {
-        const response = await instance.patch(endpoints.users + `/${id}`, updateInfo)
-
-        return {
-            data: response.data,
-            message: "user info updated successfully!",
-        }
-    }
-    catch (error) {
-        return {
-            data: null,
-            message: "user info update failed!"
-        }
-    }
+export async function update(endpoint, id, updateInfo) {
+  try {
+    const response = await instance.patch(`${endpoint}/${id}`, updateInfo);
+    return {
+      data: response.data,
+      message: "Updated successfully!",
+    };
+  } catch (error) {
+    return {
+      data: null,
+      message: "Update failed!",
+    };
+  }
 }
-
 
 export async function banUser(id, banMinutes) {
     try {

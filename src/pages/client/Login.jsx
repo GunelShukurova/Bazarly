@@ -1,11 +1,106 @@
-import React from 'react'
+
+import { useNavigate } from 'react-router';
+import loginValidationSchema from '../../validations/loginValidations';
+import { useFormik } from 'formik';
+import { login } from '../../redux/features/userSlide';
+import { getAllUsers, update } from '../../services/users/requests';
+import { enqueueSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginValidationSchema,
+    onSubmit: async (values, actions) => {
+
+      const response = await getAllUsers();
+      const users = response.data || [];
+
+      const validUser = users.find(
+        (u) =>
+          u.email === values.email &&
+          u.password === values.password &&
+          u.role === "client"
+      );
+      if (validUser) {
+        if (validUser.isBanned) {
+          const now = new Date();
+          const banUntil = new Date(validUser.banUntil);
+          const timeDifferenceMs = banUntil.getTime() - now.getTime();
+          const remainedMinutes =
+            Math.floor(timeDifferenceMs / 1000 / 60) - 240;
+
+          if (remainedMinutes > 0) {
+            enqueueSnackbar(
+              `your account has been banned, come back after ${remainedMinutes} minutes`,
+              {
+                variant: "warning",
+                autoHideDuration: 2000,
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "right",
+                },
+              }
+            );
+          } else {
+            actions.resetForm();
+            await update(validUser.id, {
+              isBanned: false,
+              banUntil: null,
+            });
+            enqueueSnackbar("user sign in successfully", {
+              variant: "success",
+              autoHideDuration: 2000,
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "right",
+              },
+            });
+            const user = { ...validUser };
+            delete user.password;
+            localStorage.setItem("userId", JSON.stringify(user.id));
+            dispatch(login(user));
+            navigate("/profile");
+          }
+        } else {
+          actions.resetForm();
+          enqueueSnackbar("user sign in successfully", {
+            variant: "success",
+            autoHideDuration: 2000,
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "right",
+            },
+          });
+          const user = { ...validUser };
+          delete user.password;
+          localStorage.setItem("userId", JSON.stringify(user.id));
+          dispatch(login(user));
+          navigate("/profile");
+        }
+      } else {
+        enqueueSnackbar("invalid credentials", {
+          variant: "error",
+          autoHideDuration: 2000,
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "right",
+          },
+        });
+        actions.resetForm();
+      }
+    },
+  });
   return (
     <div>
       <div className="bg-[#FDFBF7] ">
         <form
-
+          onSubmit={formik.handleSubmit}
           id="login-form"
           className="w-full max-w-lg mx-auto mt-12  shadow-md  p-6 border rounded-lg mb-30"
         >
@@ -24,7 +119,9 @@ const Login = () => {
               Email address
             </label>
             <input
-
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               type="email"
               id="email"
               name="email"
@@ -32,7 +129,11 @@ const Login = () => {
               required
               className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-
+            {formik.errors.email && formik.touched.email && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
+                {formik.errors.email}
+              </span>
+            )}
           </div>
           <div className="flex flex-col">
             <label
@@ -42,7 +143,9 @@ const Login = () => {
               Password
             </label>
             <input
-
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               type="password"
               id="password"
               name="password"
@@ -50,9 +153,19 @@ const Login = () => {
               required
               className="bg-[#F8F6F0] border text-md text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
+            {formik.errors.password && formik.touched.password && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
+                {formik.errors.password}
+              </span>
+            )}
           </div>
           <div className="flex flex-col w-full items-center">
             <button
+              disabled={
+                formik.isSubmitting ||
+                !formik.dirty ||
+                Object.entries(formik.errors).length > 0
+              }
               type="submit"
 
               id="submit"
