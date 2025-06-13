@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { endpoints } from "../../constants";
+import { getUserById } from "../../services/users/requests";
 
 
 
 const userId = localStorage.getItem("userId");
 const initialState = { user: null };
-if (JSON.parse(userId)) {
-  const user = await controller.getOne(endpoints.users, JSON.parse(userId));
+if (userId) {
+ 
+  const userId = JSON.parse(localStorage.getItem("userId"));
+const response = await getUserById(userId);
+const user = response.data;
   if (user.isBanned) {
     localStorage.setItem("userId", JSON.stringify(null));
     initialState.user = { user: null };

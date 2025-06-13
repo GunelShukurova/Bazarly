@@ -90,9 +90,9 @@ onSubmit={formik.handleSubmit}
             >
               Full Name
             </label>
-            <input
+            <input 
 
-              type="text"
+              type="text" 
               id="fullName"
               name="fullName"
                 value={formik.values.fullName}

@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: "", 
       password: "",
     },
     validationSchema: loginValidationSchema,
