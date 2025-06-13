@@ -1,0 +1,190 @@
+{
+  "users": [
+    {
+      "id": "3f485a15-588c-4913-b2f1-a079b946db55",
+      "username": "gunel",
+      "fullName": "Gunel Shukurova",
+      "balance": "1500.00",
+      "email": "gunel53_80@mail.ru",
+      "role": "admin",
+      "phoneNumber": "",
+      "basketItems": [
+        {
+          "id": "d719cb3d-0e3f-4afb-9aaa-7ee3e4b5c2ba",
+          "productId": "3",
+          "quantity": 3
+        }
+      ],
+      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
+      "isBanned": false,
+      "banDate": null,
+      "password": "salam123",
+      "createdAt": "2025-06-01T10:15:30.000Z",
+      "lastLogin": "2025-06-10T18:42:00.000Z",
+      "address": {
+        "country": "",
+        "city": "",
+        "street": ""
+      }
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
+      "items": [
+        {
+          "productId": "2",
+          "title": "Dove Beauty Bar Soap",
+          "quantity": 2,
+          "price": 2.99
+        }
+      ],
+      "totalPrice": 5.98,
+      "status": "completed",
+      "createdAt": "2025-06-05T09:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "userId": "7b9d3c5f-3eab-4baf-81d7-8ecfd08a9999",
+      "items": [
+        {
+          "productId": "4",
+          "title": "Nutella Hazelnut Spread 350g",
+          "quantity": 1,
+          "price": 4.99
+        }
+      ],
+      "totalPrice": 4.99,
+      "status": "pending",
+      "createdAt": "2025-06-10T14:15:00.000Z"
+    },
+    {
+      "id": "3",
+      "userId": "2a4e1c6e-905d-49c7-9785-bb7a3d13ee10",
+      "items": [
+        {
+          "productId": "3",
+          "title": "Lay's Classic Potato Chips 150g",
+          "quantity": 5,
+          "price": 2.49
+        }
+      ],
+      "totalPrice": 12.45,
+      "status": "shipped",
+      "createdAt": "2025-06-08T17:40:00.000Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "title": "Dove Beauty Bar Soap",
+      "image": "https://m.media-amazon.com/images/I/61m2tFEM3fL._SL1500_.jpg",
+      "category": "hygiene",
+      "available": true,
+      "description": "Moisturizing soap for smooth and soft skin. Gentle for daily use.",
+      "rating": 4.6,
+      "inStock": true,
+      "isSale": false,
+      "brand": "Dove",
+      "price": 2.99,
+      "reviews": [
+        {
+          "id": "1",
+          "userId": "1",
+          "rating": 5,
+          "comment": "Very gentle and smells great!",
+          "createdAt": "2025-06-05T09:15:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Coca-Cola Classic Can 330ml",
+      "image": "https://m.media-amazon.com/images/I/61GSnJpOyUL._SL1500_.jpg",
+      "category": "drinks",
+      "available": true,
+      "description": "Refreshing carbonated soft drink. Perfect for any occasion.",
+      "rating": 4.9,
+      "inStock": true,
+      "isSale": true,
+      "brand": "Coca-Cola",
+      "price": 1.20,
+      "reviews": [
+        {
+          "id": "2",
+          "userId": "2",
+          "rating": 5,
+          "comment": "Cold Coke is the best thing ever!",
+          "createdAt": "2025-06-07T14:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Lay's Classic Potato Chips 150g",
+      "image": "https://m.media-amazon.com/images/I/81dwzFeZuyL._SL1500_.jpg",
+      "category": "snacks",
+      "available": true,
+      "description": "Crispy and salty potato chips — a classic snack.",
+      "rating": 4.4,
+      "inStock": true,
+      "isSale": false,
+      "brand": "Lay's",
+      "price": 2.49,
+      "reviews": [
+        {
+          "id": "3",
+          "userId": "3",
+          "rating": 4,
+          "comment": "Tastes great but a bit too salty.",
+          "createdAt": "2025-06-06T11:45:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Nutella Hazelnut Spread 350g",
+      "image": "https://m.media-amazon.com/images/I/71aG+xDKSYL._SL1500_.jpg",
+      "category": "sweets",
+      "available": true,
+      "description": "Creamy chocolate spread made with hazelnuts and cocoa.",
+      "rating": 4.8,
+      "inStock": true,
+      "isSale": true,
+      "brand": "Nutella",
+      "price": 4.99,
+      "reviews": [
+        {
+          "id": "4",
+          "userId": "4",
+          "rating": 5,
+          "comment": "Perfect on toast or pancakes!",
+          "createdAt": "2025-06-04T08:50:00.000Z"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "ed2101db-7c2f-4e77-974b-e47a6537cbea",
+      "fullName": "Gunel Shukurova",
+      "email": "gunel53_80@mail.ru",
+      "subject": "product request",
+      "isRead": false,
+      "message": "salam",
+      "submittedAt": "2025-05-14T11:48:33.771Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "295aa3b6-f24c-46c6-8305-8e6c86a44c47",
+      "comment": "salam",
+      "userId": null,
+      "userName": "gunel",
+      "profileImage": "https://media.istockphoto.com/id/1317804584/photo/one-businesswoman-studio-portrait-looking-at-the-camera.jpg?s=612x612&w=0&k=20&c=Tx3nGQfxaI781gi97Siw7DIEBbKg1oBxl8n0JEwMQ6s=",
+      "rating": 5,
+      "productId": "3"
+    }
+  ]
+}
