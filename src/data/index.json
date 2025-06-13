@@ -117,32 +117,32 @@
     }
   ],
   "products": [
-    {
-      "id": "1",
-      "title": "Dove Beauty Bar Soap",
-      "image": "https://m.media-amazon.com/images/I/61m2tFEM3fL._SL1500_.jpg",
-      "category": "hygiene",
-      "available": true,
-      "description": "Moisturizing soap for smooth and soft skin. Gentle for daily use.",
-      "rating": 4.6,
-      "inStock": 25,
-      "isSale": false,
-      "brand": "Dove",
-      "price": 2.99,
-      "reviews": [
-        {
-          "id": "1",
-          "userId": "1",
-          "rating": 5,
-          "comment": "Very gentle and smells great!",
-          "createdAt": "2025-06-05T09:15:00.000Z"
-        }
-      ]
-    },
+  {
+    "id": "1",
+    "title": "Herschel Retreat Backpack",
+    "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
+    "category": "accessories",
+    "available": true,
+    "description": "Classic design backpack with laptop sleeve.",
+    "rating": 4.3,
+    "inStock": 44,
+    "isSale": false,
+    "brand": "Herschel",
+    "price": 89,
+    "reviews": [
+      {
+        "id": "1",
+        "userId": "1",
+        "rating": 4,
+        "comment": "Stylish and holds a lot.",
+        "createdAt": "2025-06-13T13:10:00.000Z"
+      }
+    ]
+  },
     {
       "id": "2",
       "title": "Apple iPhone 15",
-      "image": "https://example.com/iphone15.jpg",
+      "image": "https://ee2.pigugroup.eu/colours/190/783/98/19078398/apple-iphone-15-128gb-pink-mtp13pxa-d033f_original.jpg",
       "category": "electronics",
       "available": true,
       "description": "Latest model with A17 chip and improved battery life.",
@@ -164,7 +164,7 @@
     {
       "id": "3",
       "title": "Samsung Galaxy Buds Pro",
-      "image": "https://example.com/galaxybuds.jpg",
+      "image": "https://images.samsung.com/is/image/samsung/p6pim/az/2407/gallery/az-galaxy-buds3-pro-r630-sm-r630nzaacis-thumb-542473606?$UX_EXT2_PNG$",
       "category": "electronics",
       "available": true,
       "description": "Noise cancelling wireless earbuds with premium sound.",
@@ -186,7 +186,7 @@
     {
       "id": "4",
       "title": "Nike Air Max Sneakers",
-      "image": "https://example.com/nikeairmax.jpg",
+      "image": "https://cdn.mos.cms.futurecdn.net/QMctXMwPNSWAcXaiVWUJhM.png",
       "category": "footwear",
       "available": true,
       "description": "Comfortable and stylish sneakers for everyday wear.",
@@ -205,76 +205,12 @@
         }
       ]
     },
+  
+
     {
       "id": "5",
-      "title": "Logitech Wireless Mouse",
-      "image": "https://example.com/logitechmouse.jpg",
-      "category": "electronics",
-      "available": true,
-      "description": "Ergonomic wireless mouse with long battery life.",
-      "rating": 4.4,
-      "inStock": 40,
-      "isSale": false,
-      "brand": "Logitech",
-      "price": 29.99,
-      "reviews": [
-        {
-          "id": "5",
-          "userId": "5",
-          "rating": 4,
-          "comment": "Reliable and comfortable mouse for work.",
-          "createdAt": "2025-06-07T10:20:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "6",
-      "title": "The Alchemist by Paulo Coelho",
-      "image": "https://example.com/alchemist.jpg",
-      "category": "books",
-      "available": true,
-      "description": "Inspirational novel about following your dreams.",
-      "rating": 4.9,
-      "inStock": 50,
-      "isSale": false,
-      "brand": "HarperCollins",
-      "price": 14.99,
-      "reviews": [
-        {
-          "id": "6",
-          "userId": "6",
-          "rating": 5,
-          "comment": "A truly inspiring read.",
-          "createdAt": "2025-06-09T14:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "7",
-      "title": "Instant Pot Duo 7-in-1",
-      "image": "https://example.com/instantpot.jpg",
-      "category": "kitchen",
-      "available": true,
-      "description": "Multi-use programmable pressure cooker.",
-      "rating": 4.7,
-      "inStock": 22,
-      "isSale": true,
-      "brand": "Instant Pot",
-      "price": 89.99,
-      "reviews": [
-        {
-          "id": "7",
-          "userId": "7",
-          "rating": 5,
-          "comment": "Makes cooking so much easier!",
-          "createdAt": "2025-06-08T09:10:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "8",
       "title": "Adidas Running T-shirt",
-      "image": "https://example.com/adidastshirt.jpg",
+      "image": "https://www.sportsdirect.com/images/products/62344203_l.jpg",
       "category": "clothing",
       "available": true,
       "description": "Lightweight, breathable fabric for runners.",
@@ -285,18 +221,265 @@
       "price": 25,
       "reviews": [
         {
-          "id": "8",
-          "userId": "8",
+          "id": "5",
+          "userId": "5",
           "rating": 4,
           "comment": "Comfortable and fits well.",
           "createdAt": "2025-06-06T16:45:00.000Z"
         }
       ]
     },
+     {
+    "id": "6",
+    "title": "Fitbit Charge 6",
+    "image": "https://lh3.googleusercontent.com/fpJ1kW7oZpJIAJXstDm6y2oky5KvuJN-wfxF5cJtsWEa7jrzaVCVNPIXehJimWYtjTQG7McxM6GwVFcillZnAiFKOYpvruMdEe0=s0",
+    "category": "electronics",
+    "available": true,
+    "description": "Fitness tracker with heart rate and GPS.",
+    "rating": 4.2,
+    "inStock": 45,
+    "isSale": true,
+    "brand": "Fitbit",
+    "price": 129,
+    "reviews": [
+      {
+        "id": "6",
+        "userId": "6",
+        "rating": 4,
+        "comment": "Tracks everything accurately.",
+        "createdAt": "2025-06-08T10:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Apple MacBook Air M2",
+    "image": "https://manmadecycle.com.au/cdn/shop/products/macbookairretinagoldfront_842166e8-2304-4b9d-9229-b27185c1df4f.jpg?v=1638489499",
+    "category": "electronics",
+    "available": true,
+    "description": "Supercharged performance in a lightweight laptop.",
+    "rating": 4.9,
+    "inStock": 15,
+    "isSale": false,
+    "brand": "Apple",
+    "price": 1199,
+    "reviews": [
+      {
+        "id": "7",
+        "userId": "7",
+        "rating": 5,
+        "comment": "Light, fast, and powerful!",
+        "createdAt": "2025-06-09T09:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Sony WH-1000XM5",
+    "image": "https://almali.az/wp-content/uploads/2024/11/103364_original_local_1200x1050_v3_converted.webp",
+    "category": "electronics",
+    "available": true,
+    "description": "Industry-leading noise canceling headphones.",
+    "rating": 4.8,
+    "inStock": 22,
+    "isSale": true,
+    "brand": "Sony",
+    "price": 379,
+    "reviews": [
+      {
+        "id": "8",
+        "userId": "8",
+        "rating": 5,
+        "comment": "Incredible sound and comfort.",
+        "createdAt": "2025-06-10T14:00:00.000Z"
+      }
+    ]
+  },
+  
+ {
+    "id": "9",
+    "title": "Columbia Fleece Jacket",
+    "image": "https://www.siriusxmstore.com/cdn/shop/files/unisex-columbia-fleece-jacket-black-front-65ef2ef0414a0.jpg?v=1712262291",
+    "category": "clothing",
+    "available": true,
+    "description": "Warm and cozy fleece, perfect for cold weather.",
+    "rating": 4.4,
+    "inStock": 50,
+    "isSale": true,
+    "brand": "Columbia",
+    "price": 65,
+    "reviews": [
+      {
+        "id": "9",
+        "userId": "9",
+        "rating": 4,
+        "comment": "Very warm but a bit loose.",
+        "createdAt": "2025-06-13T12:00:00.000Z"
+      }
+    ]
+  },
+
+  
+  {
+    "id": "10",
+    "title": "Timberland Waterproof Boots",
+    "image": "https://noirfonce.eu/cdn/shop/files/Timberland_Premium_6-Inch_Lace_Up_Waterproof_Boot_Medium_Blue_TB0A2QXQEJI.jpg?v=1726223584",
+    "category": "shoes",
+    "available": true,
+    "description": "Iconic waterproof boots for all-weather wear.",
+    "rating": 4.7,
+    "inStock": 18,
+    "isSale": false,
+    "brand": "Timberland",
+    "price": 180,
+    "reviews": [
+      {
+        "id": "10",
+        "userId": "10",
+        "rating": 5,
+        "comment": "Classic style and very durable.",
+        "createdAt": "2025-06-13T16:00:00.000Z"
+      }
+    ]
+  },
     {
-      "id": "9",
+      "id": "11",
+      "title": "Logitech Wireless Mouse",
+      "image": "https://resource.logitech.com/b_white/content/dam/logitech/en/products/mice/m220/gallery/m220-rose-gallery-1.png",
+      "category": "electronics",
+      "available": true,
+      "description": "Ergonomic wireless mouse with long battery life.",
+      "rating": 4.4,
+      "inStock": 40,
+      "isSale": false,
+      "brand": "Logitech",
+      "price": 29.99,
+      "reviews": [
+        {
+          "id": "11",
+          "userId": "11",
+          "rating": 4,
+          "comment": "Reliable and comfortable mouse for work.",
+          "createdAt": "2025-06-07T10:20:00.000Z"
+        }
+      ]
+    },
+  
+ 
+ 
+  {
+    "id": "12",
+      "title": "IKEA RANARP Work Lamp",
+    "image": "https://norsu.com.au/cdn/shop/products/Untitleddesign_1_750x.png?v=1674562496",
+    "category": "home-accessories",
+    "available": true,
+    "description": "Adjustable retro-style desk lamp with metal shade.",
+    "rating": 4.9,
+    "inStock": 55,
+    "isSale": false,
+    "brand": "Muji",
+    "price": 70,
+    "reviews": [
+      {
+        "id": "12",
+        "userId": "12",
+        "rating": 5,
+        "comment": "Makes the whole room smell like a spa.",
+        "createdAt": "2025-06-13T15:20:00.000Z"
+      }
+    ]
+  },{
+  "id": "13",
+  "title": "Women's Wedge Slippers",
+  "image": "https://cdn11.bigcommerce.com/s-sr8agl2ati/images/stencil/532x532/products/543/3326/01_Hem_Navy_Slippers_Vista-FRONTAL__31819.1691675089.jpg?c=1",
+  "category": "shoes",
+  "available": true,
+  "description": "Comfortable wedge slippers with soft sole and stylish design for indoor and outdoor use.",
+  "rating": 4.5,
+  "inStock": 60,
+  "isSale": true,
+  "brand": "ComfortStep",
+  "price": 22.99,
+  "reviews": [
+    {
+      "id": "13",
+      "userId": "13",
+      "rating": 4,
+      "comment": "Really comfy and look cute too!",
+      "createdAt": "2025-06-13T18:15:00.000Z"
+    }
+  ]
+},{
+  "id": "14",
+  "title": "Round Tray Side Table",
+  "image": "https://cdn.shopify.com/s/files/1/0325/9927/7706/products/ebury_tray_side_table_dark_stained_walnut_2_700x.jpg?v=1681477540",
+  "category": "furniture",
+  "available": true,
+  "description": "Lightweight round metal tray table with removable top. Ideal as a side table or for serving.",
+  "rating": 4.6,
+  "inStock": 45,
+  "isSale": true,
+  "brand": "IKEA",
+  "price": 19.99,
+  "reviews": [
+    {
+      "id": "14",
+      "userId": "14",
+      "rating": 5,
+      "comment": "Functional and minimal. Easy to move around.",
+      "createdAt": "2025-06-13T18:35:00.000Z"
+    }
+  ]
+},
+  {
+    "id": "15",
+    "title": "Zara Home Woven Basket",
+    "image": "https://www.the-citizenry.com/cdn/shop/products/Padma_Rectangle_Storage_Baskets_Medium_1.jpg?format=webp&v=1656096379&width=1000",
+    "category": "home-accessories",
+    "available": true,
+    "description": "Natural fiber basket for storage or décor.",
+    "rating": 4.6,
+    "inStock": 35,
+    "isSale": false,
+    "brand": "Zara Home",
+    "price": 29,
+    "reviews": [
+      {
+        "id": "15",
+        "userId": "15",
+        "rating": 5,
+        "comment": "Very aesthetic and useful for organizing.",
+        "createdAt": "2025-06-13T16:45:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "title": "Ray-Ban Sunglasses",
+    "image": "https://mx2games.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-28-at-8.45.38-PM-2.jpeg",
+    "category": "accessories",
+    "available": true,
+    "description": "Timeless frame with polarized lenses.",
+    "rating": 4.8,
+    "inStock": 26,
+    "isSale": false,
+    "brand": "Oakley",
+    "price": 130,
+    "reviews": [
+      {
+        "id": "16",
+        "userId": "16",
+        "rating": 5,
+        "comment": "High clarity and great sun protection.",
+        "createdAt": "2025-06-13T17:30:00.000Z"
+      }
+    ]
+  },
+
+    {
+      "id": "17",
       "title": "Sony 55-inch 4K TV",
-      "image": "https://example.com/sony4ktv.jpg",
+      "image": "https://sonyimages.blob.core.windows.net/productr/large/KD55X81JU_0.png",
       "category": "electronics",
       "available": true,
       "description": "Ultra HD Smart TV with vibrant colors.",
@@ -307,36 +490,39 @@
       "price": 599.99,
       "reviews": [
         {
-          "id": "9",
-          "userId": "9",
+          "id": "17",
+          "userId": "17",
           "rating": 5,
           "comment": "Fantastic picture quality.",
           "createdAt": "2025-06-03T11:25:00.000Z"
         }
       ]
     },
-    {
-      "id": "10",
-      "title": "Kindle Paperwhite",
-      "image": "https://example.com/kindle.jpg",
-      "category": "electronics",
-      "available": true,
-      "description": "Waterproof e-reader with built-in light.",
-      "rating": 4.8,
-      "inStock": 28,
-      "isSale": false,
-      "brand": "Amazon",
-      "price": 129.99,
-      "reviews": [
-        {
-          "id": "10",
-          "userId": "10",
-          "rating": 5,
-          "comment": "Love reading on this device!",
-          "createdAt": "2025-06-04T13:50:00.000Z"
-        }
-      ]
-    }
+   
+  {
+    "id": "18",
+    "title": "Casio G-Shock Watch",
+    "image": "https://www.statementwatches.co.za/cdn/shop/files/GA-2100-1A_Seq1.png?v=1747213960",
+    "category": "accessories",
+    "available": true,
+    "description": "Shock-resistant digital watch built for rugged use.",
+    "rating": 4.8,
+    "inStock": 25,
+    "isSale": false,
+    "brand": "Casio",
+    "price": 110,
+    "reviews": [
+      {
+        "id": "18",
+        "userId": "18",
+        "rating": 5,
+        "comment": "Tough and reliable. Use it every day.",
+        "createdAt": "2025-06-11T17:45:00.000Z"
+      }
+    ]
+  }
+ 
+
   ],
   "messages": [
     {

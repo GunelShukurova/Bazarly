@@ -6,14 +6,13 @@
     position: relative;
     height: 100%;
   }
-  
+
   body {
- 
-    font-family:
-      Helvetica Neue,
-      Helvetica, 
-      Arial,
-      sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
+  font-optical-sizing: auto;
+
+  font-style: normal;
+  
     font-size: 14px;
 color: #333333;
 background-color: #FDFBF7;
