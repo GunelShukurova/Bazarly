@@ -6,8 +6,8 @@
       "fullName": "Gunel Shukurova",
       "balance": "1500.00",
       "email": "gunel53_80@mail.ru",
-      "role": "admin",
-      "phoneNumber": "",
+      "role": "client",
+      "phone": "",
       "basketItems": [
         {
           "id": "d719cb3d-0e3f-4afb-9aaa-7ee3e4b5c2ba",
@@ -26,6 +26,47 @@
         "city": "",
         "street": ""
       }
+    },
+    {
+      "id": "6619",
+      "fullName": "Gunel Shukurova",
+      "email": "gunel23_23@mail.ru",
+      "password": "Salam1223!",
+      "profileImage": "https://media.istockphoto.com/id/1317804584/photo/one-businesswoman-studio-portrait-looking-at-the-camera.jpg?s=612x612&w=0&k=20&c=Tx3nGQfxaI781gi97Siw7DIEBbKg1oBxl8n0JEwMQ6s=",
+      "role": "client",
+      "phone": "+994 50 705 57 23",
+      "isBanned": false,
+      "banUntil": null,
+      "favorites": [],
+      "registeredAt": "2025-06-13T13:58:14.321Z"
+    },
+    {
+      "id": "1265",
+      "fullName": "Gunel Shukurova",
+      "email": "gunel60@mail.ru",
+      "password": "Salam1223!",
+      "profileImage": "https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg",
+      "role": "client",
+      "phone": "+994 50 705 57 23",
+      "isBanned": false,
+      "banUntil": null,
+      "favorites": [],
+      "balance": 1000,
+      "registeredAt": "2025-06-13T14:06:35.218Z"
+    },
+    {
+      "id": "99a0",
+      "fullName": "Lale Shukurova",
+      "email": "lale10@mail.ru",
+      "password": "Salam1223!",
+      "profileImage": "https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg",
+      "role": "client",
+      "phone": "+994 55 666 44 33",
+      "isBanned": false,
+      "banUntil": null,
+      "favorites": [],
+      "balance": 500,
+      "registeredAt": "2025-06-13T14:07:29.047Z"
     }
   ],
   "orders": [
@@ -84,7 +125,7 @@
       "available": true,
       "description": "Moisturizing soap for smooth and soft skin. Gentle for daily use.",
       "rating": 4.6,
-      "inStock": true,
+      "inStock": 25,
       "isSale": false,
       "brand": "Dove",
       "price": 2.99,
@@ -100,67 +141,199 @@
     },
     {
       "id": "2",
-      "title": "Coca-Cola Classic Can 330ml",
-      "image": "https://m.media-amazon.com/images/I/61GSnJpOyUL._SL1500_.jpg",
-      "category": "drinks",
+      "title": "Apple iPhone 15",
+      "image": "https://example.com/iphone15.jpg",
+      "category": "electronics",
       "available": true,
-      "description": "Refreshing carbonated soft drink. Perfect for any occasion.",
-      "rating": 4.9,
-      "inStock": true,
+      "description": "Latest model with A17 chip and improved battery life.",
+      "rating": 4.8,
+      "inStock": 12,
       "isSale": true,
-      "brand": "Coca-Cola",
-      "price": 1.20,
+      "brand": "Apple",
+      "price": 999.99,
       "reviews": [
         {
           "id": "2",
           "userId": "2",
           "rating": 5,
-          "comment": "Cold Coke is the best thing ever!",
-          "createdAt": "2025-06-07T14:30:00.000Z"
+          "comment": "Amazing phone with great performance!",
+          "createdAt": "2025-06-10T12:00:00.000Z"
         }
       ]
     },
     {
       "id": "3",
-      "title": "Lay's Classic Potato Chips 150g",
-      "image": "https://m.media-amazon.com/images/I/81dwzFeZuyL._SL1500_.jpg",
-      "category": "snacks",
+      "title": "Samsung Galaxy Buds Pro",
+      "image": "https://example.com/galaxybuds.jpg",
+      "category": "electronics",
       "available": true,
-      "description": "Crispy and salty potato chips — a classic snack.",
-      "rating": 4.4,
-      "inStock": true,
+      "description": "Noise cancelling wireless earbuds with premium sound.",
+      "rating": 4.5,
+      "inStock": 30,
       "isSale": false,
-      "brand": "Lay's",
-      "price": 2.49,
+      "brand": "Samsung",
+      "price": 199.99,
       "reviews": [
         {
           "id": "3",
           "userId": "3",
           "rating": 4,
-          "comment": "Tastes great but a bit too salty.",
-          "createdAt": "2025-06-06T11:45:00.000Z"
+          "comment": "Great sound but battery could be better.",
+          "createdAt": "2025-06-12T08:45:00.000Z"
         }
       ]
     },
     {
       "id": "4",
-      "title": "Nutella Hazelnut Spread 350g",
-      "image": "https://m.media-amazon.com/images/I/71aG+xDKSYL._SL1500_.jpg",
-      "category": "sweets",
+      "title": "Nike Air Max Sneakers",
+      "image": "https://example.com/nikeairmax.jpg",
+      "category": "footwear",
       "available": true,
-      "description": "Creamy chocolate spread made with hazelnuts and cocoa.",
-      "rating": 4.8,
-      "inStock": true,
+      "description": "Comfortable and stylish sneakers for everyday wear.",
+      "rating": 4.7,
+      "inStock": 18,
       "isSale": true,
-      "brand": "Nutella",
-      "price": 4.99,
+      "brand": "Nike",
+      "price": 120,
       "reviews": [
         {
           "id": "4",
           "userId": "4",
           "rating": 5,
-          "comment": "Perfect on toast or pancakes!",
-          "createdAt": "2025-06-04T08:50:00.000Z"
+          "comment": "Super comfy and look great!",
+          "createdAt": "2025-06-11T15:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Logitech Wireless Mouse",
+      "image": "https://example.com/logitechmouse.jpg",
+      "category": "electronics",
+      "available": true,
+      "description": "Ergonomic wireless mouse with long battery life.",
+      "rating": 4.4,
+      "inStock": 40,
+      "isSale": false,
+      "brand": "Logitech",
+      "price": 29.99,
+      "reviews": [
+        {
+          "id": "5",
+          "userId": "5",
+          "rating": 4,
+          "comment": "Reliable and comfortable mouse for work.",
+          "createdAt": "2025-06-07T10:20:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "The Alchemist by Paulo Coelho",
+      "image": "https://example.com/alchemist.jpg",
+      "category": "books",
+      "available": true,
+      "description": "Inspirational novel about following your dreams.",
+      "rating": 4.9,
+      "inStock": 50,
+      "isSale": false,
+      "brand": "HarperCollins",
+      "price": 14.99,
+      "reviews": [
+        {
+          "id": "6",
+          "userId": "6",
+          "rating": 5,
+          "comment": "A truly inspiring read.",
+          "createdAt": "2025-06-09T14:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Instant Pot Duo 7-in-1",
+      "image": "https://example.com/instantpot.jpg",
+      "category": "kitchen",
+      "available": true,
+      "description": "Multi-use programmable pressure cooker.",
+      "rating": 4.7,
+      "inStock": 22,
+      "isSale": true,
+      "brand": "Instant Pot",
+      "price": 89.99,
+      "reviews": [
+        {
+          "id": "7",
+          "userId": "7",
+          "rating": 5,
+          "comment": "Makes cooking so much easier!",
+          "createdAt": "2025-06-08T09:10:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Adidas Running T-shirt",
+      "image": "https://example.com/adidastshirt.jpg",
+      "category": "clothing",
+      "available": true,
+      "description": "Lightweight, breathable fabric for runners.",
+      "rating": 4.3,
+      "inStock": 35,
+      "isSale": false,
+      "brand": "Adidas",
+      "price": 25,
+      "reviews": [
+        {
+          "id": "8",
+          "userId": "8",
+          "rating": 4,
+          "comment": "Comfortable and fits well.",
+          "createdAt": "2025-06-06T16:45:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Sony 55-inch 4K TV",
+      "image": "https://example.com/sony4ktv.jpg",
+      "category": "electronics",
+      "available": true,
+      "description": "Ultra HD Smart TV with vibrant colors.",
+      "rating": 4.6,
+      "inStock": 10,
+      "isSale": true,
+      "brand": "Sony",
+      "price": 599.99,
+      "reviews": [
+        {
+          "id": "9",
+          "userId": "9",
+          "rating": 5,
+          "comment": "Fantastic picture quality.",
+          "createdAt": "2025-06-03T11:25:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Kindle Paperwhite",
+      "image": "https://example.com/kindle.jpg",
+      "category": "electronics",
+      "available": true,
+      "description": "Waterproof e-reader with built-in light.",
+      "rating": 4.8,
+      "inStock": 28,
+      "isSale": false,
+      "brand": "Amazon",
+      "price": 129.99,
+      "reviews": [
+        {
+          "id": "10",
+          "userId": "10",
+          "rating": 5,
+          "comment": "Love reading on this device!",
+          "createdAt": "2025-06-04T13:50:00.000Z"
         }
       ]
     }
