@@ -45,3 +45,29 @@ background-color: #FDFBF7;
   display: block;
   }
   
+.ant-table-tbody > tr:hover > td {
+  background-color: #eadfd2  !important;
+  transition: background-color 0.3s ease;
+}
+
+.ant-table-container {
+  background-color: #f3ead375; 
+  
+  border-radius: 0%  !important; 
+
+}
+.ant-table-thead > tr > th {
+  background-color: #eadfd2 !important; 
+  color: #3b2f1b; 
+  font-weight: 600;
+  text-align: center;
+    border-radius: 0%  !important; 
+}
+
+.ant-table-footer {
+  background-color: #D0C1AF !important; 
+  color: #3b2f1b;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}

@@ -5,6 +5,7 @@ import ClientLayout from '../layout/ClientLayout';
 import AdminLogin from '../pages/admin/AdminLogin';
 import Dashboard from '../pages/admin/Dashboard';
 import About from '../pages/client/About';
+import Basket from '../pages/client/Basket';
 import Contact from '../pages/client/Contact';
 import Favorites from '../pages/client/Favorites';
 import Home from '../pages/client/Home';
@@ -59,6 +60,10 @@ const ROUTES = [
             }, {
                 path: "favorites",
                 element: <Favorites />,
+            },
+            {
+                path: "basket",
+                element: <Basket />,
             },
              {
                 path: "*",
