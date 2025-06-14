@@ -5,8 +5,16 @@ import instance from '../../services/instance';
 import registerValidationSchema from '../../validations/registerValidation';
 import { getAllUsers } from '../../services/users/requests';
 import { endpoints } from '../../constants';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { useState } from 'react';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Register = () => {
+
+  const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -102,7 +110,7 @@ const Register = () => {
               required
               className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />   {formik.errors.fullName && formik.touched.fullName && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.fullName}
               </span>)}
 
@@ -128,7 +136,7 @@ const Register = () => {
               className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.email && formik.touched.email && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg pl-2 pt-2">
                 {formik.errors.email}
               </span>
             )}
@@ -153,14 +161,14 @@ const Register = () => {
               className="bg-[#F8F6F0] border w-full text-lg  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.phone && formik.touched.phone && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg pl-2 pt-2">
                 {formik.errors.phone}
               </span>
             )}
           </div>
 
 
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             <label
               htmlFor="password"
               className="mb-2 text-lg font-medium text-gray-900 pt-6"
@@ -169,7 +177,7 @@ const Register = () => {
             </label>
             <input
 
-              type="password"
+             type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               value={formik.values.password}
@@ -178,14 +186,19 @@ const Register = () => {
               placeholder="Create a password"
               required
               className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-            />
+           />    <span
+    onClick={() => setShowPassword((prev) => !prev)}
+    className="absolute right-5 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+  >
+    {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+  </span>
             {formik.errors.password && formik.touched.password && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.password}
               </span>
             )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             <label
               htmlFor="confirmPassword"
               className="mb-2 text-lg font-medium text-gray-900 pt-6"
@@ -194,7 +207,7 @@ const Register = () => {
             </label>
             <input
 
-              type="password"
+                type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               value={formik.values.confirmPassword}
@@ -203,10 +216,17 @@ const Register = () => {
               placeholder="Confirm your password"
               required
               className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-            />
+            />  
+  <span
+    onClick={() => setShowConfirmPassword((prev) => !prev)}
+    className="absolute right-3 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+  >
+    {showConfirmPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+  </span>
+
             {formik.errors.confirmPassword &&
               formik.touched.confirmPassword && (
-                <span className="text-red-700 text-sm pl-2 pt-2">
+                <span className="text-red-700 text-lg  pl-2 pt-2">
                   {formik.errors.confirmPassword}
                 </span>
               )}
@@ -230,7 +250,7 @@ const Register = () => {
               className="bg-[#F8F6F0] border w-full text-lg  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.balance && formik.touched.balance && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.balance}
               </span>
             )}
@@ -255,7 +275,7 @@ const Register = () => {
               className="bg-[#F8F6F0] border w-full text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.profileImage && formik.touched.profileImage && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg pl-2 pt-2">
                 {formik.errors.profileImage}
               </span>
             )}

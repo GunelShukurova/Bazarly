@@ -6,13 +6,20 @@ import { login } from '../../redux/features/userSlide';
 import { getAllUsers, update } from '../../services/users/requests';
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { useState } from 'react';
 
 const Login = () => {
+
+  const [showPassword, setShowPassword] = useState(false);
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      email: "", 
+      email: "",
       password: "",
     },
     validationSchema: loginValidationSchema,
@@ -130,12 +137,12 @@ const Login = () => {
               className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.email && formik.touched.email && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.email}
               </span>
             )}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             <label
               htmlFor="password"
               className="mb-2 text-lg font-medium text-gray-900 pt-6"
@@ -146,15 +153,21 @@ const Login = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Enter your password"
               required
               className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
+            <span
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-5 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+            >
+              {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+            </span>
             {formik.errors.password && formik.touched.password && (
-              <span className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.password}
               </span>
             )}
