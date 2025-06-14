@@ -111,7 +111,7 @@ const filteredProducts = products.filter((p) =>
         )}
       </div>
 
-
+ 
       <div className="bg-[#FDFBF7] mt-10">
 
         <div className="mx-30   py-12">
