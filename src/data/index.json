@@ -126,7 +126,8 @@
     "description": "Classic design backpack with laptop sleeve.",
     "rating": 4.3,
     "inStock": 44,
-    "isSale": false,
+      "isOnSale": false,
+  "salePercentage": 0,
     "brand": "Herschel",
     "price": 89,
     "reviews": [
@@ -148,7 +149,8 @@
       "description": "Latest model with A17 chip and improved battery life.",
       "rating": 4.8,
       "inStock": 12,
-      "isSale": true,
+       "isOnSale": false,
+  "salePercentage": 0,
       "brand": "Apple",
       "price": 999.99,
       "reviews": [
@@ -170,7 +172,8 @@
       "description": "Noise cancelling wireless earbuds with premium sound.",
       "rating": 4.5,
       "inStock": 30,
-      "isSale": false,
+       "isOnSale": true,
+  "salePercentage": 20,
       "brand": "Samsung",
       "price": 199.99,
       "reviews": [
@@ -192,7 +195,8 @@
       "description": "Comfortable and stylish sneakers for everyday wear.",
       "rating": 4.7,
       "inStock": 18,
-      "isSale": true,
+       "isOnSale": true,
+  "salePercentage": 10,
       "brand": "Nike",
       "price": 120,
       "reviews": [
@@ -216,7 +220,8 @@
       "description": "Lightweight, breathable fabric for runners.",
       "rating": 4.3,
       "inStock": 35,
-      "isSale": false,
+       "isOnSale": false,
+  "salePercentage": 0,
       "brand": "Adidas",
       "price": 25,
       "reviews": [
@@ -238,7 +243,8 @@
     "description": "Fitness tracker with heart rate and GPS.",
     "rating": 4.2,
     "inStock": 45,
-    "isSale": true,
+    "isOnSale": true,
+  "salePercentage": 5,
     "brand": "Fitbit",
     "price": 129,
     "reviews": [
@@ -260,7 +266,8 @@
     "description": "Supercharged performance in a lightweight laptop.",
     "rating": 4.9,
     "inStock": 15,
-    "isSale": false,
+     "isOnSale": true,
+  "salePercentage": 8,
     "brand": "Apple",
     "price": 1199,
     "reviews": [
@@ -282,7 +289,8 @@
     "description": "Industry-leading noise canceling headphones.",
     "rating": 4.8,
     "inStock": 22,
-    "isSale": true,
+  "isOnSale": true,
+  "salePercentage": 12,
     "brand": "Sony",
     "price": 379,
     "reviews": [
@@ -305,7 +313,8 @@
     "description": "Warm and cozy fleece, perfect for cold weather.",
     "rating": 4.4,
     "inStock": 50,
-    "isSale": true,
+    "isOnSale": true,
+  "salePercentage": 14,
     "brand": "Columbia",
     "price": 65,
     "reviews": [
@@ -329,7 +338,8 @@
     "description": "Iconic waterproof boots for all-weather wear.",
     "rating": 4.7,
     "inStock": 18,
-    "isSale": false,
+      "isOnSale": false,
+  "salePercentage": 0,
     "brand": "Timberland",
     "price": 180,
     "reviews": [
@@ -351,7 +361,8 @@
       "description": "Ergonomic wireless mouse with long battery life.",
       "rating": 4.4,
       "inStock": 40,
-      "isSale": false,
+     "isOnSale": false,
+  "salePercentage": 0,
       "brand": "Logitech",
       "price": 29.99,
       "reviews": [
@@ -376,7 +387,8 @@
     "description": "Adjustable retro-style desk lamp with metal shade.",
     "rating": 4.9,
     "inStock": 55,
-    "isSale": false,
+      "isOnSale": false,
+  "salePercentage": 0,
     "brand": "Muji",
     "price": 70,
     "reviews": [
@@ -397,7 +409,8 @@
   "description": "Comfortable wedge slippers with soft sole and stylish design for indoor and outdoor use.",
   "rating": 4.5,
   "inStock": 60,
-  "isSale": true,
+  "isOnSale": true,
+  "salePercentage": 18,
   "brand": "ComfortStep",
   "price": 22.99,
   "reviews": [
@@ -418,7 +431,8 @@
   "description": "Lightweight round metal tray table with removable top. Ideal as a side table or for serving.",
   "rating": 4.6,
   "inStock": 45,
-  "isSale": true,
+  "isOnSale": true,
+  "salePercentage": 22,
   "brand": "IKEA",
   "price": 19.99,
   "reviews": [
@@ -440,7 +454,8 @@
     "description": "Natural fiber basket for storage or décor.",
     "rating": 4.6,
     "inStock": 35,
-    "isSale": false,
+  "isOnSale": true,
+  "salePercentage": 10,
     "brand": "Zara Home",
     "price": 29,
     "reviews": [
@@ -462,7 +477,8 @@
     "description": "Timeless frame with polarized lenses.",
     "rating": 4.8,
     "inStock": 26,
-    "isSale": false,
+     "isOnSale": false,
+  "salePercentage": 0,
     "brand": "Oakley",
     "price": 130,
     "reviews": [
@@ -485,7 +501,8 @@
       "description": "Ultra HD Smart TV with vibrant colors.",
       "rating": 4.6,
       "inStock": 10,
-      "isSale": true,
+  "isOnSale": false,
+  "salePercentage": 0,
       "brand": "Sony",
       "price": 599.99,
       "reviews": [
@@ -508,7 +525,8 @@
     "description": "Shock-resistant digital watch built for rugged use.",
     "rating": 4.8,
     "inStock": 25,
-    "isSale": false,
+  "isOnSale": true,
+  "salePercentage": 25,
     "brand": "Casio",
     "price": 110,
     "reviews": [
