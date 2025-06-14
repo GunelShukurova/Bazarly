@@ -15,18 +15,18 @@ const Register = () => {
       phone: "",
       password: "",
       confirmPassword: "",
-        balance: "",
+      balance: "",
       profileImage: "",
 
     },
     validationSchema: registerValidationSchema,
     onSubmit: async (values, action) => {
-   
-const response = await getAllUsers();
-const users = response.data || [];
-const duplicateEmail = users.find((u) => u.email === values.email);
+
+      const response = await getAllUsers();
+      const users = response.data || [];
+      const duplicateEmail = users.find((u) => u.email === values.email);
       if (duplicateEmail) {
-     formik.setFieldValue('email', '');
+        formik.setFieldValue('email', '');
         enqueueSnackbar("email already taken", {
           variant: "error",
           autoHideDuration: 2000,
@@ -35,7 +35,7 @@ const duplicateEmail = users.find((u) => u.email === values.email);
             horizontal: "right",
           },
         });
-        } else {
+      } else {
         await instance.post(endpoints.users, {
           fullName: values.fullName,
           email: values.email,
@@ -44,13 +44,13 @@ const duplicateEmail = users.find((u) => u.email === values.email);
             values.profileImage ||
             "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg",
           role: "client",
-           phone: values.phone,
+          phone: values.phone,
           isBanned: false,
           banUntil: null,
           favorites: [],
-           balance: values.balance,
-  
-         registeredAt: new Date().toISOString(),
+          balance: values.balance,
+
+          registeredAt: new Date().toISOString(),
         });
         enqueueSnackbar("user registered successfully", {
           variant: "success",
@@ -68,14 +68,14 @@ const duplicateEmail = users.find((u) => u.email === values.email);
 
   return (
     <div>
-      <div className="bg-[#FDFBF7] ">
+      <div className="bg-[#FDFBF7]">
         <form
-onSubmit={formik.handleSubmit} 
+          onSubmit={formik.handleSubmit}
           id="register-form"
-          className="w-full max-w-xl mx-auto mt-12  shadow-md  p-6 border rounded-lg mb-30"
+          className="w-full max-w-xl mx-auto mt-12  shadow-md  p-6 border  rounded-lg "
         >
           <div className='flex justify-center items-center flex-col gap-3'>
-            <h2 className="text-3xl  font-semibold mt-10">
+            <h2 className="text-3xl  font-semibold mt-5">
               Bazarly
             </h2>
             <h3 className='text-2xl font-normal'>Create your account</h3>
@@ -86,32 +86,32 @@ onSubmit={formik.handleSubmit}
           <div className="flex flex-col">
             <label
               htmlFor="fullName"
-              className="block mb-2 text-md font-medium  pt-6"
+              className="block mb-2 text-lg font-medium  pt-6"
             >
               Full Name
             </label>
-            <input 
+            <input
 
-              type="text" 
+              type="text"
               id="fullName"
               name="fullName"
-                value={formik.values.fullName}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Enter your full name"
               required
-              className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />   {formik.errors.fullName && formik.touched.fullName && (
-                <span className="text-red-700 text-sm pl-2 pt-2">
-                  {formik.errors.fullName}
-                </span>   )}
+              <span className="text-red-700 text-sm pl-2 pt-2">
+                {formik.errors.fullName}
+              </span>)}
 
 
           </div>
           <div className="flex flex-col">
             <label
               htmlFor="email"
-              className="block mb-2 text-md font-medium  pt-6"
+              className="block mb-2 text-lg font-medium  pt-6"
             >
               Email address
             </label>
@@ -120,24 +120,24 @@ onSubmit={formik.handleSubmit}
               type="email"
               id="email"
               name="email"
-                  value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Enter your email address"
               required
-              className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-              {formik.errors.email && formik.touched.email && (
-                <span  className="text-red-700 text-sm pl-2 pt-2">
-                  {formik.errors.email}
-                </span>
-              )}
+            {formik.errors.email && formik.touched.email && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
+                {formik.errors.email}
+              </span>
+            )}
 
           </div>
           <div className="flex flex-col">
             <label
               htmlFor="phone"
-              className="block mb-2 text-md font-medium pt-6"
+              className="block mb-2 text-lg font-medium pt-6"
             >
               Phone Number
             </label>
@@ -146,14 +146,14 @@ onSubmit={formik.handleSubmit}
               type="tel"
               id="phone"
               name="phone"
-                value={formik.values.phone}
+              value={formik.values.phone}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Enter phone your number"
-              className="bg-[#F8F6F0] border w-full text-md  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border w-full text-lg  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.phone && formik.touched.phone && (
-              <span  className="text-red-700 text-sm pl-2 pt-2">
+              <span className="text-red-700 text-sm pl-2 pt-2">
                 {formik.errors.phone}
               </span>
             )}
@@ -163,7 +163,7 @@ onSubmit={formik.handleSubmit}
           <div className="flex flex-col">
             <label
               htmlFor="password"
-              className="mb-2 text-md font-medium text-gray-900 pt-6"
+              className="mb-2 text-lg font-medium text-gray-900 pt-6"
             >
               Password
             </label>
@@ -172,23 +172,23 @@ onSubmit={formik.handleSubmit}
               type="password"
               id="password"
               name="password"
-                  value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Create a password"
               required
-              className="bg-[#F8F6F0] border text-md text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-             {formik.errors.password && formik.touched.password && (
-             <span  className="text-red-700 text-sm pl-2 pt-2">
-                  {formik.errors.password}
-                </span>
-              )}
+            {formik.errors.password && formik.touched.password && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
+                {formik.errors.password}
+              </span>
+            )}
           </div>
           <div className="flex flex-col">
             <label
               htmlFor="confirmPassword"
-              className="mb-2 text-md font-medium text-gray-900 pt-6"
+              className="mb-2 text-lg font-medium text-gray-900 pt-6"
             >
               Confirm Password
             </label>
@@ -197,40 +197,40 @@ onSubmit={formik.handleSubmit}
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-                 value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Confirm your password"
               required
-              className="bg-[#F8F6F0] border text-md text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-             {formik.errors.confirmPassword &&
-                formik.touched.confirmPassword && (
-                 <span  className="text-red-700 text-sm pl-2 pt-2">
-                    {formik.errors.confirmPassword}
-                  </span>
-                )}
+            {formik.errors.confirmPassword &&
+              formik.touched.confirmPassword && (
+                <span className="text-red-700 text-sm pl-2 pt-2">
+                  {formik.errors.confirmPassword}
+                </span>
+              )}
           </div>
-            <div className="flex flex-col">
+          <div className="flex flex-col">
             <label
               htmlFor="phone"
-              className="block mb-2 text-md font-medium pt-6"
+              className="block mb-2 text-lg font-medium pt-6"
             >
-                Balance
+              Balance
             </label>
             <input
 
-             name="balance"
+              name="balance"
               value={formik.values.balance}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               type="number"
               min={0}
               placeholder="Enter  your balance"
-              className="bg-[#F8F6F0] border w-full text-md  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border w-full text-lg  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-              {formik.errors.balance && formik.touched.balance && (
-               <span  className="text-red-700 text-sm pl-2 pt-2">
+            {formik.errors.balance && formik.touched.balance && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
                 {formik.errors.balance}
               </span>
             )}
@@ -239,7 +239,7 @@ onSubmit={formik.handleSubmit}
           <div className="flex flex-col">
             <label
               htmlFor="profileImage"
-              className="block mb-2 text-md font-medium text-gray-900 pt-6"
+              className="block mb-2 text-lg font-medium text-gray-900 pt-6"
             >
               Profile Image URL (Optional)
             </label>
@@ -248,14 +248,14 @@ onSubmit={formik.handleSubmit}
               type="text"
               id="profileImage"
               name="profileImage"
-                  value={formik.values.profileImage}
+              value={formik.values.profileImage}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Enter image URL"
-              className="bg-[#F8F6F0] border w-full text-md text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border w-full text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
-             {formik.errors.profileImage && formik.touched.profileImage && (
-                   <span  className="text-red-700 text-sm pl-2 pt-2">
+            {formik.errors.profileImage && formik.touched.profileImage && (
+              <span className="text-red-700 text-sm pl-2 pt-2">
                 {formik.errors.profileImage}
               </span>
             )}
@@ -264,19 +264,19 @@ onSubmit={formik.handleSubmit}
           <div className="flex flex-col w-full items-center">
             <button
               type="submit"
- disabled={
-              formik.isSubmitting ||
-              Object.entries(formik.errors).length > 0 ||
-              !formik.dirty
-            }
+              disabled={
+                formik.isSubmitting ||
+                Object.entries(formik.errors).length > 0 ||
+                !formik.dirty
+              }
               id="submit"
               className="bg-[#333333] border border-black text-white text-lg px-14 py-2 cursor-pointer w-full mt-10 hover:bg-neutral-800"
             >
               Create account
             </button>
-            <span className='mt-7 text-md'>Already have an account? <span className='font-semibold'>Sign in here</span></span>
+            <span className='mt-7 text-md'>Already have an account? <span onClick={() => { navigate("/login") }} className='cursor-pointer font-semibold'>Sign in here</span></span>
           </div>
-        </form> 
+        </form>
       </div>
     </div>
   )

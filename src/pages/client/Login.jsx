@@ -97,7 +97,7 @@ const Login = () => {
     },
   });
   return (
-    <div>
+    <div className='flex justify-center items-center mt-20'>
       <div className="bg-[#FDFBF7] ">
         <form
           onSubmit={formik.handleSubmit}
@@ -114,7 +114,7 @@ const Login = () => {
           <div className="flex flex-col">
             <label
               htmlFor="email"
-              className="block mb-2 text-md font-medium  pt-6"
+              className="block mb-2 text-lg font-medium  pt-6"
             >
               Email address
             </label>
@@ -127,7 +127,7 @@ const Login = () => {
               name="email"
               placeholder="Enter your email"
               required
-              className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.email && formik.touched.email && (
               <span className="text-red-700 text-sm pl-2 pt-2">
@@ -138,7 +138,7 @@ const Login = () => {
           <div className="flex flex-col">
             <label
               htmlFor="password"
-              className="mb-2 text-md font-medium text-gray-900 pt-6"
+              className="mb-2 text-lg font-medium text-gray-900 pt-6"
             >
               Password
             </label>
@@ -151,7 +151,7 @@ const Login = () => {
               name="password"
               placeholder="Enter your password"
               required
-              className="bg-[#F8F6F0] border text-md text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+              className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
             />
             {formik.errors.password && formik.touched.password && (
               <span className="text-red-700 text-sm pl-2 pt-2">
@@ -173,7 +173,7 @@ const Login = () => {
             >
               Sign in
             </button>
-            <span className='mt-7 text-md'>Don't have an account? <span className='font-semibold'>Sign up here</span></span>
+            <span className='mt-7 text-md'>Don't have an account? <span onClick={() => navigate("/register")} className='cursor-pointer font-semibold'>Sign up here</span></span>
           </div>
         </form>
       </div >

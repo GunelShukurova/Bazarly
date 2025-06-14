@@ -54,13 +54,13 @@ const Contact = () => {
     return (
         <div>
             <div className="bg-[#FDFBF7] ">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2  mt-15 mx-35">
                     <form
  onSubmit={formik.handleSubmit}
                         id="register-form"
-                        className="w-full max-w-2xl mx-auto mt-12  shadow-md  p-6 border rounded-lg mb-30"
+                        className="w-full max-w-2xl h-157 mx-auto mt-12  shadow-md  p-6 border rounded-lg mb-30"
                     >
-                        <h2 className="text-xl  font-bold mt-10">
+                        <h2 className="text-2xl  font-bold mt-5">
                             Send us a Message
                         </h2>
 
@@ -68,7 +68,7 @@ const Contact = () => {
                             <div className="flex flex-col">
                                 <label
                                     htmlFor="fullName"
-                                    className="block mb-2 text-md font-medium  pt-6"
+                                    className="block mb-2 text-lg font-medium  pt-6"
                                 >
                                     Full Name
                                 </label>
@@ -82,7 +82,7 @@ const Contact = () => {
                                     onBlur={formik.handleBlur}
                                     placeholder="Enter full name"
                                     required
-                                    className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                    className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                                 />
 
                                 {formik.errors.fullName && formik.touched.fullName && (
@@ -94,7 +94,7 @@ const Contact = () => {
                             <div className="flex flex-col">
                                 <label
                                     htmlFor="email"
-                                    className="block mb-2 text-md font-medium  pt-6"
+                                    className="block mb-2 text-lg font-medium  pt-6"
                                 >
                                     Email
                                 </label>
@@ -108,7 +108,7 @@ const Contact = () => {
                                     onBlur={formik.handleBlur}
                                     placeholder="Enter email address"
                                     required
-                                    className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                    className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                                 />
                                 {formik.errors.email && formik.touched.email && (
                                     <span className="text-red-700 text-sm pl-2 pt-2">
@@ -120,7 +120,7 @@ const Contact = () => {
                         <div className="flex flex-col">
                             <label
                                 htmlFor="username"
-                                className="block mb-2 text-md font-medium  pt-6"
+                                className="block mb-2 text-lg font-medium  pt-6"
                             >
                                 Subject
                             </label>
@@ -134,7 +134,7 @@ const Contact = () => {
                                 onBlur={formik.handleBlur}
                                 placeholder="What is this about?"
                                 required
-                                className="bg-[#F8F6F0] border text-md  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                className="bg-[#F8F6F0] border text-lg  border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                             />
                             {formik.errors.subject && formik.touched.subject && (
                                 <span className="text-red-700 text-sm pl-2 pt-2">
@@ -147,7 +147,7 @@ const Contact = () => {
                         <div className="flex flex-col">
                             <label
                                 htmlFor="profileImage"
-                                className="block mb-2 text-md font-medium  pt-6"
+                                className="block mb-2 text-lg font-medium  pt-6"
                             >
                                 Message
                             </label>
@@ -161,7 +161,7 @@ const Contact = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 placeholder="Tell us more about your inquiry..."
-                                className="bg-[#F8F6F0] border w-full text-md  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                className="bg-[#F8F6F0] border w-full text-lg  border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                             />
                             {formik.errors.message && formik.touched.message && (
                                 <span className="text-red-700 text-sm pl-2 pt-2">
@@ -188,10 +188,10 @@ const Contact = () => {
                         </div>
                     </form>
                     <div className='mx-30'>
-                        <h3 className="text-xl  font-bold mt-10">
+                        <h3 className="text-2xl  font-bold mt-10">
                             Get in Touch
                         </h3>
-                        <p>Have questions about our products or services? We're here to help! Reach out to us through any of the following channels.</p>
+                        <p className='py-3'>Have questions about our products or services? We're here to help! Reach out to us through any of the following channels.</p>
                         <div className='flex flex-col gap-4'>
                             <div className='border bg-[#F8F6F0] p-5 rounded-lg border-gray-300'>
                                 <span className='text-xl font-semibold'>Email Us</span>

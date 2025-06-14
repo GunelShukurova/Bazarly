@@ -1,5 +1,6 @@
 import NotFound from '../common/NotFound';
 import AdminLayout from '../layout/AdminLayout'
+import AuthLayout from '../layout/AuthLayout';
 import ClientLayout from '../layout/ClientLayout';
 import AdminLogin from '../pages/admin/AdminLogin';
 import Dashboard from '../pages/admin/Dashboard';
@@ -51,14 +52,7 @@ const ROUTES = [
             {
                 path: "product/:id",
                 element: <ProductDetail />,
-            }, {
-                path: "login",
-                element: <Login />,
-            },
-            {
-                path: "register",
-                element: <Register />,
-            },
+            }, 
             {
                 path: "profile",
                 element: <Profile />,
@@ -71,7 +65,19 @@ const ROUTES = [
                 element: <NotFound/>,
             },
         ],
-    },
+    }, {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
+  },
 ];
 
 
