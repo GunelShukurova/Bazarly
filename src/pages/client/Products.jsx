@@ -5,6 +5,7 @@ import { getAllProducts } from '../../services/products/requests';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/features/cartSlice';
+import { Link } from 'react-router';
 
 
 
@@ -24,11 +25,11 @@ const Products = () => {
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const handleAddToCart = (product) => {
-  dispatch(addToCart(product));
-};
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
 
 
   const toggleFavorite = (product) => {
@@ -189,13 +190,13 @@ const handleAddToCart = (product) => {
                     )}
                   </span>
 
-
+ <Link to={`/product/${p.id}`} className="text-2xl cursor-pointer z-10">
                   <img
                     className="w-75 h-65 my-17 object-cover rounded"
                     src={p.image}
                     alt={p.title}
                   />
-
+  </Link>
 
                   <div className="mb-4">
 
@@ -247,12 +248,12 @@ const handleAddToCart = (product) => {
 
 
               </div>
-            ))
-          ) : (
-            <p>No products found.</p>
+        ))
+        ) : (
+        <p>No products found.</p>
           )}
-        </div>
       </div>
+    </div >
     </>
   );
 };
