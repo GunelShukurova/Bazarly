@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { endpoints } from "../../constants";
+
 import { getUserById } from "../../services/users/requests";
 
 
 
 const userId = localStorage.getItem("userId");
-const initialState = { user: null };
+const initialState = { user: null, balance: 0  };
 if (userId) {
  
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -32,12 +32,19 @@ const userSlice = createSlice({
     login(state, action) {
       state.user = { ...action.payload };
     },
-    updateBalance(state, action) {
-      state.user = { ...state.user, balance: action.payload };
-    },
+   updateBalance(state, action) {
+  if (state.user) {
+    state.user.balance = action.payload;
+  } else {
+    state.user = { balance: action.payload };
+  }
+},
     updateProfile(state, action) {
       state.user = { ...state.user, ...action.payload };
+    }, updatePassword(state, action) {
+        state.user = { ...state.user, password: action.payload.newPassword };
     },
+   
     logout(state) {
       state.user = null;
     },

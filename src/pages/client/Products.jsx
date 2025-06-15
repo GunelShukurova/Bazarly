@@ -3,10 +3,13 @@ import { GoStar } from "react-icons/go";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { getAllProducts } from '../../services/products/requests';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/features/cartSlice';
 
 
 
 const Products = () => {
+
 
   const [favorites, setFavorites] = useState(() => {
     const stored = localStorage.getItem("favorites");
@@ -21,7 +24,11 @@ const Products = () => {
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
 
+const dispatch = useDispatch();
 
+const handleAddToCart = (product) => {
+  dispatch(addToCart(product));
+};
 
 
   const toggleFavorite = (product) => {
@@ -219,6 +226,7 @@ const Products = () => {
                   type="submit"
 
                   id="submit"
+                   onClick={() => handleAddToCart(p)}
                   className="bg-neutral-700 opacity-0 text-md w-full group-hover:opacity-100 flex justify-center gap-3 transition-opacity cursor-pointer duration-200 border border-black text-white px-6 py-2  shadow  mt-4"
                 >
 

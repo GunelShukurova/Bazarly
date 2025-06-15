@@ -1,56 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import { getAllProducts } from '../../services/products/requests';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, decrementQuantity, incrementQuantity, removeFromCart } from '../../redux/features/cartSlice';
 
 
 
 const Basket = () => {
 
-    const [products, setProducts] = useState([])
+    const products = useSelector(state => state.cart.items);
+const balance = useSelector(state => state.user.user?.balance ?? 0);
+    const dispatch = useDispatch();
 
-
-    useEffect(() => {
-        getAllProducts().then((resp) => {
-            if (resp && Array.isArray(resp)) {
-                const withQuantity = resp.map(item => ({
-                    ...item,
-                    quantity: 1,
-                }));
-                setProducts(withQuantity);
-            }
-
-            else if (resp && Array.isArray(resp.data)) {
-                const withQuantity = resp.data.map(item => ({
-                    ...item,
-                    quantity: 1,
-                }));
-                setProducts(withQuantity);
-            }
-        });
-    }, []);
-    const handleRemove = (id) => {
-        const updated = products.filter(product => product.id !== id);
-        setProducts(updated);
-    };
-
-    const handleIncrement = (id) => {
-        setProducts(products.map(product => {
-            if (product.id === id) {
-                return { ...product, quantity: product.quantity + 1 };
-            }
-            return product;
-        }));
-    };
-
-    const handleDecrement = (id) => {
-        setProducts(products.map(product => {
-            if (product.id === id) {
-                return { ...product, quantity: Math.max(product.quantity - 1, 1) };
-            }
-            return product;
-        }));
-    };
+    const handleRemove = (id) => dispatch(removeFromCart(id));
+    const handleIncrement = (id) => dispatch(incrementQuantity(id));
+    const handleDecrement = (id) => dispatch(decrementQuantity(id));
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -183,15 +148,27 @@ const Basket = () => {
             width: '15%',
             render: (_, record) => `$${(record.price * record.quantity).toFixed(2)}`
         },
-        {
-            title: 'Action',
-            key: 'action',
-            width: '15%',
-            render: (_, record) => (
-                <Button type="text" danger onClick={() => handleRemove(record.id)}></Button>
-            ),
-        },
+       {
+  title: 'Action',
+  key: 'action',
+  width: '15%',
+  render: (_, record) => (
+   <Button
+  type="default"
+  danger
+  onClick={() => handleRemove(record.id)}
+  style={{ border: '1px solid red', color: 'red' }}
+>
+  Delete
+</Button>
+  
+  ),
+}
     ];
+
+    const subtotal = products.reduce((acc, item) => acc + item.price * item.quantity, 0);
+const fixedTax = subtotal > 0 ? 0.62 : 0; 
+const total = subtotal + fixedTax;
     return <>
 
         <div className="bg-[#FDFBF7] mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 mx-30">
@@ -207,9 +184,7 @@ const Basket = () => {
                         <span className="text-2xl font-semibold">
                             Basket Items <span>({products.length})</span>
                         </span>
-                        <Button danger onClick={() => setProducts([])}>
-                            Clear All
-                        </Button>
+                        <Button danger onClick={() => dispatch(clearCart())}>Clear All</Button>
                     </div>
 
 
@@ -220,15 +195,15 @@ const Basket = () => {
             </div>
 
             <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4 ml-50 rounded-lg w-105 h-100 mt-35">
-              
+
                 <div>
                     <h2 className="text-2xl font-bold text-gray-800">Order Summary</h2>
-                   
+
                 </div>
 
                 <div className="flex justify-between text-sm text-gray-600">
                     <span className="font-medium text-lg">Subtotal:</span>
-                    <span className='text-lg font-semibold  text-gray-700'>$7.78</span>
+                    <span className='text-lg font-semibold text-gray-700'>${subtotal.toFixed(2)}</span>
                 </div>
 
                 <div className="flex justify-between text-sm text-gray-600">
@@ -238,17 +213,17 @@ const Basket = () => {
 
                 <div className="flex justify-between text-sm text-gray-600">
                     <span className="font-medium text-lg">Tax:</span>
-                    <span className="text-gray-700 font-semibold text-lg">$0.62</span>
+                    <span className="text-gray-700 font-semibold text-lg">${fixedTax.toFixed(2)}</span>
                 </div>
-                <hr className='border-gray-600'/>
-                  <div className="flex justify-between text-sm text-gray-600">
+                <hr className='border-gray-600' />
+                <div className="flex justify-between text-sm text-gray-600">
                     <span className="font-bold text-xl text-gray-800 ">Total:</span>
-                    <span className="text-gray-700 font-semibold text-lg">$8.40</span>
+                    <span className="text-gray-700 font-semibold text-lg">${total.toFixed(2)}</span>
                 </div>
-                  <div className="flex justify-between text-sm text-gray-600">
-               <span className="font-bold text-xl text-gray-800 ">Your Balance:</span>
-                    <span className="text-gray-700 font-semibold text-lg">$150.00</span>
-              
+                <div className="flex justify-between text-sm text-gray-600">
+                    <span className="font-bold text-xl text-gray-800 ">Your Balance:</span>
+                    <span className="text-gray-700 font-semibold text-lg">${balance.toFixed(2)}</span>
+
                 </div>
                 <button className='bg-[#ccbe94]  border border-black  text-lg px-6 py-2 cursor-pointer w-40 mt-5 hover:bg-[#d2c7a3]'>Place Order</button>
             </div>

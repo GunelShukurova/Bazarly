@@ -171,28 +171,21 @@ export async function addBalance(id, balance) {
 }
  
 export async function updatePassword(id, currentPassword, newPassword) {
-    try {
-        const { data: user } = await getUserById(id)
-        if (user.password === currentPassword) {
-
-            const response = await instance.patch(`${endpoints.users}/${id}`, { password: newPassword })
-            return {
-                data: response.data,
-                message: "password updated successfully!",
-            }
-        } else {
-            return {
-                data: null,
-                message: "current password is incorrect!"
-            }
-        }
-    }
-    catch (error) {
-        return {
-            data: null,
-            message: "password update failed!"
-        }
-    }
+  try {
+    const response = await instance.patch(`${endpoints.users}/${id}/password`, {
+      currentPassword,
+      newPassword,
+    });
+    
+    return {
+      data: response.data,
+      message: "Password updated successfully!",
+    };
+  } catch (error) {    return {
+      data: null,
+      message: error.response?.data?.message || "Password update failed!",
+    };
+  }
 }
  
 
