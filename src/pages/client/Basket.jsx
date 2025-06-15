@@ -29,7 +29,12 @@ const balance = useSelector(state => state.user.user?.balance ?? 0);
         clearFilters();
         setSearchText('');
     };
-
+const getDiscountedPrice = (item) => {
+  if (item.isOnSale && item.salePercentage > 0) {
+    return item.price * (1 - item.salePercentage / 100);
+  }
+  return item.price;
+};
 
 
     const getColumnSearchProps = dataIndex => ({
@@ -121,13 +126,25 @@ const balance = useSelector(state => state.user.user?.balance ?? 0);
                 </div>
             ),
         },
-        {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            width: '20%',
-            render: (price) => `$${price}`,
-        },
+   {
+  title: 'Price',
+  dataIndex: 'price',
+  key: 'price',
+  width: '20%',
+  render: (_, record) => {
+    const discountedPrice = getDiscountedPrice(record);
+    return record.isOnSale ? (
+      <div>
+        <span style={{ textDecoration: 'line-through', color: 'gray', marginRight: 8 }}>
+          ${record.price.toFixed(2)}
+        </span>
+        <span>${discountedPrice.toFixed(2)}</span>
+      </div>
+    ) : (
+      `$${record.price.toFixed(2)}`
+    );
+  }
+},
         {
             title: 'Quantity',
             dataIndex: 'quantity',
@@ -142,12 +159,15 @@ const balance = useSelector(state => state.user.user?.balance ?? 0);
             ),
         },
 
-        {
-            title: 'Total',
-            key: 'total',
-            width: '15%',
-            render: (_, record) => `$${(record.price * record.quantity).toFixed(2)}`
-        },
+      {
+  title: 'Total',
+  key: 'total',
+  width: '15%',
+  render: (_, record) => {
+    const discountedPrice = getDiscountedPrice(record);
+    return `$${(discountedPrice * record.quantity).toFixed(2)}`;
+  }
+},
        {
   title: 'Action',
   key: 'action',
@@ -165,8 +185,7 @@ const balance = useSelector(state => state.user.user?.balance ?? 0);
   ),
 }
     ];
-
-    const subtotal = products.reduce((acc, item) => acc + item.price * item.quantity, 0);
+const subtotal = products.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
 const fixedTax = subtotal > 0 ? 0.62 : 0; 
 const total = subtotal + fixedTax;
     return <>
