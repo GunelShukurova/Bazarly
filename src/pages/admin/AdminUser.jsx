@@ -1,16 +1,40 @@
 
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser } from '../../services/users/requests';
-
+import { deleteUser, getAllUsers } from '../../services/users/requests';
+import { useEffect } from 'react';
+import { updateUsers } from '../../redux/features/usersManagementSlice';
+import { Button } from 'antd';
 
 const AdminUser = () => {
 
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.user.user);
 
-  console.log(users)
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await getAllUsers();
+        dispatch(updateUsers(response.data));
+      } catch (err) {
+        console.error("failed to get users!", err);
+      }
+    }
+    fetchUsers();
+  }, [dispatch]);
 
+
+  const users = useSelector(state => state.usersManagement.users);
+
+    const handleDelete = async (id) => {
+    try {
+      await deleteUser({ id });
+
+      const response = await getAllUsers();
+      dispatch(updateUsers(response.data));
+    } catch (err) {
+      console.error("Failed to delete user", err);
+    }
+  };
 
   const columns = [
     {
@@ -41,7 +65,7 @@ const AdminUser = () => {
       render: (_, record) => (
         <Button
           type="primary"
-          onClick={() => handleDelete(record.id)}
+      onClick={() => handleDelete(record.id)}
         >
           Delete
         </Button>
@@ -49,14 +73,6 @@ const AdminUser = () => {
     },
   ];
 
-
-
-    const handleDelete = (id) => {
-
-
-         dispatch(deleteUser({ id }));
-  };
- 
 
   const tableStyle = {
     width: '90%',
