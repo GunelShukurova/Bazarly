@@ -1,37 +1,36 @@
 import { Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems } from "flowbite-react";
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from "react-icons/hi";
-import { Link } from "react-router";
-
-
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser,HiLogout, } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { MdReviews } from "react-icons/md";
+import { BiSolidMessageAltDetail } from "react-icons/bi";
 
 export function SideBar() {
   return (
-    <Sidebar    style={{ height: "100vh",   position: "fixed", background: "#FDFBF7 !important" }} aria-label="Sidebar with multi-level dropdown example">
+    <Sidebar    className="custom-sidebar"  style={{ height: "100vh",  position: "fixed" }} >
       <SidebarItems>
         <SidebarItemGroup>
-          <SidebarItem href="#" icon={HiChartPie}  as={Link} to="/admin">
-            Dashboard
+          <SidebarItem icon={HiChartPie}>
+            <Link to="/admin">Dashboard</Link>
           </SidebarItem>
-          <SidebarCollapse icon={HiShoppingBag} label="E-commerce">
-            <SidebarItem href="#">Products</SidebarItem>
-            <SidebarItem href="#">Sales</SidebarItem>
-            <SidebarItem href="#">Refunds</SidebarItem>
-            <SidebarItem href="#">Shipping</SidebarItem>
-          </SidebarCollapse>
-          <SidebarItem href="#" icon={HiInbox}>
-            Inbox
+
+          <SidebarItem icon={HiUser}>
+            <Link to="/admin/users">Users</Link>
           </SidebarItem>
-          <SidebarItem href="#" icon={HiUser}  as={Link} to="/admin/users">
-            Users
+
+          <SidebarItem icon={HiShoppingBag}>
+            <Link to="/admin/products">Products</Link>
           </SidebarItem>
-          <SidebarItem href="#" icon={HiShoppingBag}>
-            Products
+
+          <SidebarItem icon={MdReviews}>
+            <Link to="/admin/reviews">Reviews</Link>
           </SidebarItem>
-          <SidebarItem href="#" icon={HiArrowSmRight}>
-            Sign In
+
+          <SidebarItem icon={BiSolidMessageAltDetail}>
+            <Link to="/admin/messages">Messages</Link>
           </SidebarItem>
-          <SidebarItem href="#" icon={HiTable} as={Link} to="/admin/profile">
-            Sign Up
+
+          <SidebarItem icon={HiLogout}>
+            <span>Sign Out</span>
           </SidebarItem>
         </SidebarItemGroup>
       </SidebarItems>

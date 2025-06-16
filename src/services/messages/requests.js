@@ -86,20 +86,17 @@ export async function deleteMessage  (id) {
     }
 }
 
-export async function updateContactIsRead  (id, isRead) {
-
-    try {
-        const response = await instance.patch(endpoints.messages + `/${id}`, { isRead });
-       
-
-        return {
-            data: response.data,
-            message: "message deleted successfully"
-        }
-    } catch (error) {
-        return {
-            data: null, 
-            message: "failed to delete message!"
-        }
-    }
+export async function updateContactIsRead(id, isRead) {
+  try {
+    const response = await instance.patch(`${endpoints.messages}/${id}`, { isRead });
+    return {
+      data: response.data,
+      message: "message updated successfully"
+    };
+  } catch (error) {
+    return {
+      data: null,
+      message: "failed to update message"
+    };
+  }
 }

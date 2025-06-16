@@ -2,35 +2,35 @@
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getAllUsers } from '../../services/users/requests';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { updateUsers } from '../../redux/features/usersManagementSlice';
 import { Button } from 'antd';
 
 const AdminUser = () => {
 
   const dispatch = useDispatch();
+ const [localUsers, setLocalUsers] = useState([]);
 
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const response = await getAllUsers();
-        dispatch(updateUsers(response.data));
-      } catch (err) {
-        console.error("failed to get users!", err);
+    getAllUsers().then((resp) => {
+      if (resp.data) {
+             dispatch(updateUsers(resp.data)); 
       }
-    }
-    fetchUsers();
+    });
   }, [dispatch]);
-
 
   const users = useSelector(state => state.usersManagement.users);
 
-    const handleDelete = async (id) => {
-    try {
-      await deleteUser({ id });
 
-      const response = await getAllUsers();
-      dispatch(updateUsers(response.data));
+
+  const handleDelete = async (id) => {
+    try {
+ await deleteUser(id)
+
+        const resp = await getAllUsers();
+      if (resp.data) {
+         dispatch(updateUsers(resp.data));
+      }
     } catch (err) {
       console.error("Failed to delete user", err);
     }
@@ -39,7 +39,7 @@ const AdminUser = () => {
   const columns = [
     {
       title: 'Fullname',
-      dataIndex: 'fullname',
+      dataIndex: 'fullName',
       width: '12%',
     },
     {
@@ -53,18 +53,22 @@ const AdminUser = () => {
       width: '12%',
     },
     {
-      title: 'Join ID',
-      dataIndex: 'joinId',
-      width: '12%',
+      title: "Joined at",
+      dataIndex: "registeredAt",
+         width: '12%',
+      sorter: (a, b) => new Date(a.registeredAt) - new Date(b.registeredAt),
+      render: (value) => {
+        return <span>{new Date(value).toDateString()}</span>;
+      },
     },
-      { title: 'Balance', dataIndex: 'balance', width: '15%', render: (balance) => `$${balance}` },
+      { title: 'Balance', dataIndex: 'balance', width: '7%', render: (balance) => `$${balance}` },
       {
       title: 'Action',
       dataIndex: 'action',
       width: '10%',
       render: (_, record) => (
         <Button
-          type="primary"
+          type="primary" color="red" variant="outlined"
       onClick={() => handleDelete(record.id)}
         >
           Delete

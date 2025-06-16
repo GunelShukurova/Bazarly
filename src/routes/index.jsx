@@ -3,6 +3,8 @@ import AdminLayout from '../layout/AdminLayout'
 import AuthLayout from '../layout/AuthLayout';
 import ClientLayout from '../layout/ClientLayout';
 import AdminLogin from '../pages/admin/AdminLogin';
+import AdminProducts from '../pages/admin/AdminProducts';
+import AdminReviews from '../pages/admin/AdminMessages';
 import AdminUser from '../pages/admin/AdminUser';
 import Dashboard from '../pages/admin/Dashboard';
 import About from '../pages/client/About';
@@ -15,6 +17,7 @@ import ProductDetail from '../pages/client/ProductDetail';
 import Products from '../pages/client/Products';
 import Profile from '../pages/client/Profile';
 import Register from '../pages/client/Register';
+import AdminMessages from '../pages/admin/AdminMessages';
 
 const ROUTES = [
     {
@@ -32,6 +35,14 @@ const ROUTES = [
             {
                 path: "users",
                 element: <AdminUser />,
+            },
+              {
+                path: "/admin/products",
+                element: <AdminProducts />,
+            },
+             {
+                path: "/admin/messages",
+                element: <AdminMessages />,
             },
         ]
     },
