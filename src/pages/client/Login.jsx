@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router';
 import loginValidationSchema from '../../validations/loginValidations';
 import { useFormik } from 'formik';
-import { login } from '../../redux/features/userSlide';
+import { login } from '../../redux/features/userSlice';
 import { getAllUsers, update } from '../../services/users/requests';
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";

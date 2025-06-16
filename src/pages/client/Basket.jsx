@@ -103,7 +103,7 @@ const getDiscountedPrice = (item) => {
         },
 
     });
-    const columns = [
+    const columns1 = [
         {
             title: 'Product',
             dataIndex: 'title',
@@ -207,7 +207,7 @@ const total = subtotal + fixedTax;
                     </div>
 
 
-                    <Table className='w-[60%] ' columns={columns} dataSource={products} rowKey="id"
+                    <Table className='w-[60%] ' columns={columns1} dataSource={products} rowKey="id"
                     />
                 </div>
 

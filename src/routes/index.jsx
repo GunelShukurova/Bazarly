@@ -3,6 +3,7 @@ import AdminLayout from '../layout/AdminLayout'
 import AuthLayout from '../layout/AuthLayout';
 import ClientLayout from '../layout/ClientLayout';
 import AdminLogin from '../pages/admin/AdminLogin';
+import AdminUser from '../pages/admin/AdminUser';
 import Dashboard from '../pages/admin/Dashboard';
 import About from '../pages/client/About';
 import Basket from '../pages/client/Basket';
@@ -18,7 +19,7 @@ import Register from '../pages/client/Register';
 const ROUTES = [
     {
         element: <AdminLayout />,
-          path: "/admin",
+        path: "/admin",
         children: [
             {
                 index: true,
@@ -27,6 +28,10 @@ const ROUTES = [
             {
                 path: "/adminlogin",
                 element: <AdminLogin />
+            },
+            {
+                path: "users",
+                element: <AdminUser />,
             },
         ]
     },
@@ -53,7 +58,7 @@ const ROUTES = [
             {
                 path: "product/:id",
                 element: <ProductDetail />,
-            }, 
+            },
             {
                 path: "profile",
                 element: <Profile />,
@@ -65,24 +70,24 @@ const ROUTES = [
                 path: "basket",
                 element: <Basket />,
             },
-             {
+            {
                 path: "*",
-                element: <NotFound/>,
+                element: <NotFound />,
             },
         ],
     }, {
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-    ],
-  },
+        element: <AuthLayout />,
+        children: [
+            {
+                path: "login",
+                element: <Login />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+        ],
+    },
 ];
 
 

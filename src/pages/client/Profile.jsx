@@ -5,7 +5,7 @@ import moment from "moment";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 import { useFormik } from "formik";
-import { updateProfile } from "../../redux/features/userSlide";
+import { updateProfile } from "../../redux/features/userSlice";
 import { enqueueSnackbar } from "notistack";
 import { update, updatePassword } from "../../services/users/requests";
 import { endpoints } from "../../constants";

@@ -32,8 +32,8 @@ export async function getUserById(id) {
             message: "Failed to get user!",
             success: false
         }; 
-    }
-}
+    } 
+} 
 
 export async function register(newUser) {
 
