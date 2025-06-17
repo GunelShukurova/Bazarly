@@ -18,22 +18,23 @@ export async function getAllUsers() {
 } 
 
 export async function getUserById(id) {
-    try {
-        const response = await instance.get(endpoints.users + `/${id}`)
-        return {
-            data: response.data,
-            message: "User received successfully!",
-            success: true
-        };
-    } catch (error) {
-  
-        return {
-            data: null,
-            message: "Failed to get user!",
-            success: false
-        }; 
-    } 
-} 
+  try {
+    const response = await instance.get(  `${endpoints.users}/${id}`);
+    console.log("User response:", response.data);
+    return {
+      data: response.data,
+      message: "User received successfully!",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error fetching user:", error.response?.data || error.message);
+    return {
+      data: null,
+      message: "Failed to get user!",
+      success: false,
+    };
+  }
+}
 
 export async function register(newUser) {
 
@@ -74,30 +75,41 @@ const response = await instance.post(endpoints.users, newUser)
 
 
 export async function login(email, password) {
+  try {
+    const result = await getAllUsers();
+    const users = result.data;
+    if (!users) {
+      return {
+        data: null,
+        message: "Failed to get users",
+      };
+    }
+    const isValid = users.find(
+      (u) => u.email === email && u.password === password && u.role === "client"
+    );
+    if (isValid) {
+      await instance.patch(endpoints.users + `/${isValid.id}`, {
+        lastLogin: new Date(),
+      });
+      return {
+        data: isValid,
+        message: "User logged in successfully!",
+      };
+    } else {
+      return {
+        data: null,
+        message: "Email or password is incorrect!",
+      };
+    }
+  } catch (error) {
+    return {
+      data: null,
+      message: "Login failed!",
+    };
+  }
+}
 
-    try {
-        const { data: users } = await getAllUsers()
-        const isValid = users.find((u) => u.email === email && u.password === password && u.role === "client")
-        if (isValid) {
-            await instance.patch(endpoints.users + `/${isValid.id}`, {
-                lastLogin: new Date(),
-            });
-            return {
-                data: isValid,
-                message: "User logged in successfully!",
-            };
-        } else {
-            return {
-                data: null,
-                message: "Email or password is incorrect!",
-            };
-        }
-    } catch (error) {
-        return {
-            data: null,
-            message: "Login failed!",
-        };
-    }}
+
 
 export async function checkDuplicateUsername(username) {
     try {
@@ -263,45 +275,63 @@ export async function deleteUser (id) {
 
 
 export async function getAdmins() {
-    try {
-        const { data: users } = await getAllUsers();
-        const admins = users.filter(user => user.role === "admin");
-
-        return {
-            data: admins,
-            message: "Admins logged successfully",
-        };
-    } catch (error) {
-        return {
-            data: null,
-            message: "Admin login failed!",
-        };
+  try {
+    const result = await getAllUsers();
+    const users = result.data;
+    if (!users) {
+      return {
+        data: null,
+        message: "Failed to get users",
+      };
     }
+    const admins = users.filter(user => user.role === "admin");
+
+    return {
+      data: admins,
+      message: "Admins received successfully",
+    };
+  } catch (error) {
+    return {
+      data: null,
+      message: "Admin fetch failed!",
+    };
+  }
 }
 
 
 export async function adminLogin(email, password) {
-    try {
-        const { data: users } = await getAllUsers();
-        const admin = users.find((u) => u.email === email && u.password === password && u.role === "admin");
+  try {
+    const result = await getAllUsers();
+    const users = result.data;
+    if (!users) {
+      return {
+        data: null,
+        message: "Failed to get users",
+      };
+    }
+    const admin = users.find(
+      (u) => u.email === email && u.password === password && u.role === "admin"
+    );
 
-        if (admin) {
-            await instance.patch(endpoints.users + `/${admin.id}`, {
-                lastLogin: new Date(),
-            });
+    if (admin) {
+      await instance.patch(endpoints.users + `/${admin.id}`, {
+        lastLogin: new Date(),
+      });
 
-            return {
-                data: admin,
-                message: "Admin logged in successfully!",
-            };
-        } else {
-            return {
-                data: null,
-                message: "You do not have admin access. Only admins can log in.",
-            };
-        }
-    } catch (error) {
-        return {
-            data: null,
-            message: "Admin login failed!",
-        };}}
+      return {
+        data: admin,
+        message: "Admin logged in successfully!",
+      };
+    } else {
+      return {
+        data: null,
+        message: "You do not have admin access. Only admins can log in.",
+      };
+    }
+  } catch (error) {
+    return {
+      data: null,
+      message: "Admin login failed!",
+    };
+  }
+}

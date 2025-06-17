@@ -6,4 +6,5 @@ export const endpoints = {
     products: "/products",
     messages: "/messages",
     reviews: "/reviews",
+    
 };

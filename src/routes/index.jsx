@@ -18,6 +18,7 @@ import Products from '../pages/client/Products';
 import Profile from '../pages/client/Profile';
 import Register from '../pages/client/Register';
 import AdminMessages from '../pages/admin/AdminMessages';
+import AdminProductsOrders from '../pages/admin/AdminProductsOrders';
 
 const ROUTES = [
     {
@@ -40,6 +41,10 @@ const ROUTES = [
             {
                 path: "/admin/messages",
                 element: <AdminMessages />,
+            },
+              {
+                path: "/admin/products/orders",
+                element: <AdminProductsOrders/>,
             },
         ]
     },

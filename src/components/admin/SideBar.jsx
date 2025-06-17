@@ -3,6 +3,7 @@ import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser,HiL
 import { Link } from "react-router-dom";
 import { MdReviews } from "react-icons/md";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
+import { BsFillBoxSeamFill } from "react-icons/bs";
 
 export function SideBar() {
   return (
@@ -20,7 +21,9 @@ export function SideBar() {
           <SidebarItem icon={HiShoppingBag}>
             <Link to="/admin/products">Products</Link>
           </SidebarItem>
-
+   <SidebarItem icon={BsFillBoxSeamFill}>
+            <Link to="/admin/products/orders">Products in Orders</Link>
+          </SidebarItem>
           <SidebarItem icon={MdReviews}>
             <Link to="/admin/reviews">Reviews</Link>
           </SidebarItem>

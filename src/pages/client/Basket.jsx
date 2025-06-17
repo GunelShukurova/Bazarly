@@ -1,21 +1,91 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
+import { useSnackbar } from 'notistack';
+import { getAllProducts } from '../../services/products/requests';
+import { getUserById } from '../../services/users/requests';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { clearCart, decrementQuantity, incrementQuantity, removeFromCart } from '../../redux/features/cartSlice';
+
 
 
 
 const Basket = () => {
 
-    const products = useSelector(state => state.cart.items);
-const balance = useSelector(state => state.user.user?.balance ?? 0);
-    const dispatch = useDispatch();
+    const [balance, setBalance] = useState(0);
+    const [products, setProducts] = useState([]);
 
-    const handleRemove = (id) => dispatch(removeFromCart(id));
-    const handleIncrement = (id) => dispatch(incrementQuantity(id));
-    const handleDecrement = (id) => dispatch(decrementQuantity(id));
+    const { enqueueSnackbar } = useSnackbar();
+
+    const loadBasket = async () => {
+
+
+        try {
+            const userId = localStorage.getItem("userId");
+
+            if (!userId || userId === "null") {
+
+                enqueueSnackbar("User not logged in!", { variant: "warning" });
+                setProducts([]);
+                setBalance(0);
+
+                return;
+            }
+            const userRes = await getUserById(userId);
+            console.log("User API response:", userRes);
+            
+            const productsRes = await getAllProducts();
+
+            console.log("User data:", userRes.data);
+            console.log("All products:", productsRes.data);
+
+            if (userRes.data && productsRes.data) {
+                const basketItems = userRes.data.basketItems;
+                const allProducts = productsRes.data;
+
+                const basketProducts = basketItems.map(item => {
+                    const product = allProducts.find(p => p.id.toString() === item.productId.toString());
+
+                    return { ...product, quantity: item.quantity };
+                });
+
+                setProducts(basketProducts);
+                setBalance(userRes.data.balance);
+            }
+        } catch (e) {
+            enqueueSnackbar("Failed to load basket", { variant: "error" });
+        }
+    };
+
+    useEffect(() => {
+        loadBasket();
+    }, []);
+
+    const handleIncrement = (productId) => {
+        setProducts((prevProducts) =>
+            prevProducts.map((item) =>
+                item.id === productId
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            )
+        );
+    };
+
+    const handleDecrement = (productId) => {
+        setProducts((prevProducts) =>
+            prevProducts.map((item) =>
+                item.id === productId && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            )
+        );
+    };
+
+    const handleRemove = (productId) => {
+        setProducts((prevProducts) =>
+            prevProducts.filter(item => item.id !== productId)
+        );
+    };
+
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -29,12 +99,12 @@ const balance = useSelector(state => state.user.user?.balance ?? 0);
         clearFilters();
         setSearchText('');
     };
-const getDiscountedPrice = (item) => {
-  if (item.isOnSale && item.salePercentage > 0) {
-    return item.price * (1 - item.salePercentage / 100);
-  }
-  return item.price;
-};
+    const getDiscountedPrice = (item) => {
+        if (item.isOnSale && item.salePercentage > 0) {
+            return item.price * (1 - item.salePercentage / 100);
+        }
+        return item.price;
+    };
 
 
     const getColumnSearchProps = dataIndex => ({
@@ -126,25 +196,25 @@ const getDiscountedPrice = (item) => {
                 </div>
             ),
         },
-   {
-  title: 'Price',
-  dataIndex: 'price',
-  key: 'price',
-  width: '20%',
-  render: (_, record) => {
-    const discountedPrice = getDiscountedPrice(record);
-    return record.isOnSale ? (
-      <div>
-        <span style={{ textDecoration: 'line-through', color: 'gray', marginRight: 8 }}>
-          ${record.price.toFixed(2)}
-        </span>
-        <span>${discountedPrice.toFixed(2)}</span>
-      </div>
-    ) : (
-      `$${record.price.toFixed(2)}`
-    );
-  }
-},
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            width: '20%',
+            render: (_, record) => {
+                const discountedPrice = getDiscountedPrice(record);
+                return record.isOnSale ? (
+                    <div>
+                        <span style={{ textDecoration: 'line-through', color: 'gray', marginRight: 8 }}>
+                            ${record.price.toFixed(2)}
+                        </span>
+                        <span>${discountedPrice.toFixed(2)}</span>
+                    </div>
+                ) : (
+                    `$${record.price.toFixed(2)}`
+                );
+            }
+        },
         {
             title: 'Quantity',
             dataIndex: 'quantity',
@@ -159,35 +229,35 @@ const getDiscountedPrice = (item) => {
             ),
         },
 
-      {
-  title: 'Total',
-  key: 'total',
-  width: '15%',
-  render: (_, record) => {
-    const discountedPrice = getDiscountedPrice(record);
-    return `$${(discountedPrice * record.quantity).toFixed(2)}`;
-  }
-},
-       {
-  title: 'Action',
-  key: 'action',
-  width: '15%',
-  render: (_, record) => (
-   <Button
-  type="default"
-  danger
-  onClick={() => handleRemove(record.id)}
-  style={{ border: '1px solid red', color: 'red' }}
->
-  Delete
-</Button>
-  
-  ),
-}
+        {
+            title: 'Total',
+            key: 'total',
+            width: '15%',
+            render: (_, record) => {
+                const discountedPrice = getDiscountedPrice(record);
+                return `$${(discountedPrice * record.quantity).toFixed(2)}`;
+            }
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            width: '15%',
+            render: (_, record) => (
+                <Button
+                    type="default"
+                    danger
+                    onClick={() => handleRemove(record.id)}
+                    style={{ border: '1px solid red', color: 'red' }}
+                >
+                    Delete
+                </Button>
+
+            ),
+        }
     ];
-const subtotal = products.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
-const fixedTax = subtotal > 0 ? 0.62 : 0; 
-const total = subtotal + fixedTax;
+    const subtotal = products.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
+    const fixedTax = subtotal > 0 ? 0.62 : 0;
+    const total = subtotal + fixedTax;
     return <>
 
         <div className="bg-[#FDFBF7] mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 mx-30">

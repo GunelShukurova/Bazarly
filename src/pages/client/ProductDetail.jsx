@@ -26,6 +26,7 @@ const ProductDetail = () => {
   const user = useSelector((state) => state.user.users);
 
   useEffect(() => {
+    
     setIsLoading(true);
     getProductsById(id).then((response) => {
 
@@ -76,11 +77,7 @@ const ProductDetail = () => {
   };
 
 
-
-
   if (isLoading) return <div>Loading...</div>;
-
-
 
   const rating = product.rating || 0;
   const maxRating = 5;

@@ -76,4 +76,12 @@ export async function deleteProducts(id) {
     }
 }
 
-
+export const getAllOrders = async () => {
+  try {
+    const response = await instance.get(endpoints.orders);
+    return response;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+};
