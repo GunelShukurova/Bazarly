@@ -2,7 +2,6 @@
   "users": [
     {
       "id": "3f485a15-588c-4913-b2f1-a079b946db55",
-
       "username": "gunel",
       "fullName": "Gunel Shukurova",
       "balance": "1500.00",
@@ -76,26 +75,24 @@
       "confirmNewPassword": "vffffSa!3"
     }
   ],
- "orders": [
-  {
-    "id": "order1",
-    "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
-    "products": [
-      {
-        "productId": "3",
-        "title": "Product Title",
-              "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
-
-        "quantity": 3,
-        "price": 100
-      }
-    ],
-    "status": "pending",
-    "createdAt": "2025-06-15T12:00:00.000Z",
-    "totalPrice": 300
-  }
-],
-
+  "orders": [
+    {
+      "id": "order1",
+      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
+      "products": [
+        {
+          "productId": "3",
+          "title": "Product Title",
+          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
+          "quantity": 3,
+          "price": 100
+        }
+      ],
+      "status": "pending",
+      "createdAt": "2025-06-15T12:00:00.000Z",
+      "totalPrice": 300
+    }
+  ],
   "products": [
     {
       "id": "1",
@@ -189,7 +186,7 @@
       "available": true,
       "description": "Supercharged performance in a lightweight laptop.",
       "rating": 4.9,
-         "userId": 2343,
+      "userId": 2343,
       "inStock": 15,
       "isOnSale": true,
       "salePercentage": 8,
@@ -607,6 +604,7 @@
     },
     {
       "id": "56e3",
+      
       "userId": "7c2d",
       "productId": "2",
       "comment": "dddd",
@@ -624,6 +622,14 @@
       "fullName": "Gunel Shukurova",
       "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
       "createdAt": "2025-06-17T10:07:43.380Z"
+    },
+    {
+      "id": "83b7",
+      "userId": null,
+      "productId": "2",
+      "comment": "ddddd",
+      "rating": 2,
+      "createdAt": "2025-06-17T13:21:59.378Z"
     }
   ]
 }

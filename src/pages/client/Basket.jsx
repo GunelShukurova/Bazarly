@@ -6,9 +6,6 @@ import { getAllProducts } from '../../services/products/requests';
 import { getUserById } from '../../services/users/requests';
 
 
-
-
-
 const Basket = () => {
 
     const [balance, setBalance] = useState(0);
@@ -20,19 +17,18 @@ const Basket = () => {
 
 
         try {
-            const userId = localStorage.getItem("userId");
+            const userId = JSON.parse(localStorage.getItem("userId"));
 
             if (!userId || userId === "null") {
 
                 enqueueSnackbar("User not logged in!", { variant: "warning" });
                 setProducts([]);
                 setBalance(0);
-
                 return;
             }
             const userRes = await getUserById(userId);
             console.log("User API response:", userRes);
-            
+
             const productsRes = await getAllProducts();
 
             console.log("User data:", userRes.data);
@@ -311,7 +307,7 @@ const Basket = () => {
                 </div>
                 <div className="flex justify-between text-sm text-gray-600">
                     <span className="font-bold text-xl text-gray-800 ">Your Balance:</span>
-                    <span className="text-gray-700 font-semibold text-lg">${balance.toFixed(2)}</span>
+                    <span className="text-gray-700 font-semibold text-lg">${balance}</span>
 
                 </div>
                 <button className='bg-[#ccbe94]  border border-black  text-lg px-6 py-2 cursor-pointer w-40 mt-5 hover:bg-[#d2c7a3]'>Place Order</button>
