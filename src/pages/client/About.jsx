@@ -7,8 +7,8 @@ import { MdOutlinePeopleAlt } from "react-icons/md";
 const About = () => {
     return (
         <div>
-            <div className=" mt-10">
-                <div className="  py-5">
+            <div>
+                <div className="pt-15  py-5">
 
                     <div className="bg-[#F8F6F0] w-full">
                         <div className="mx-40 py-5">

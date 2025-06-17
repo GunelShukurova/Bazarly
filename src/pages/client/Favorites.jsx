@@ -24,7 +24,7 @@ const Favorites = () => {
 
   return (
     <div>
-      <div className="bg-[#FDFBF7] mt-10">
+      <div className="bg-[#FDFBF7] pt-15">
 
         <div className="mx-30   py-4">
 

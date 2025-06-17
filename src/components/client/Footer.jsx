@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 
 
 const Footer = () => {
@@ -13,21 +14,21 @@ const Footer = () => {
                 <div>
                     <ul>
                         <li className="font-bold mb-3">Quick Links</li>
-                        <a href="./index.html"> <li className="mb-2 hover:cursor-pointer hover:underline">Home</li></a>
+                        <Link  to="/" > <li className="mb-2 hover:cursor-pointer hover:underline">Home</li></Link >
 
-                        <a href="./about.html"><li className="mb-2 hover:cursor-pointer hover:underline">About</li></a>
-                        <a href="./apartments.html"> <li className="mb-2 hover:cursor-pointer hover:underline">Products</li></a>
-                        <a href="./contact.html">  <li className="mb-2 hover:cursor-pointer hover:underline">Contact</li></a>
+                        <Link to="/about" ><li className="mb-2 hover:cursor-pointer hover:underline">About</li></Link >
+                        <Link  to="/products" > <li className="mb-2 hover:cursor-pointer hover:underline">Products</li></Link >
+                        <Link  to="/contact" >  <li className="mb-2 hover:cursor-pointer hover:underline">Contact</li></Link >
                     </ul>
                 </div>
                 <div>
                     <h2 className="font-bold mb-3">Categories</h2>
                     <div className="flex flex-col">
-                        <span className="mb-2">Beverages</span>
-                        <span className="mb-2">Snacks</span>
-                        <span className="mb-2">Dairy Products</span>
-                        <span className="mb-2">Hygiene Products</span>
-                        <span className="mb-2">Candy</span>
+                        <span className="mb-2">Electronics</span>
+                        <span className="mb-2">Clothing</span>
+                        <span className="mb-2">Shoes</span>
+                        <span className="mb-2">Home-Accessories</span>
+                        <span className="mb-2">Accessories</span>
                     </div>
                 
                 </div>

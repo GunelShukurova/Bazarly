@@ -604,7 +604,6 @@
     },
     {
       "id": "56e3",
-      
       "userId": "7c2d",
       "productId": "2",
       "comment": "dddd",
@@ -630,6 +629,54 @@
       "comment": "ddddd",
       "rating": 2,
       "createdAt": "2025-06-17T13:21:59.378Z"
+    },
+    {
+      "id": "6af8",
+      "userId": null,
+      "productId": "2",
+      "comment": "sssss",
+      "rating": 3,
+      "fullName": "Gunel Shukurova",
+      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
+      "createdAt": "2025-06-17T19:43:18.226Z"
+    },
+    {
+      "id": "faa2",
+      "userId": null,
+      "productId": "2",
+      "comment": "aaaaaa",
+      "rating": 3,
+      "fullName": "Gunel Shukurova",
+      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
+      "createdAt": "2025-06-17T19:43:25.726Z"
+    },
+    {
+      "id": "a367",
+      "userId": null,
+      "productId": "2",
+      "comment": "ffff",
+      "rating": 2,
+      "fullName": "Gunel Shukurova",
+      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
+      "createdAt": "2025-06-17T19:45:21.007Z"
+    },
+    {
+      "id": "0703",
+      "userId": null,
+      "productId": "2",
+      "comment": "вввв",
+      "rating": 3,
+      "fullName": "Gunel Shukurova",
+      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
+      "createdAt": "2025-06-17T19:48:07.606Z"
+    },
+    {
+      "id": "435c",
+      "userId": null,
+      "productId": "2",
+      "comment": "ffff",
+      "rating": 2,
+      "createdAt": "2025-06-17T20:12:31.472Z"
     }
   ]
 }

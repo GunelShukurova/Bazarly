@@ -11,9 +11,10 @@ import { addReview } from "../../services/reviews/requests";
 import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetail = () => {
-
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [reviewMessage, setReviewMessage] = useState("");
@@ -61,7 +62,9 @@ const ProductDetail = () => {
   console.log("response", { data, message });
 
   if (data) {
-      setReviews((prevReviews) => [...prevReviews, data]);
+          const updatedProduct = await getProductsById(id);
+      setProduct(updatedProduct.data);
+      setReviews(updatedProduct.data.reviews || []);
 
 
     setReviewMessage("");
@@ -106,8 +109,8 @@ const ProductDetail = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-2">
-        <button className="px-3 py-1 bg-[#ccbe94] mt-10 cursor-pointer hover:bg-[#b1a478]  text-white text-md font-semibold rounded-lg ">
+      <div className="max-w-7xl mx-auto px-2 pt-16">
+        <button onClick={() => navigate("/products")}  className="px-3 py-1 bg-[#ccbe94] mt-10 cursor-pointer hover:bg-[#b1a478]  text-white text-md font-semibold rounded-lg ">
           Back to Products
         </button>
         <div className="grid grid-cols-2 gap-16 mt-10">

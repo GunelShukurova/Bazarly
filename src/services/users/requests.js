@@ -18,22 +18,21 @@ export async function getAllUsers() {
 } 
 
 export async function getUserById(id) {
-  try {
-    const response = await instance.get(  `${endpoints.users}/${id}`);
-    console.log("User response:", response.data);
-    return {
-      data: response.data,
-      message: "User received successfully!",
-      success: true,
-    };
-  } catch (error) {
-    console.error("Error fetching user:", error.response?.data || error.message);
-    return {
-      data: null,
-      message: "Failed to get user!",
-      success: false,
-    };
-  }
+    try {
+        const response = await instance.get(endpoints.users + `/${id}`)
+        return {
+            data: response.data,
+            message: "User received successfully!",
+            success: true
+        };
+    } catch (error) {
+  
+        return {
+            data: null,
+            message: "Failed to get user!",
+            success: false
+        }; 
+    }
 }
 
 export async function register(newUser) {

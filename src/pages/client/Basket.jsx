@@ -11,38 +11,38 @@ const Basket = () => {
     const [balance, setBalance] = useState(0);
     const [products, setProducts] = useState([]);
 
-    const { enqueueSnackbar } = useSnackbar();
 
+    const { enqueueSnackbar } = useSnackbar();
+    const handleClearAll = () => setProducts([]);
     const loadBasket = async () => {
 
 
         try {
             const userId = JSON.parse(localStorage.getItem("userId"));
-
             if (!userId || userId === "null") {
-
                 enqueueSnackbar("User not logged in!", { variant: "warning" });
                 setProducts([]);
                 setBalance(0);
                 return;
             }
             const userRes = await getUserById(userId);
-            console.log("User API response:", userRes);
-
             const productsRes = await getAllProducts();
 
-            console.log("User data:", userRes.data);
-            console.log("All products:", productsRes.data);
-
             if (userRes.data && productsRes.data) {
-                const basketItems = userRes.data.basketItems;
+                const basketItems = userRes.data.basketItems || [];
                 const allProducts = productsRes.data;
 
-                const basketProducts = basketItems.map(item => {
-                    const product = allProducts.find(p => p.id.toString() === item.productId.toString());
 
-                    return { ...product, quantity: item.quantity };
-                });
+                const basketProducts = basketItems.map(basketItem => {
+                    const product = allProducts.find(p => p.id.toString() === basketItem.productId.toString());
+                    if (!product) return null;
+
+                    return {
+                        ...product,
+                        quantity: basketItem.quantity,
+                        basketItemId: basketItem.id,
+                    };
+                }).filter(Boolean);
 
                 setProducts(basketProducts);
                 setBalance(userRes.data.balance);
@@ -256,7 +256,7 @@ const Basket = () => {
     const total = subtotal + fixedTax;
     return <>
 
-        <div className="bg-[#FDFBF7] mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 mx-30">
+        <div className="bg-[#FDFBF7] pt-15 grid grid-cols-1 sm:grid-cols-2 gap-10 mx-30">
             <div className="w-[200%] py-4">
                 <div className="mx-10">
                     <h3 className="text-3xl font-bold mb-6">Shopping Basket</h3>
@@ -269,11 +269,11 @@ const Basket = () => {
                         <span className="text-2xl font-semibold">
                             Basket Items <span>({products.length})</span>
                         </span>
-                        <Button danger onClick={() => dispatch(clearCart())}>Clear All</Button>
+                        <Button danger onClick={handleClearAll}>Clear All</Button>
                     </div>
 
 
-                    <Table className='w-[60%] ' columns={columns1} dataSource={products} rowKey="id"
+                    <Table className='w-[60%] ' columns={columns1} dataSource={products} rowKey="basketItemId"
                     />
                 </div>
 

@@ -54,7 +54,7 @@ const Contact = () => {
     return (
         <div>
             <div className="bg-[#FDFBF7] ">
-                <div className="grid grid-cols-1 sm:grid-cols-2  mt-15 mx-35">
+                <div className="grid grid-cols-1 sm:grid-cols-2  pt-15 mx-35">
                     <form
  onSubmit={formik.handleSubmit}
                         id="register-form"

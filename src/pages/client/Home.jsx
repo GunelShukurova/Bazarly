@@ -8,11 +8,12 @@ import { IoMdTime } from "react-icons/io";
 
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../../services/products/requests.js";
-
+import { FaRegStar } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("")
 
@@ -26,11 +27,11 @@ const Home = () => {
 
   }, [])
 
-const filteredProducts = products.filter((p) =>
-  p.title.toLowerCase().includes(search.toLowerCase()) ||
-  p.category.toLowerCase().includes(search.toLowerCase()) ||
-  p.description.toLowerCase().includes(search.toLowerCase())
-);
+  const filteredProducts = products.filter((p) =>
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
+    p.category.toLowerCase().includes(search.toLowerCase()) ||
+    p.description.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div>
@@ -38,16 +39,13 @@ const filteredProducts = products.filter((p) =>
 
       <div className="w-full max-w-3xl  mt-20 ml-30 flex justify-start items-center gap-4 bg-[#F8F6F0] p-3  shadow-sm border border-gray-200">
         <input
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search products..."
           className="px-3 py-2 border border-gray-300 w-200 text-lg rounded-md focus:outline-none  focus:ring-1 focus:ring-gray-500"
         />
       </div>
-
-
-
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 mx-30 mt-15 bg-[#FDFBF6]">
 
@@ -61,9 +59,6 @@ const filteredProducts = products.filter((p) =>
                 <h3 className="text-xl text-center text-shadow-neutral-600 font-normal mb-2 mt-2 ">
                   {p.title}
                 </h3>
-
-
-
                 <img
                   className="w-75 h-65 my-17 object-cover rounded"
                   src={p.image}
@@ -111,7 +106,7 @@ const filteredProducts = products.filter((p) =>
         )}
       </div>
 
- 
+
       <div className="bg-[#FDFBF7] mt-10">
 
         <div className="mx-30   py-12">
@@ -126,17 +121,61 @@ const filteredProducts = products.filter((p) =>
 
               <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
                 <div className="flex gap-4">
-                  <img className="w-20 h-20 rounded-full" src="https://fireflyphotographysg.com/wp-content/uploads/2024/03/5-steps-to-mastering-the-perfect-linkedin-profile-picture.jpg" alt="" />
+                  <img className="w-20 h-20 rounded-full" src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg" alt="" />
                   <div className="flex flex-col gap-1">
                     <span className="text-2xl">Sarah Johnson</span>
                     <span className="text-lg">Verified Customer</span>
 
-                    <span className="flex"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></span>
+                    <span className="flex  text-yellow-300 text-md" ><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></span>
                   </div>
 
                 </div>
-                <span className="text-xs mt-2 ml-1">02/03/2025</span>
+                <span className="text-xs mt-2 ml-1">10/07/2025</span>
                 <p className="text-xl"> "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"</p>
+              </div>
+   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
+                <div className="flex gap-4">
+                  <img className="w-20 h-20 rounded-full" src="https://t4.ftcdn.net/jpg/08/39/18/57/360_F_839185796_7SD3gPHX6pBy3zJjDn6enficIw0unxwp.jpg" alt="" />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-2xl">Mike Chen</span>
+                    <span className="text-lg">Verified Customer</span>
+
+                    <span className="flex text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaRegStar /> </span>
+                  </div>
+
+                </div>
+                <span className="text-xs mt-2 ml-1">15/05/2025</span>
+                <p className="text-xl"> "Amazing customer service and the website is so easy to use. Highly recommend!"</p>
+              </div>
+
+   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
+                <div className="flex gap-4">
+                  <img className="w-20 h-20 rounded-full" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-2xl">Emily Davis</span>
+                    <span className="text-lg">Verified Customer</span>
+
+                    <span className="flex  text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></span>
+                  </div>
+
+                </div>
+                <span className="text-xs mt-2 ml-1">10/07/2025</span>
+                <p className="text-xl"> "Great prices and excellent product quality. Bazarly is now my go-to online store."</p>
+              </div>
+
+   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
+                <div className="flex gap-4">
+                  <img className="w-20 h-20 rounded-full" src="https://t3.ftcdn.net/jpg/06/39/64/14/360_F_639641415_lLjzVDVwL0RwdNrkURYFboc4N21YIXJR.jpg" alt="" />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-2xl">Michael Lee</span>
+                    <span className="text-lg">Verified Customer</span>
+
+                    <span className="flex  text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaRegStar /> </span>
+                  </div>
+
+                </div>
+                <span className="text-xs mt-2 ml-1">12/04/2024</span>
+                <p className="text-xl">"I love the variety Bazarly offers. From fresh produce to home essentials — it's all just one click away!""</p>
               </div>
 
 
@@ -210,7 +249,7 @@ const filteredProducts = products.filter((p) =>
           </p>
 
           <div className="flex justify-center">
-            <button className="bg-white border text-lg border-black px-14 py-3 cursor-pointer hover:bg-gray-100 ">
+            <button   onClick={() => navigate("/products")} className="bg-white border text-lg border-black px-14 py-3 cursor-pointer hover:bg-gray-100 ">
               Get Started Today
             </button>
           </div>

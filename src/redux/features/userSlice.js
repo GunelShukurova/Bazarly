@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUserById } from "../../services/users/requests";
 
 
-const userId = localStorage.getItem("userId");
+
+
 const initialState = { users: null, balance: 0 };
 
 async function initUser() {
+  const userId = JSON.parse(localStorage.getItem("userId"));
   if (userId) {
     const response = await getUserById(userId);
     const user = response.data;
@@ -20,7 +22,8 @@ async function initUser() {
     localStorage.setItem("userId", JSON.stringify(null));
   }
 }
-initUser();
+
+await initUser();
 
 const userSlice = createSlice({
   name: "users",

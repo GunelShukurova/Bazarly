@@ -3,8 +3,8 @@ import { GoStar } from "react-icons/go";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { getAllProducts } from '../../services/products/requests';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/features/cartSlice';
+
+import { useSnackbar } from 'notistack';
 import { Link } from 'react-router';
 
 
@@ -12,26 +12,64 @@ import { Link } from 'react-router';
 const Products = () => {
 
 
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [cartItems, setCartItems] = useState(() => {
+    const storedBasket = localStorage.getItem('basket');
+    return storedBasket ? JSON.parse(storedBasket) : [];
+  });
+
   const [favorites, setFavorites] = useState(() => {
     const stored = localStorage.getItem("favorites");
     return stored ? JSON.parse(stored) : [];
   });
 
   const [products, setProducts] = useState([]);
-
-
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
 
-  const dispatch = useDispatch();
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+  const handleAddToCartWithSnackbar = (product) => {
+    handleAddToCart(product);
+    enqueueSnackbar("Product added to cart", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "right",
+      },
+    });
   };
 
+const handleAddToCart = (product) => {
+  setCartItems(prevCart => {
+    const existingIndex = prevCart.findIndex(item => item.id === product.id);
+    let newCart;
 
+    if (existingIndex >= 0) {
+      newCart = [...prevCart];
+      newCart[existingIndex] = {
+        ...newCart[existingIndex],
+        quantity: newCart[existingIndex].quantity + 1,
+      };
+    } else {
+      newCart = [...prevCart, { ...product, quantity: 1 }];
+    }
+
+
+      return newCart;
+    });
+  };
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+    useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+  
   const toggleFavorite = (product) => {
     const isFav = favorites.find((f) => f.id === product.id);
     if (isFav) {
@@ -48,16 +86,11 @@ const Products = () => {
       }
     });
   }, []);
-
-
-  useEffect(() => {
-    const stored = localStorage.getItem("favorites");
-    if (stored) setFavorites(JSON.parse(stored));
-  }, []);
-
-  useEffect(() => {
+    useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
+
 
   const filteredProducts = products
     .filter((p) => {
@@ -106,7 +139,7 @@ const Products = () => {
   return (
     <>
       <div className='mx-40'>
-        <div className='mt-8'>
+        <div className='pt-25'>
           <h3 className="text-3xl font-semibold mb-6  ">Our Products</h3>
           <p className="  text-xl mb-5 ">
             Discover our wide range of quality products
@@ -227,7 +260,7 @@ const Products = () => {
                   type="submit"
 
                   id="submit"
-                   onClick={() => handleAddToCart(p)}
+                       onClick={() => handleAddToCartWithSnackbar(p)}
                   className="bg-neutral-700 opacity-0 text-md w-full group-hover:opacity-100 flex justify-center gap-3 transition-opacity cursor-pointer duration-200 border border-black text-white px-6 py-2  shadow  mt-4"
                 >
 

@@ -29,7 +29,7 @@ const Header = () => {
 
     return (
         <div>
-            <header className="w-full flex bg-[#F8F6F0] justify-between px-40 h-15 items-center" id="nav">
+            <header className="w-full fixed z-100 flex bg-[#F8F6F0] justify-between px-40 h-15 items-center" id="nav">
 
                 <div className="logo">
                     <h3 className="text-3xl font-bold ">Bazarly</h3>

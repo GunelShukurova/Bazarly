@@ -22,6 +22,7 @@ const tabHeaders = [
 
 
 const Profile = () => {
+  
  const user = useSelector((state) => state.user.users);
 
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ validationSchema: updatePasswordValidationSchema,
 
   return (
     <div>
-      <div className="bg-[#FDFBF7] ">
+      <div className="bg-[#FDFBF7] pt-15">
 
         <div className="mx-30   py-6">
 
