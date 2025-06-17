@@ -9,8 +9,6 @@ import { useSnackbar } from 'notistack';
 
 
 
-
-
 const AdminMessages = () => {
   
 const { enqueueSnackbar } = useSnackbar();
@@ -23,7 +21,6 @@ useEffect(() => {
     }
   });
 }, []);
-
 
 
   const handleStatusChange = async (id, updatedStatus) => {

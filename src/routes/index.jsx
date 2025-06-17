@@ -28,19 +28,16 @@ const ROUTES = [
                 index: true,
                 element: <Dashboard />
             },
-            {
-                path: "/adminlogin",
-                element: <AdminLogin />
-            },
+
             {
                 path: "users",
                 element: <AdminUser />,
             },
-              {
+            {
                 path: "/admin/products",
                 element: <AdminProducts />,
             },
-             {
+            {
                 path: "/admin/messages",
                 element: <AdminMessages />,
             },
@@ -96,6 +93,10 @@ const ROUTES = [
             {
                 path: "register",
                 element: <Register />,
+
+            }, {
+                path: "/admin/login",
+                element: <AdminLogin />,
             },
         ],
     },

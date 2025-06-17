@@ -1,17 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const adminId = localStorage.getItem("adminId");
-const initialState = { admin: null };
+  const adminId = JSON.parse(localStorage.getItem("userId"));
+
+  const initialState = { admin: null };
+
+
 if (JSON.parse(adminId)) {
-  const admin = await controller.getOne(endpoints.users, JSON.parse(adminId));
+
+const response = await getUserById(adminId);
+
+const admin = response.data;
+
+
   if (admin?.id) {
     delete admin.password;
     initialState.admin = { ...admin };
-  }
-} else {
+  }} else {
   localStorage.setItem("adminId", JSON.stringify(null));
 }
+
 
 const adminSlice = createSlice({
   name: "admin",

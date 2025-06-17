@@ -33,7 +33,7 @@
       "email": "gunel23_25@mail.ru",
       "password": "Salam123!",
       "profileImage": "https://media.istockphoto.com/id/1452895487/photo/portrait-of-a-charming-business-woman-in-the-office.jpg?s=612x612&w=0&k=20&c=fZAe285E2Tq-9dtvSygGZe90NTRK8LN4cGqTrAmKmEo=",
-      "role": "client",
+      "role": "admin",
       "phone": "+994 50 705 57 22",
       "isBanned": false,
       "banUntil": null,
