@@ -62,9 +62,9 @@ const Products = () => {
   const filteredProducts = products
     .filter((p) => {
       const matchesSearch =
-        p.title.toLowerCase().includes(search.toLowerCase()) ||
-        p.category.toLowerCase().includes(search.toLowerCase()) ||
-        p.description.toLowerCase().includes(search.toLowerCase());
+        p.title?.toLowerCase().includes(search.toLowerCase()) ||
+        p.category?.toLowerCase().includes(search.toLowerCase()) ||
+        p.description?.toLowerCase().includes(search.toLowerCase());
 
       const matchesFilter = filter === "All" || p.category === filter;
 

@@ -22,7 +22,7 @@ const tabHeaders = [
 
 
 const Profile = () => {
-  const user = useSelector((state) => state.user.user);
+ const user = useSelector((state) => state.user.users);
 
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(0);
