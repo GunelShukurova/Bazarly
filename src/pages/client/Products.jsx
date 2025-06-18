@@ -43,20 +43,20 @@ const Products = () => {
     });
   };
 
-const handleAddToCart = (product) => {
-  setCartItems(prevCart => {
-    const existingIndex = prevCart.findIndex(item => item.id === product.id);
-    let newCart;
+  const handleAddToCart = (product) => {
+    setCartItems(prevCart => {
+      const existingIndex = prevCart.findIndex(item => item.id === product.id);
+      let newCart;
 
-    if (existingIndex >= 0) {
-      newCart = [...prevCart];
-      newCart[existingIndex] = {
-        ...newCart[existingIndex],
-        quantity: newCart[existingIndex].quantity + 1,
-      };
-    } else {
-      newCart = [...prevCart, { ...product, quantity: 1 }];
-    }
+      if (existingIndex >= 0) {
+        newCart = [...prevCart];
+        newCart[existingIndex] = {
+          ...newCart[existingIndex],
+          quantity: newCart[existingIndex].quantity + 1,
+        };
+      } else {
+        newCart = [...prevCart, { ...product, quantity: 1 }];
+      }
 
 
       return newCart;
@@ -66,10 +66,10 @@ const handleAddToCart = (product) => {
     localStorage.setItem("basket", JSON.stringify(cartItems));
   }, [cartItems]);
 
-    useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
-  
+
   const toggleFavorite = (product) => {
     const isFav = favorites.find((f) => f.id === product.id);
     if (isFav) {
@@ -86,7 +86,7 @@ const handleAddToCart = (product) => {
       }
     });
   }, []);
-    useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
@@ -138,26 +138,26 @@ const handleAddToCart = (product) => {
 
   return (
     <>
-      <div className='mx-40'>
-        <div className='pt-25'>
-          <h3 className="text-3xl font-semibold mb-6  ">Our Products</h3>
-          <p className="  text-xl mb-5 ">
-            Discover our wide range of quality products
-          </p>
+      <div className='mx-4 sm:mx-10 md:mx-20 lg:mx-40'>
+        <div className='pt-20 sm:pt-20'>
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6">Our Products</h3>
+          <p className="text-base sm:text-xl mb-5">Discover our wide range of quality products</p>
         </div>
-        <div className="w-full max-w-8xl flex flex-wrap items-center gap-4 bg-[#F8F6F0] p-6  shadow-sm mt-5 border border-gray-200">
+
+        <div className="w-full max-w-8xl flex flex-wrap items-center gap-4 bg-[#F8F6F0] p-4 sm:p-6 shadow-sm mt-5 border border-gray-200">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="Search products..."
-            className="px-3 py-2 border border-gray-300 w-90 text-lg rounded-md focus:outline-none  focus:ring-1 focus:ring-gray-500"
+            className="px-3 py-2 border border-gray-300 w-full sm:w-[35%] text-lg rounded-md focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
 
-            className="px-3 py-2 border text-lg border-gray-300 rounded-md w-[23%]"
+            className="px-3 py-2 border text-lg border-gray-300 rounded-md w-full sm:w-[23%]"
+
             name="sort"
             id="sort"
 
@@ -178,14 +178,14 @@ const handleAddToCart = (product) => {
           <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
-            className="px-3 py-2 border text-lg border-gray-300 rounded-md w-[23%]"
+            className="px-3 py-2 border text-lg border-gray-300 rounded-md w-full sm:w-[23%]"
           >
             <option value="all">All Prices</option>
             <option value="under50">Under $50</option>
             <option value="50to200">$50 - $200</option>
             <option value="over200">Over $200</option>
           </select>
-          <select value={sort} onChange={(e) => setSort(e.target.value)} className="px-3 py-2 border text-lg border-gray-300 rounded-md  w-[23%]"
+          <select value={sort} onChange={(e) => setSort(e.target.value)} className="px-3 py-2 border text-lg border-gray-300 rounded-md w-full sm:w-[23%]"
           >
             <option value="name-asc">Name A-Z</option>
             <option value="price-asc"> Price Low to High</option>
@@ -195,8 +195,7 @@ const handleAddToCart = (product) => {
           </select>
         </div>
 
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14  mt-15 bg-[#FDFBF6]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-8 mt-10 bg-[#FDFBF6]">
 
           {sortedProducts.length ? (
             sortedProducts.map((p) => (
@@ -213,23 +212,24 @@ const handleAddToCart = (product) => {
                     {p.title}
                   </h3>
                   <span
-                    className="text-2xl cursor-pointer z-10"
+                     className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
+    text-lg sm:text-xl md:text-2xl"
                     onClick={() => toggleFavorite(p)}
                   >
                     {favorites.find((f) => f.id === p.id) ? (
-                      <FavoriteIcon className='text-red-800 absolute top-1  right-4 ' />
+                      <FavoriteIcon className="text-red-800 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                     ) : (
-                      <IoMdHeartEmpty  className='absolute top-1 right-4 '/>
+                      <IoMdHeartEmpty className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                     )}
                   </span>
 
- <Link to={`/product/${p.id}`} className="text-2xl cursor-pointer z-10">
-                  <img
-                    className="w-75 h-65 my-17 object-cover rounded"
-                    src={p.image}
-                    alt={p.title}
-                  />
-  </Link>
+                  <Link to={`/product/${p.id}`} className="text-2xl cursor-pointer z-10">
+                    <img
+                      className="w-75 h-65 my-17 object-cover rounded"
+                      src={p.image}
+                      alt={p.title}
+                    />
+                  </Link>
 
                   <div className="mb-4">
 
@@ -260,7 +260,7 @@ const handleAddToCart = (product) => {
                   type="submit"
 
                   id="submit"
-                       onClick={() => handleAddToCartWithSnackbar(p)}
+                  onClick={() => handleAddToCartWithSnackbar(p)}
                   className="bg-neutral-700 opacity-0 text-md w-full group-hover:opacity-100 flex justify-center gap-3 transition-opacity cursor-pointer duration-200 border border-black text-white px-6 py-2  shadow  mt-4"
                 >
 
@@ -281,12 +281,12 @@ const handleAddToCart = (product) => {
 
 
               </div>
-        ))
-        ) : (
-        <p>No products found.</p>
+            ))
+          ) : (
+            <p>No products found.</p>
           )}
-      </div>
-    </div >
+        </div>
+      </div >
     </>
   );
 };

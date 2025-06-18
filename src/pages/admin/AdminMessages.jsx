@@ -91,7 +91,8 @@ const handleDelete = async (id) => {
       dataIndex: 'action',
       width: '10%',
       render: (_, record) => (
-        <Button type="primary" danger onClick={() => handleDelete(record.id)}>
+        <Button type="primary" danger onClick={() => handleDelete(record.id)}
+        >
           Delete
         </Button>
       ),

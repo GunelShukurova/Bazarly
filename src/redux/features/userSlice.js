@@ -9,7 +9,9 @@ const initialState = { users: null, balance: 0 };
 
 async function initUser() {
   const userId = JSON.parse(localStorage.getItem("userId"));
+    console.log("userId from localStorage:", userId); 
   if (userId) {
+    
     const response = await getUserById(userId);
     const user = response.data;
 
@@ -30,6 +32,7 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     login(state, action) {
+      console.log('Redux user after login:', user);
       state.users = { ...action.payload };
     },
    updateBalance(state, action) {
@@ -38,12 +41,10 @@ const userSlice = createSlice({
   } else {
     state.users = { balance: action.payload };
   }
-},
+}, 
     updateProfile(state, action) {
       state.users = { ...state.users, ...action.payload };
-    }, updatePassword(state, action) {
-        state.users = { ...state.users, password: action.payload.newPassword };
-    },
+    }, 
    
     logout(state) {
       state.users = null;

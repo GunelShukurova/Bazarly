@@ -2,8 +2,6 @@
 import { Input, Modal, Table } from 'antd';
 import { useSnackbar } from 'notistack';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-
 import { Button } from 'antd';
 import { deleteProducts, getAllProducts, postProducts } from '../../services/products/requests';
 import { useEffect, useState } from 'react';
@@ -11,6 +9,7 @@ import addProductvalidationSchema from '../../validations/addProductValidations'
 
 
 const AdminProducts = () => {
+        const { enqueueSnackbar } = useSnackbar();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showAddModal = () => {
@@ -33,7 +32,7 @@ const AdminProducts = () => {
 
         }, validationSchema: addProductvalidationSchema,
         onSubmit: async (values, { resetForm }) => {
-        
+
 
             const formattedValues = {
                 ...values,
@@ -44,11 +43,11 @@ const AdminProducts = () => {
             };
 
             try {
-               
-                 const response = await postProducts(formattedValues); 
+
+                const response = await postProducts(formattedValues);
 
                 if (response?.data) {
-                   
+
                     setProducts(prev => [...prev, response.data]);
                     enqueueSnackbar("Product created successfully!", { variant: "success" });
                     setIsModalOpen(false);
@@ -65,7 +64,7 @@ const AdminProducts = () => {
 
 
 
-    const { enqueueSnackbar } = useSnackbar();
+
     useEffect(() => {
 
         getAllProducts().then((resp) => {
@@ -152,36 +151,26 @@ const AdminProducts = () => {
             dataIndex: 'action',
             width: '3%',
             render: (_, record) => (
-           
-                    <Button
-                        type="primary" color="red" variant="outlined"
-                        danger
-                        onClick={async () => {
-                            try {
-                                const res = await deleteProducts(record.id);
 
-                                if (res.data) {
-                                    setProducts(prev => prev.filter(p => p.id !== record.id));
-                                    enqueueSnackbar("Product deleted successfully!", {
-                                        autoHideDuration: 2000,
-                                        variant: "success",
-                                        anchorOrigin: {
-                                            vertical: "bottom",
-                                            horizontal: "right",
-                                        },
-                                    });
-                                } else {
-                                    enqueueSnackbar("Failed to delete product.", {
-                                        variant: "error",
-                                        autoHideDuration: 2000,
-                                        anchorOrigin: {
-                                            vertical: "bottom",
-                                            horizontal: "right",
-                                        },
-                                    });
-                                }
-                            } catch (error) {
-                                enqueueSnackbar("Server error. Try again later.", {
+                <Button
+                    type="primary" color="red" variant="outlined"
+                    danger
+                    onClick={async () => {
+                        try {
+                            const res = await deleteProducts(record.id);
+
+                            if (res.data) {
+                                setProducts(prev => prev.filter(p => p.id !== record.id));
+                                enqueueSnackbar("Product deleted successfully!", {
+                                    autoHideDuration: 2000,
+                                    variant: "success",
+                                    anchorOrigin: {
+                                        vertical: "bottom",
+                                        horizontal: "right",
+                                    },
+                                });
+                            } else {
+                                enqueueSnackbar("Failed to delete product.", {
                                     variant: "error",
                                     autoHideDuration: 2000,
                                     anchorOrigin: {
@@ -190,13 +179,23 @@ const AdminProducts = () => {
                                     },
                                 });
                             }
-                        }}
-                    >
-                        Delete
-                    </Button>
-                 
+                        } catch (error) {
+                            enqueueSnackbar("Server error. Try again later.", {
+                                variant: "error",
+                                autoHideDuration: 2000,
+                                anchorOrigin: {
+                                    vertical: "bottom",
+                                    horizontal: "right",
+                                },
+                            });
+                        }
+                    }}
+                >
+                    Delete
+                </Button>
 
-             
+
+
             )
         }
 
@@ -216,14 +215,15 @@ const AdminProducts = () => {
     return (
         <>
             <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 '>Products Management</h1>
-               <Button
-                        type="default"
-                        color="blue" variant="outlined"
-                        onClick={showAddModal}
-                  style={{ marginLeft: "97%", marginBottom: "10px" }}
-                    >
-                        Create
-                    </Button>
+            <Button
+       
+                type="primary"
+                onClick={showAddModal}
+                style={{ float: "right", marginRight: "3%", marginBottom: "10px" }}
+                
+            >
+                Create
+            </Button>
             <Table
                 columns={columns}
                 rowKey="id"
@@ -233,17 +233,15 @@ const AdminProducts = () => {
 
 
             <Modal
-    title="Add New Product"
-    closable
-    open={isModalOpen}
-    onCancel={handleAddCancel}
-    onOk={() => addFormik.handleSubmit()}
->
+                title="Add New Product"
+                closable
+                open={isModalOpen}
+                onCancel={handleAddCancel}
+          onOk={addFormik.submitForm}
+            >
 
-            
-                <form
-                    onSubmit={addFormik.handleSubmit}
-                    
+<form onSubmit={addFormik.handleSubmit}
+
                     className="flex flex-col gap-2 mt-3.5"
                 >
                     <Input

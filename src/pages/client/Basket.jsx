@@ -254,66 +254,75 @@ const Basket = () => {
     const subtotal = products.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
     const fixedTax = subtotal > 0 ? 0.62 : 0;
     const total = subtotal + fixedTax;
-    return <>
 
-        <div className="bg-[#FDFBF7] pt-15 grid grid-cols-1 sm:grid-cols-2 gap-10 mx-30">
-            <div className="w-[200%] py-4">
-                <div className="mx-10">
-                    <h3 className="text-3xl font-bold mb-6">Shopping Basket</h3>
-                    <p className="text-xl mb-10">Review your items before checkout</p>
+    return (
+        <>
+            <div className="bg-[#FDFBF7]  pt-15 grid grid-cols-1 xl:grid-cols-2 gap-10 px-4 sm:px-6 md:px-10 lg:px-20">
 
-                    <div
-                        className="flex justify-between items-center px-4 py-3 w-[60%] bg-[#eadfd2]"
+                <div className="w-full xl:w-full  py-4">
+                    <div className="mx-0 sm:mx-4 md:mx-8">
+                        <h3 className="text-2xl sm:text-3xl font-bold mb-6">Shopping Basket</h3>
+                        <p className="text-lg sm:text-xl mb-8">Review your items before checkout</p>
 
-                    >
-                        <span className="text-2xl font-semibold">
-                            Basket Items <span>({products.length})</span>
-                        </span>
-                        <Button danger onClick={handleClearAll}>Clear All</Button>
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 w-full bg-[#eadfd2] rounded-md">
+                            <span className="text-xl font-semibold mb-2 sm:mb-0">
+                                Basket Items <span>({products.length})</span>
+                            </span>
+                            <Button danger onClick={handleClearAll}>Clear All</Button>
+                        </div>
+
+                        <div className="overflow-x-auto mt-4">
+                            <Table
+                                className="min-w-[600px] md:min-w-full"
+                                columns={columns1}
+                                dataSource={products}
+                                rowKey="basketItemId"
+                                pagination={false}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4  sm:w-100 md:w-100  lg:w-110  rounded-lg w-full h-fit mt-10 xl:mt-35">
+                    <div>
+                        <h2 className="text-2xl font-bold text-gray-800">Order Summary</h2>
                     </div>
 
+                    <div className="flex justify-between text-sm text-gray-600">
+                        <span className="font-medium text-lg">Subtotal:</span>
+                        <span className="text-lg font-semibold text-gray-700">${subtotal.toFixed(2)}</span>
+                    </div>
 
-                    <Table className='w-[60%] ' columns={columns1} dataSource={products} rowKey="basketItemId"
-                    />
+                    <div className="flex justify-between text-sm text-gray-600">
+                        <span className="font-medium text-lg">Shipping:</span>
+                        <span className="text-gray-700 font-semibold text-lg">Free</span>
+                    </div>
+
+                    <div className="flex justify-between text-sm text-gray-600">
+                        <span className="font-medium text-lg">Tax:</span>
+                        <span className="text-gray-700 font-semibold text-lg">${fixedTax.toFixed(2)}</span>
+                    </div>
+
+                    <hr className="border-gray-400" />
+
+                    <div className="flex justify-between text-sm text-gray-600">
+                        <span className="font-bold text-xl text-gray-800">Total:</span>
+                        <span className="text-gray-700 font-semibold text-lg">${total.toFixed(2)}</span>
+                    </div>
+
+                    <div className="flex justify-between text-sm text-gray-600">
+                        <span className="font-bold text-xl text-gray-800">Your Balance:</span>
+                        <span className="text-gray-700 font-semibold text-lg">${balance}</span>
+                    </div>
+
+                    <button className="bg-[#ccbe94] border border-black text-lg px-6 py-2 cursor-pointer w-full sm:w-40 mt-5 hover:bg-[#d2c7a3]">
+                        Place Order
+                    </button>
                 </div>
-
             </div>
+        </>
+    );
 
-            <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4 ml-50 rounded-lg w-105 h-100 mt-35">
-
-                <div>
-                    <h2 className="text-2xl font-bold text-gray-800">Order Summary</h2>
-
-                </div>
-
-                <div className="flex justify-between text-sm text-gray-600">
-                    <span className="font-medium text-lg">Subtotal:</span>
-                    <span className='text-lg font-semibold text-gray-700'>${subtotal.toFixed(2)}</span>
-                </div>
-
-                <div className="flex justify-between text-sm text-gray-600">
-                    <span className="font-medium text-lg">Shipping:</span>
-                    <span className="text-gray-700 font-semibold text-lg">Free</span>
-                </div>
-
-                <div className="flex justify-between text-sm text-gray-600">
-                    <span className="font-medium text-lg">Tax:</span>
-                    <span className="text-gray-700 font-semibold text-lg">${fixedTax.toFixed(2)}</span>
-                </div>
-                <hr className='border-gray-600' />
-                <div className="flex justify-between text-sm text-gray-600">
-                    <span className="font-bold text-xl text-gray-800 ">Total:</span>
-                    <span className="text-gray-700 font-semibold text-lg">${total.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                    <span className="font-bold text-xl text-gray-800 ">Your Balance:</span>
-                    <span className="text-gray-700 font-semibold text-lg">${balance}</span>
-
-                </div>
-                <button className='bg-[#ccbe94]  border border-black  text-lg px-6 py-2 cursor-pointer w-40 mt-5 hover:bg-[#d2c7a3]'>Place Order</button>
-            </div>
-        </div>
-
-    </>
 }
 export default Basket;

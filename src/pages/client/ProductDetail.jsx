@@ -113,18 +113,18 @@ const ProductDetail = () => {
         <button onClick={() => navigate("/products")}  className="px-3 py-1 bg-[#ccbe94] mt-10 cursor-pointer hover:bg-[#b1a478]  text-white text-md font-semibold rounded-lg ">
           Back to Products
         </button>
-        <div className="grid grid-cols-2 gap-16 mt-10">
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-10">
 
 
-          <div className="flex ">
+        <div className="flex justify-center">
             <img
               src={product.image} alt={product.title}
-              className="w-full max-w-xl h-87 object-contain rounded-lg shadow-md"
+      className="w-full h-85 max-w-xl object-contain rounded-lg shadow-md"
             />
           </div>
           <div>
             <div className="bg-[#FDFBF7] p-6 rounded-lg shadow-md">
-              <h3 className="text-3xl font-semibold text-[#352411b5] mb-2">{product.title}</h3>
+           <h3 className="text-2xl sm:text-3xl font-semibold text-[#352411b5] mb-2">{product.title}</h3>
 
               <div className="text-2xl text-gray-700 mb-2">{product.category}</div>
 
@@ -149,7 +149,8 @@ const ProductDetail = () => {
                   In Stock ({product.inStock} available)
                 </div>
               </div>
-              <div className="flex items-center justify-between text-lg font-semibold text-gray-800">
+             <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between text-lg font-semibold text-gray-800">
+
                 <div className="flex items-center gap-4">
                   <span>Quantity</span>
                   <input
@@ -185,7 +186,7 @@ const ProductDetail = () => {
                         alt={review.fullName || "User Avatar"}
                       />
                     </div>
-                    <div className="flex flex-col ">
+               <div key={review.id} className="flex flex-col gap-4 mt-6 border-b border-gray-300 pb-4">
 
                       <span className="font-semibold pb-1 text-xl">{review.fullName}</span>
 
@@ -217,7 +218,8 @@ const ProductDetail = () => {
             </div>
           </div>
           <div>
-            <form onSubmit={handleReviewSubmit} className="w-full max-w-xl" id="add-review-form" >
+          <form onSubmit={handleReviewSubmit} className="w-full max-w-2xl" id="add-review-form">
+
               <div className="flex items-center gap-4">
 
 
@@ -256,7 +258,7 @@ const ProductDetail = () => {
                 type="submit"
                 disabled={isSubmitting || !reviewMessage || reviewRating === 0}
 
-                className="bg-[#ccbe94] cursor-pointer hover:bg-[#ada178]  text-white mt-5 mb-10 w-60 rounded px-2 py-4 "
+                className="bg-[#ccbe94] cursor-pointer hover:bg-[#ada178] text-white mt-5 mb-10 w-full sm:w-60 rounded px-2 py-4"
               >
                 Submit Review
               </button>

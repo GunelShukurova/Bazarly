@@ -18,6 +18,7 @@ export async function getAllProducts() {
 }
 
 export async function getProductsById(id) {
+    
     try {
         const response = await instance.get(`${endpoints.products}/${id}`);
         return {
@@ -32,6 +33,7 @@ export async function getProductsById(id) {
         }
     }
 }
+
 
 export async function postProducts(newProduct) {
   try {

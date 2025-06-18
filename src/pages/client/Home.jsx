@@ -8,7 +8,7 @@ import { IoMdTime } from "react-icons/io";
 
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../../services/products/requests.js";
-import { FaRegStar } from "react-icons/fa";
+
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -36,18 +36,19 @@ const Home = () => {
   return (
     <div>
       <Slider />
-
-      <div className="w-full max-w-3xl  mt-20 ml-30 flex justify-start items-center gap-4 bg-[#F8F6F0] p-3  shadow-sm border border-gray-200">
+      <div className="w-full max-w-3xl mt-20 mx-auto flex justify-start items-center gap-4 bg-[#F8F6F0] p-3 shadow-sm border border-gray-200">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search products..."
-          className="px-3 py-2 border border-gray-300 w-200 text-lg rounded-md focus:outline-none  focus:ring-1 focus:ring-gray-500"
+          className="px-3 py-2 border border-gray-300 w-full max-w-lg sm:max-w-sm md:max-w-md lg:max-w-3xl  text-lg rounded-md focus:outline-none focus:ring-1 focus:ring-gray-500"
+
+
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 mx-30 mt-15 bg-[#FDFBF6]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 mx-auto mt-15 bg-[#FDFBF6] px-4 sm:px-6 md:px-8">
 
         {filteredProducts.length ? (
           filteredProducts.map((p) => (
@@ -60,7 +61,7 @@ const Home = () => {
                   {p.title}
                 </h3>
                 <img
-                  className="w-75 h-65 my-17 object-cover rounded"
+                  className="w-full max-w-xs h-73 object-cover rounded my-4"
                   src={p.image}
                   alt={p.title}
                 />
@@ -109,78 +110,100 @@ const Home = () => {
 
       <div className="bg-[#FDFBF7] mt-10">
 
-        <div className="mx-30   py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-center sm:text-left">
+            What Our Customers Are Saying
+          </h3>
+          <p className="text-lg sm:text-xl mb-10 text-center sm:text-left">
+            Real feedback from people who love shopping with us.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
-          <div className="mx-10">
-            <h3 className="text-3xl font-semibold mb-6  ">What Our Customers Are Saying</h3>
-            <p className="  text-xl mb-10">
-              Real feedback from people who love shopping with us.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-
-
-              <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
-                <div className="flex gap-4">
-                  <img className="w-20 h-20 rounded-full" src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg" alt="" />
-                  <div className="flex flex-col gap-1">
-                    <span className="text-2xl">Sarah Johnson</span>
-                    <span className="text-lg">Verified Customer</span>
-
-                    <span className="flex  text-yellow-300 text-md" ><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></span>
+            <div className="bg-[#F8F6F0] p-6 flex flex-col gap-4 rounded shadow-sm">
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                  src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg"
+                  alt="Sarah Johnson"
+                />
+                <div>
+                  <h4 className="text-xl font-semibold">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-600">Verified Customer</p>
+                  <div className="flex text-yellow-400 mt-1" aria-label="5 star rating">
+                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                   </div>
-
                 </div>
-                <span className="text-xs mt-2 ml-1">10/07/2025</span>
-                <p className="text-xl"> "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"</p>
               </div>
-   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
-                <div className="flex gap-4">
-                  <img className="w-20 h-20 rounded-full" src="https://t4.ftcdn.net/jpg/08/39/18/57/360_F_839185796_7SD3gPHX6pBy3zJjDn6enficIw0unxwp.jpg" alt="" />
-                  <div className="flex flex-col gap-1">
-                    <span className="text-2xl">Mike Chen</span>
-                    <span className="text-lg">Verified Customer</span>
-
-                    <span className="flex text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaRegStar /> </span>
-                  </div>
-
-                </div>
-                <span className="text-xs mt-2 ml-1">15/05/2025</span>
-                <p className="text-xl"> "Amazing customer service and the website is so easy to use. Highly recommend!"</p>
-              </div>
-
-   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
-                <div className="flex gap-4">
-                  <img className="w-20 h-20 rounded-full" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                  <div className="flex flex-col gap-1">
-                    <span className="text-2xl">Emily Davis</span>
-                    <span className="text-lg">Verified Customer</span>
-
-                    <span className="flex  text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar /></span>
-                  </div>
-
-                </div>
-                <span className="text-xs mt-2 ml-1">10/07/2025</span>
-                <p className="text-xl"> "Great prices and excellent product quality. Bazarly is now my go-to online store."</p>
-              </div>
-
-   <div className="bg-[#F8F6F0]  p-6 flex flex-col gap-2 ">
-                <div className="flex gap-4">
-                  <img className="w-20 h-20 rounded-full" src="https://t3.ftcdn.net/jpg/06/39/64/14/360_F_639641415_lLjzVDVwL0RwdNrkURYFboc4N21YIXJR.jpg" alt="" />
-                  <div className="flex flex-col gap-1">
-                    <span className="text-2xl">Michael Lee</span>
-                    <span className="text-lg">Verified Customer</span>
-
-                    <span className="flex  text-yellow-300 text-md"><FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaRegStar /> </span>
-                  </div>
-
-                </div>
-                <span className="text-xs mt-2 ml-1">12/04/2024</span>
-                <p className="text-xl">"I love the variety Bazarly offers. From fresh produce to home essentials — it's all just one click away!""</p>
-              </div>
-
-
+              <time className="text-xs text-gray-500 ml-1">10/07/2025</time>
+              <p className="text-base sm:text-lg font-light text-gray-700 mt-2">
+                "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"
+              </p>
             </div>
+            <div className="bg-[#F8F6F0] p-6 flex flex-col gap-4 rounded shadow-sm">
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                  src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg"
+                  alt="Sarah Johnson"
+                />
+                <div>
+                  <h4 className="text-xl font-semibold">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-600">Verified Customer</p>
+                  <div className="flex text-yellow-400 mt-1" aria-label="5 star rating">
+                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                  </div>
+                </div>
+              </div>
+              <time className="text-xs text-gray-500 ml-1">10/07/2025</time>
+              <p className="text-base sm:text-lg font-light text-gray-700 mt-2">
+                "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"
+              </p>
+            </div>
+            <div className="bg-[#F8F6F0] p-6 flex flex-col gap-4 rounded shadow-sm">
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                  src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg"
+                  alt="Sarah Johnson"
+                />
+                <div>
+                  <h4 className="text-xl font-semibold">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-600">Verified Customer</p>
+                  <div className="flex text-yellow-400 mt-1" aria-label="5 star rating">
+                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                  </div>
+                </div>
+              </div>
+              <time className="text-xs text-gray-500 ml-1">10/07/2025</time>
+              <p className="text-base sm:text-lg font-light text-gray-700 mt-2">
+                "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"
+              </p>
+            </div>
+
+            <div className="bg-[#F8F6F0] p-6 flex flex-col gap-4 rounded shadow-sm">
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                  src="https://imgcdn.stablediffusionweb.com/2024/4/16/690a9263-47df-4bcd-af07-fa11264fc9d2.jpg"
+                  alt="Sarah Johnson"
+                />
+                <div>
+                  <h4 className="text-xl font-semibold">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-600">Verified Customer</p>
+                  <div className="flex text-yellow-400 mt-1" aria-label="5 star rating">
+                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                  </div>
+                </div>
+              </div>
+              <time className="text-xs text-gray-500 ml-1">10/07/2025</time>
+              <p className="text-base sm:text-lg font-light text-gray-700 mt-2">
+                "Bazarly has made my grocery shopping so much easier. Fast delivery and great quality products!"
+              </p>
+            </div>
+
+
           </div>
+
 
         </div>
       </div>
@@ -188,8 +211,8 @@ const Home = () => {
 
 
       <div className="bg-[#FDFBF7] mt-10">
-        <div className="mx-30   py-12">
-          <div className="grid grid-cols-2 gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="mx-10">
               <h3 className="text-3xl font-semibold mb-6  ">Bazarly Subscription</h3>
               <p className="  text-xl mb-10 ">
@@ -240,19 +263,17 @@ const Home = () => {
       </div>
 
       <div className="bg-[#F8F6F0] mt-10">
-        <div className="mx-30 py-12 text-center">
-          <h3 className="text-3xl text-centertext-2xl font-normal mb-6 ">
-            Ready to Start Shopping?
-          </h3>
-          <p className="text-gray-600 max-w-xl text-center mx-auto text-lg mb-10 ">
-            Join thousands of satisfied customers and discover the convenience of shopping with Bazarly.
+        <div className="max-w-xl mx-auto py-12 text-center px-4 sm:px-6">
+          <h3 className="text-3xl font-normal mb-6">Ready to Start Shopping?</h3>
+          <p className="text-gray-600 text-lg mb-10">
+            Join thousands of satisfied customers...
           </p>
-
-          <div className="flex justify-center">
-            <button   onClick={() => navigate("/products")} className="bg-white border text-lg border-black px-14 py-3 cursor-pointer hover:bg-gray-100 ">
-              Get Started Today
-            </button>
-          </div>
+          <button
+            onClick={() => navigate("/products")}
+            className="bg-white border border-black text-lg px-14 py-3 hover:bg-gray-100 cursor-pointer"
+          >
+            Get Started Today
+          </button>
         </div>
       </div>
 

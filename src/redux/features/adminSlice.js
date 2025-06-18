@@ -1,24 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserById } from "../../services/users/requests";
 
 
-  const adminId = JSON.parse(localStorage.getItem("userId"));
+
+
+const adminId = localStorage.getItem("adminId");
 
   const initialState = { admin: null };
 
 
-// if (JSON.parse(adminId)) {
+if (JSON.parse(adminId)) {
 
-// const response = await getUserById(adminId);
+const response = await getUserById(adminId);
 
-// const admin = response.data;
+const admin = response.data;
 
 
-//   if (admin?.id) {
-//     delete admin.password;
-//     initialState.admin = { ...admin };
-//   }} else {
-//   localStorage.setItem("adminId", JSON.stringify(null));
-// }
+  if (admin?.id) {
+    delete admin.password;
+    initialState.admin = { ...admin };
+  }} else {
+  localStorage.setItem("adminId", JSON.stringify(null));
+}
 
 
 const adminSlice = createSlice({

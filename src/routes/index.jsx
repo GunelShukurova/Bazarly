@@ -19,6 +19,7 @@ import Profile from '../pages/client/Profile';
 import Register from '../pages/client/Register';
 import AdminMessages from '../pages/admin/AdminMessages';
 import AdminProductsOrders from '../pages/admin/AdminProductsOrders';
+import ProtectedRoute from '../common/ProtectedRoute';
 
 const ROUTES = [
     {
@@ -26,27 +27,32 @@ const ROUTES = [
         path: "/admin",
         children: [
             {
-                index: true,
-                element: <Dashboard />
-            },
+                element: <ProtectedRoute role="admin" />,
+                children: [
+                    {
+                        index: true,
+                        element: <Dashboard />,
+                    },
+                    {
+                        path: "users",
+                        element: <AdminUser />,
+                    },
+                    {
+                        path: "/admin/products",
+                        element: <AdminProducts />,
+                    },
+                    {
+                        path: "/admin/messages",
+                        element: <AdminMessages />,
+                    },
+                    {
+                        path: "/admin/products/orders",
+                        element: <AdminProductsOrders />,
+                    },
 
-            {
-                path: "users",
-                element: <AdminUser />,
+                ],
             },
-            {
-                path: "/admin/products",
-                element: <AdminProducts />,
-            },
-            {
-                path: "/admin/messages",
-                element: <AdminMessages />,
-            },
-              {
-                path: "/admin/products/orders",
-                element: <AdminProductsOrders/>,
-            },
-        ]
+        ],
     },
     {
         element: <ClientLayout />,
@@ -73,22 +79,29 @@ const ROUTES = [
                 element: <ProductDetail />,
             },
             {
-                path: "profile",
-                element: <Profile />,
-            }, {
-                path: "favorites",
-                element: <Favorites />,
-            },
-            {
-                path: "basket",
-                element: <Basket />,
+                element: <ProtectedRoute role="client" />,
+                children: [
+                    {
+                        path: "profile",
+                        element: <Profile />,
+                    },
+                    {
+                        path: "favorites",
+                        element: <Favorites />,
+                    }, {
+                        path: "basket",
+                        element: <Basket />,
+                    },
+
+                ],
             },
             {
                 path: "*",
                 element: <NotFound />,
             },
         ],
-    }, {
+    },
+    {
         element: <AuthLayout />,
         children: [
             {

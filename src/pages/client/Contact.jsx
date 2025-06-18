@@ -54,17 +54,17 @@ const Contact = () => {
     return (
         <div>
             <div className="bg-[#FDFBF7] ">
-                <div className="grid grid-cols-1 sm:grid-cols-2  pt-15 mx-35">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 pt-15 px-4 sm:px-6 lg:px-20 gap-10">
                     <form
- onSubmit={formik.handleSubmit}
+                        onSubmit={formik.handleSubmit}
                         id="register-form"
-                        className="w-full max-w-2xl h-157 mx-auto mt-12  shadow-md  p-6 border rounded-lg mb-30"
+                   className="w-full max-w-2xl mx-auto mt-12 shadow-md p-6 border rounded-lg mb-10 sm:mb-0"
                     >
                         <h2 className="text-2xl  font-bold mt-5">
                             Send us a Message
                         </h2>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="flex flex-col">
                                 <label
                                     htmlFor="fullName"
@@ -171,7 +171,7 @@ const Contact = () => {
                         </div>
 
 
-                        <div className="flex flex-col w-full items-center">
+                          <div className="flex flex-col w-full items-center mt-6">
                             <button
                                 type="submit"
 
@@ -181,17 +181,19 @@ const Contact = () => {
                                     Object.entries(formik.errors).length > 0 ||
                                     !formik.dirty
                                 }
-                                className="bg-[#333333] border border-black text-white text-lg px-14 py-3 cursor-pointer w-full mt-10 hover:bg-neutral-800"
+                               className="bg-[#333333] border border-black text-white text-lg px-14 py-3 cursor-pointer w-full hover:bg-neutral-800 max-w-xs sm:max-w-full"
                             >
                                 Send Message
                             </button>
                         </div>
                     </form>
-                    <div className='mx-30'>
-                        <h3 className="text-2xl  font-bold mt-10">
+                 <div className='px-4 sm:px-0'>
+                        <h3 className="text-2xl font-bold mt-10 sm:mt-5">
                             Get in Touch
                         </h3>
-                        <p className='py-3'>Have questions about our products or services? We're here to help! Reach out to us through any of the following channels.</p>
+                        <p className='py-3 max-w-md'>
+                            Have questions about our products or services? We're here to help! Reach out to us through any of the following channels.
+                        </p>
                         <div className='flex flex-col gap-4'>
                             <div className='border bg-[#F8F6F0] p-5 rounded-lg border-gray-300'>
                                 <span className='text-xl font-semibold'>Email Us</span>
@@ -199,8 +201,6 @@ const Contact = () => {
                                     <span className='text-gray-700'>info@bazarly.com</span>
                                     <span className='text-gray-700'>support@bazarly.com</span>
                                 </div>
-
-
                             </div>
                             <div className='border bg-[#F8F6F0] p-5 rounded-lg border-gray-300'>
                                 <span className='text-xl font-semibold'>Call Us</span>
@@ -208,8 +208,6 @@ const Contact = () => {
                                     <span className='text-gray-700'>+1 (555) 123-4567</span>
                                     <span className='text-gray-700'>+1 (555) 987-6543</span>
                                 </div>
-
-
                             </div>
                             <div className='border bg-[#F8F6F0] p-5 rounded-lg border-gray-300'>
                                 <span className='text-xl font-semibold'>Visit Us</span>
@@ -218,8 +216,6 @@ const Contact = () => {
                                     <span className='text-gray-700'>Business District</span>
                                     <span className='text-gray-700'>New York, NY 10001</span>
                                 </div>
-
-
                             </div>
                             <div className='border bg-[#F8F6F0] p-5 rounded-lg border-gray-300'>
                                 <span className='text-xl font-semibold'>Business Hours</span>
@@ -228,13 +224,9 @@ const Contact = () => {
                                     <span className='text-gray-700'>Saturday: 10:00 AM - 4:00 PM</span>
                                     <span className='text-gray-700'>Sunday: Closed</span>
                                 </div>
-
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

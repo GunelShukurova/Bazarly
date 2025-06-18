@@ -8,7 +8,6 @@ export const store = configureStore({
   
   reducer: {
     user: userReducer,
-
     admin: adminReducer,
     usersManagement: usersManagementReducer,
   },
