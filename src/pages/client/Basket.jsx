@@ -10,6 +10,7 @@ const Basket = () => {
 
     const [balance, setBalance] = useState(0);
     const [products, setProducts] = useState([]);
+    console.log(products)
 
 
     const { enqueueSnackbar } = useSnackbar();
@@ -30,6 +31,7 @@ const Basket = () => {
 
             if (userRes.data && productsRes.data) {
                 const basketItems = userRes.data.basketItems || [];
+console.log(basketItems)
                 const allProducts = productsRes.data;
 
 
@@ -43,6 +45,8 @@ const Basket = () => {
                         basketItemId: basketItem.id,
                     };
                 }).filter(Boolean);
+
+                console.log("basket pro", basketProducts)
 
                 setProducts(basketProducts);
                 setBalance(userRes.data.balance);

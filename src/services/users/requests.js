@@ -54,6 +54,8 @@ return{
 }
 
 }
+
+
 const response = await instance.post(endpoints.users, newUser)
 
  
@@ -71,6 +73,26 @@ const response = await instance.post(endpoints.users, newUser)
         }
     }
 }
+
+
+export async function updateUserBasket(userId, basketItems) {
+  try {
+    const response = await instance.patch(`${endpoints.users}/${userId}`, {
+      basketItems,
+    });
+    return {
+      data: response.data,
+      message: "Basket updated successfully",
+    };
+  } catch (error) {
+    console.error("Failed to update basket", error);
+    return {
+      data: null,
+      message: "Failed to update basket",
+    };
+  }
+}
+
 
 
 export async function login(email, password) {

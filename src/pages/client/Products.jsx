@@ -5,7 +5,8 @@ import { getAllProducts } from '../../services/products/requests';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useSnackbar } from 'notistack';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import { updateUserBasket } from '../../services/users/requests';
 
 
 
@@ -13,13 +14,8 @@ const Products = () => {
 
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const [cartItems, setCartItems] = useState(() => {
-    
-    return 
-  });
-
-  const [favorites, setFavorites] = useState(() => {
+  const [cartItems, setCartItems] = useState([]);
+ const [favorites, setFavorites] = useState(() => {
     const stored = localStorage.getItem("favorites");
     return stored ? JSON.parse(stored) : [];
   });
@@ -30,31 +26,19 @@ const Products = () => {
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
 
+  const userId = JSON.parse(localStorage.getItem("userId") || "defaultUserId");
 
-  const handleAddToCartWithSnackbar = (product) => {
-    handleAddToCart(product);
-    enqueueSnackbar("Product added to cart", {
-      variant: "success",
-      autoHideDuration: 2000,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "right",
-      },
+  useEffect(() => {
+    getAllProducts().then((resp) => {
+      if (resp.data) {
+        setProducts(resp.data);
+      }
     });
-  };
+  }, []);
 
   const handleAddToCart = (product) => {
-
     setCartItems(prevCart => {
-      const existingIndex = prevCart.find(item => {
-        console.log("item id",item)
-
-      return  item.id === product.id
-      
-      });
-
-      // console.log("product",product.id)
-
+      const existingIndex = prevCart.findIndex(item => item.id === product.id);
       let newCart;
 
       if (existingIndex >= 0) {
@@ -67,17 +51,36 @@ const Products = () => {
         newCart = [...prevCart, { ...product, quantity: 1 }];
       }
 
+      updateUserBasket(userId, newCart)
+        .then(resp => {
+          if (!resp.data) {
+            enqueueSnackbar("Failed to update basket on server", { variant: "error" });
+          }
+        })
+        .catch(() => {
+          enqueueSnackbar("Server error while updating basket", { variant: "error" });
+        });
 
       return newCart;
     });
   };
+  const handleAddToCartWithSnackbar = (product) => {
+    handleAddToCart(product);
+    enqueueSnackbar("Product added to cart", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "right",
+      },
+    });
+  };
+
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+
 
   const toggleFavorite = (product) => {
     const isFav = favorites.find((f) => f.id === product.id);
@@ -88,13 +91,7 @@ const Products = () => {
     }
   };
 
-  useEffect(() => {
-    getAllProducts().then((resp) => {
-      if (resp.data) {
-        setProducts(resp.data);
-      }
-    });
-  }, []);
+
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
@@ -208,14 +205,13 @@ const Products = () => {
 
           {sortedProducts.length ? (
             sortedProducts.map((p) => (
-              
+
               <div key={p.id} className="max-w-lg  shadow-md overflow-hidden p-4 bg-[#F8F6F0] cursor-pointer relative group">
                 {p.isOnSale && (
                   <span className="absolute top-6 left-5 bg-red-800 text-white px-4 py-1 text-sm font-semibold rounded z-10">
                     {p.salePercentage}%
                   </span>
                 )}
-                {console.log("product",p.id)}
                 <div className='flex flex-col justify-center items-center relative'>
 
 
@@ -223,7 +219,7 @@ const Products = () => {
                     {p.title}
                   </h3>
                   <span
-                     className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
+                    className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
     text-lg sm:text-xl md:text-2xl"
                     onClick={() => toggleFavorite(p)}
                   >
@@ -300,5 +296,5 @@ const Products = () => {
       </div >
     </>
   );
-};
+}
 export default Products
