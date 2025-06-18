@@ -3,11 +3,11 @@
     {
       "id": "3f485a15-588c-4913-b2f1-a079b946db55",
       "username": "gunel",
-      "fullName": "Gunel Shukurova",
+      "fullName": "Gunel Shukurov",
       "balance": "1500.00",
       "email": "gunel53_80@mail.ru",
       "role": "client",
-      "phone": "",
+      "phone": "+994 50 705 57 22",
       "basketItems": [
         {
           "id": "1",
@@ -22,7 +22,7 @@
           "salePercentage": 0,
           "brand": "Herschel",
           "price": 89,
-          "quantity": 1
+          "quantity": 3
         },
         {
           "id": "2",
@@ -37,28 +37,58 @@
           "salePercentage": 0,
           "brand": "Apple",
           "price": 999.99,
+          "quantity": 2
+        },
+        {
+          "id": "11",
+          "title": "Logitech Wireless Mouse",
+          "image": "https://resource.logitech.com/b_white/content/dam/logitech/en/products/mice/m220/gallery/m220-rose-gallery-1.png",
+          "category": "electronics",
+          "available": true,
+          "description": "Ergonomic wireless mouse with long battery life.",
+          "rating": 3.4,
+          "inStock": 40,
+          "isOnSale": false,
+          "salePercentage": 0,
+          "brand": "Logitech",
+          "price": 29.99,
           "quantity": 1
         },
         {
-          "id": "3",
-          "title": "Samsung Galaxy Buds Pro",
-          "image": "https://images.samsung.com/is/image/samsung/p6pim/az/2407/gallery/az-galaxy-buds3-pro-r630-sm-r630nzaacis-thumb-542473606?$UX_EXT2_PNG$",
+          "id": "5",
+          "title": "Adidas Running T-shirt",
+          "image": "https://www.sportsdirect.com/images/products/62344203_l.jpg",
+          "category": "clothing",
+          "available": true,
+          "description": "Lightweight, breathable fabric for runners.",
+          "rating": 4.3,
+          "inStock": 35,
+          "isOnSale": false,
+          "salePercentage": 0,
+          "brand": "Adidas",
+          "price": 25,
+          "quantity": 1
+        },
+        {
+          "id": "8",
+          "title": "Sony WH-1000XM5",
+          "image": "https://almali.az/wp-content/uploads/2024/11/103364_original_local_1200x1050_v3_converted.webp",
           "category": "electronics",
           "available": true,
-          "description": "Noise cancelling wireless earbuds with premium sound.",
-          "rating": 3.5,
-          "inStock": 30,
+          "description": "Industry-leading noise canceling headphones.",
+          "rating": 3.8,
+          "inStock": 22,
           "isOnSale": true,
-          "salePercentage": 20,
-          "brand": "Samsung",
-          "price": 199.99,
+          "salePercentage": 12,
+          "brand": "Sony",
+          "price": 379,
           "quantity": 1
         }
       ],
       "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
       "isBanned": false,
       "banDate": null,
-      "password": "salam123",
+      "password": "Salam123!",
       "createdAt": "2025-06-01T10:15:30.000Z",
       "lastLogin": "2025-06-10T18:42:00.000Z",
       "address": {
@@ -384,326 +414,24 @@
       "createdAt": "2025-06-17T12:34:56.789Z"
     },
     {
-      "id": "ebbb",
-      "userId": "ffff",
-      "productId": "3",
-      "message": "аааааааа",
-      "rating": 2
-    },
-    {
-      "id": "63b0",
-      "productId": "3",
-      "message": "аааааа",
-      "rating": 1
-    },
-    {
-      "id": "2a99",
-      "productId": "3",
-      "comment": "аппппп",
-      "rating": 2
-    },
-    {
-      "id": "0367",
-      "productId": "3",
-      "comment": "ааааааааааа",
-      "rating": 4
-    },
-    {
-      "id": "e1ee",
-      "productId": "2",
-      "comment": "вааааа",
-      "rating": 3
-    },
-    {
-      "id": "a3f1",
-      "productId": "2",
-      "comment": "вааааа",
-      "rating": 2
-    },
-    {
-      "id": "f672",
-      "userId": null,
-      "productId": "2",
-      "comment": "dddddd",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "21eb",
-      "userId": null,
-      "productId": "2",
-      "comment": "ddddd",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "8ada",
-      "userId": null,
-      "productId": "2",
-      "comment": "ddddd",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "7f7e",
-      "userId": null,
-      "productId": "2",
-      "comment": "ввввв",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "366b",
-      "userId": null,
-      "productId": "2",
-      "comment": "ввввв",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "6e0e",
-      "userId": null,
-      "productId": "2",
-      "comment": "ffff",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "409c",
-      "userId": null,
-      "productId": "2",
-      "comment": "cccc",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "cf79",
-      "userId": null,
-      "productId": "2",
-      "comment": "d",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "175e",
-      "userId": null,
-      "productId": "2",
-      "comment": "ss",
-      "rating": 1,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "e257",
-      "userId": null,
-      "productId": "2",
-      "comment": "ss",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "2121",
-      "userId": null,
-      "productId": "2",
-      "comment": "ggg",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "fb68",
-      "userId": null,
-      "productId": "2",
-      "comment": "dddd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "e58b",
-      "userId": null,
-      "productId": "2",
-      "comment": "dd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "99e0",
-      "userId": null,
-      "productId": "2",
-      "comment": "ddd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "1029",
-      "userId": null,
-      "productId": "2",
-      "comment": "xxx",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "1d70",
-      "userId": null,
-      "productId": "2",
-      "comment": "dd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "e4a6",
-      "userId": null,
+      "id": "25b8",
+      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
       "productId": "2",
       "comment": "сссс",
       "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
+      "fullName": "Gunel Shukurov",
+      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
+      "createdAt": "2025-06-18T12:59:56.081Z"
     },
     {
-      "id": "202e",
-      "userId": null,
+      "id": "128f",
+      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
       "productId": "2",
-      "comment": "ddddd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "fcf0",
-      "userId": null,
-      "productId": "2",
-      "comment": "ddd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "ea6e",
-      "userId": null,
-      "productId": "2",
-      "comment": "ffff",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "9321",
-      "userId": null,
-      "productId": "2",
-      "comment": "dddd",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg"
-    },
-    {
-      "id": "7771",
-      "userId": null,
-      "productId": "2",
-      "comment": "CCC",
+      "comment": "сссс",
       "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T02:10:14.760Z"
-    },
-    {
-      "id": "56e3",
-      "userId": null,
-      "productId": "2",
-      "comment": "dddd",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T02:11:53.888Z"
-    },
-    {
-      "id": "c154",
-      "userId": null,
-      "productId": "2",
-      "comment": "fffff",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T10:07:43.380Z"
-    },
-    {
-      "id": "83b7",
-      "userId": null,
-      "productId": "2",
-      "comment": "ddddd",
-      "rating": 2,
-      "createdAt": "2025-06-17T13:21:59.378Z"
-    },
-    {
-      "id": "6af8",
-      "userId": null,
-      "productId": "2",
-      "comment": "sssss",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T19:43:18.226Z"
-    },
-    {
-      "id": "faa2",
-      "userId": null,
-      "productId": "2",
-      "comment": "aaaaaa",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T19:43:25.726Z"
-    },
-    {
-      "id": "a367",
-      "userId": null,
-      "productId": "2",
-      "comment": "ffff",
-      "rating": 2,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T19:45:21.007Z"
-    },
-    {
-      "id": "0703",
-      "userId": null,
-      "productId": "2",
-      "comment": "вввв",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t3.ftcdn.net/jpg/06/29/98/28/360_F_629982867_RseVumFhDVnOiFu4AxQ0Cw43eexAhgSH.jpg",
-      "createdAt": "2025-06-17T19:48:07.606Z"
-    },
-    {
-      "id": "435c",
-      "userId": null,
-      "productId": "2",
-      "comment": "ffff",
-      "rating": 2,
-      "createdAt": "2025-06-17T20:12:31.472Z"
-    },
-    {
-      "id": "c375",
-      "userId": "1265",
-      "productId": "2",
-      "comment": "ааа",
-      "rating": 3,
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg",
-      "createdAt": "2025-06-17T22:19:12.403Z"
+      "fullName": "Gunel Shukurov",
+      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
+      "createdAt": "2025-06-18T13:00:07.309Z"
     }
   ]
 }
