@@ -214,7 +214,7 @@ onSubmit: async (values, actions) => {
             <tr key={order.id}>
               <td className="py-2 px-4">#{order.id}</td>
               <td className="py-2 px-4">{moment(order.createdAt).format('YYYY-MM-DD')}</td>
-              <td className="py-2 px-4">{order.items.length} items</td>
+           {Array.isArray(order.items) ? `${order.items.length} items` : "No items"}
               <td className="py-2 px-4">${order.totalPrice.toFixed(2)}</td>
               <td className="py-2 px-4 text-green-600 font-semibold">{order.status}</td>
             </tr>

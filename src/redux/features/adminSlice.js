@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUserById } from "../../services/users/requests";
 
 
-
-
 const adminId = localStorage.getItem("adminId");
 
   const initialState = { admin: null };
