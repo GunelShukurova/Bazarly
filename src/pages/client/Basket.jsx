@@ -282,7 +282,7 @@ const Basket = () => {
                         </div>
                     </div>
                 </div>
-
+  
 
                 <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4  sm:w-100 md:w-100  lg:w-110  rounded-lg w-full h-fit mt-10 xl:mt-35">
                     <div>

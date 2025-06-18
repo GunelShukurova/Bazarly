@@ -23,85 +23,41 @@ const Login = () => {
       password: "",
     },
     validationSchema: loginValidationSchema,
-    onSubmit: async (values, actions) => {
+   onSubmit: async (values, actions) => {
+  const response = await getAllUsers();
+  const users = response.data || [];
 
-      const response = await getAllUsers();
-      const users = response.data || [];
+  const validUser = users.find(
+    (u) =>
+      u.email === values.email &&
+      u.password === values.password &&
+      u.role === "client"
+  );
 
-      const validUser = users.find(
-        (u) =>
-          u.email === values.email &&
-          u.password === values.password &&
-          u.role === "client"
-      );
-      if (validUser) {
-        if (validUser.isBanned) {
-          const now = new Date();
-          const banUntil = new Date(validUser.banUntil);
-          const timeDifferenceMs = banUntil.getTime() - now.getTime();
-          const remainedMinutes =
-            Math.floor(timeDifferenceMs / 1000 / 60) - 240;
+  if (!validUser) {
+    enqueueSnackbar("Invalid credentials", {
+      variant: "error",
+      autoHideDuration: 2000,
+      anchorOrigin: { vertical: "bottom", horizontal: "right" },
+    });
+    actions.resetForm();
+    return;
+  }
 
-          if (remainedMinutes > 0) {
-            enqueueSnackbar(
-              `your account has been banned, come back after ${remainedMinutes} minutes`,
-              {
-                variant: "warning",
-                autoHideDuration: 2000,
-                anchorOrigin: {
-                  vertical: "bottom",
-                  horizontal: "right",
-                },
-              }
-            );
-          } else {
-            actions.resetForm();
-            await update(validUser.id, {
-              isBanned: false,
-              banUntil: null,
-            });
-            enqueueSnackbar("user sign in successfully", {
-              variant: "success",
-              autoHideDuration: 2000,
-              anchorOrigin: {
-                vertical: "bottom",
-                horizontal: "right",
-              },
-            });
-            const user = { ...validUser };
-            delete user.password;
-            localStorage.setItem("userId", JSON.stringify(user.id));
-            dispatch(login(user));
-            navigate("/profile");
-          }
-        } else {
-          actions.resetForm();
-          enqueueSnackbar("user sign in successfully", {
-            variant: "success",
-            autoHideDuration: 2000,
-            anchorOrigin: {
-              vertical: "bottom",
-              horizontal: "right",
-            },
-          });
-          const user = { ...validUser };
-          delete user.password;
-          localStorage.setItem("userId", JSON.stringify(user.id));
-          dispatch(login(user));
-          navigate("/profile");
-        }
-      } else {
-        enqueueSnackbar("invalid credentials", {
-          variant: "error",
-          autoHideDuration: 2000,
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "right",
-          },
-        });
-        actions.resetForm();
-      }
-    },
+  actions.resetForm();
+  enqueueSnackbar("User signed in successfully!", {
+    variant: "success",
+    autoHideDuration: 2000,
+    anchorOrigin: { vertical: "bottom", horizontal: "right" },
+  });
+
+  const user = { ...validUser };
+  delete user.password;
+  localStorage.setItem("userId", JSON.stringify(user.id));
+  dispatch(login(user));
+  navigate("/profile");
+},
+
   });
   return (
     <div className='flex justify-center items-center mt-20'>

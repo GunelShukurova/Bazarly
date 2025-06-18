@@ -15,8 +15,8 @@ const Products = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [cartItems, setCartItems] = useState(() => {
-    const storedBasket = localStorage.getItem('basket');
-    return storedBasket ? JSON.parse(storedBasket) : [];
+    
+    return 
   });
 
   const [favorites, setFavorites] = useState(() => {
@@ -44,8 +44,17 @@ const Products = () => {
   };
 
   const handleAddToCart = (product) => {
+
     setCartItems(prevCart => {
-      const existingIndex = prevCart.findIndex(item => item.id === product.id);
+      const existingIndex = prevCart.find(item => {
+        console.log("item id",item)
+
+      return  item.id === product.id
+      
+      });
+
+      // console.log("product",product.id)
+
       let newCart;
 
       if (existingIndex >= 0) {
@@ -199,12 +208,14 @@ const Products = () => {
 
           {sortedProducts.length ? (
             sortedProducts.map((p) => (
+              
               <div key={p.id} className="max-w-lg  shadow-md overflow-hidden p-4 bg-[#F8F6F0] cursor-pointer relative group">
                 {p.isOnSale && (
                   <span className="absolute top-6 left-5 bg-red-800 text-white px-4 py-1 text-sm font-semibold rounded z-10">
                     {p.salePercentage}%
                   </span>
                 )}
+                {console.log("product",p.id)}
                 <div className='flex flex-col justify-center items-center relative'>
 
 

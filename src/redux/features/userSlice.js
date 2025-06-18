@@ -27,14 +27,15 @@ async function initUser() {
 
 await initUser();
 
-const userSlice = createSlice({
+const userSlice = createSlice({   
   name: "users",
   initialState: initialState,
   reducers: {
-    login(state, action) {
-      console.log('Redux user after login:', user);
-      state.users = { ...action.payload };
-    },
+   login(state, action) {
+  console.log('Redux user after login:', action.payload);
+  state.users = { ...action.payload };
+  state.balance = action.payload.balance || 0;
+},
    updateBalance(state, action) {
   if (state.users) {
     state.users.balance = action.payload;
