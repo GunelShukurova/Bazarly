@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import { useSnackbar } from 'notistack';
@@ -7,6 +7,7 @@ import { createOrder, fetchUserBasket, getUserById, updateUserBalance } from '..
 import { clearUserCart, deleteCartItem, updateCartItem } from '../../services/basket/requests';
 
 import { Modal, Form } from 'antd';
+
 
 
 const Basket = () => {
@@ -51,6 +52,20 @@ const Basket = () => {
       createdAt: new Date().toISOString(),
       status: "pending"
     };
+
+
+const handleRemove = async (basketItemId) => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    try {
+        await deleteCartItem(userId, basketItemId);
+        const newProducts = product.filter(item => item.id !== basketItemId);
+        updateBasket(newProducts); 
+        setProducts(newProducts);  
+        enqueueSnackbar("Product successfully removed from cart", { variant: "success" });
+    } catch (error) {
+        enqueueSnackbar("Error removing product from cart", { variant: "error" });
+    }
+}
 
 
     await createOrder(order); 

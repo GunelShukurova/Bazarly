@@ -9,20 +9,17 @@ import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
 import { fetchUserBasket, updateUserBasket } from '../../services/users/requests';
 import { v4 as uuidv4 } from 'uuid';
+import { useCart } from '../../context/cartContext';
+import { useFavorites } from '../../context/favoriteContext';
+
 
 
 const Products = () => {
 
-
+  const { favorites, setFavorites } = useFavorites();
+  const { cartItems, setCartItems } = useCart();
   const { enqueueSnackbar } = useSnackbar();
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem("basket");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [favorites, setFavorites] = useState(() => {
-    const stored = localStorage.getItem("favorites");
-    return stored ? JSON.parse(stored) : [];
-  });
+
 
 
   const [products, setProducts] = useState([]);
@@ -31,29 +28,29 @@ const Products = () => {
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
 
-  const userId = JSON.parse(localStorage.getItem("userId") || "defaultUserId");
+  const userId = JSON.parse(localStorage.getItem("userId") || "null");
 
-const renderStars = (rating, maxRating = 5) => {
-  const filled = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
-  const empty = maxRating - filled - (half ? 1 : 0);
+  const renderStars = (rating, maxRating = 5) => {
+    const filled = Math.floor(rating);
+    const half = rating % 1 >= 0.5;
+    const empty = maxRating - filled - (half ? 1 : 0);
 
-  const stars = [];
+    const stars = [];
 
-  for (let i = 0; i < filled; i++) {
-    stars.push(<FaStar key={`filled-${i}`} className="text-yellow-500" />);
-  }
+    for (let i = 0; i < filled; i++) {
+      stars.push(<FaStar key={`filled-${i}`} className="text-yellow-500" />);
+    }
 
-  if (half) {
-    stars.push(<StarHalfIcon key="half" className="text-yellow-500" />);
-  }
+    if (half) {
+      stars.push(<StarHalfIcon key="half" className="text-yellow-500" />);
+    }
 
-  for (let i = 0; i < empty; i++) {
-    stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
-  }
+    for (let i = 0; i < empty; i++) {
+      stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
+    }
 
-  return stars;
-};
+    return stars;
+  };
 
 
 
@@ -65,59 +62,51 @@ const renderStars = (rating, maxRating = 5) => {
     });
   }, []);
 
-  const handleAddToCart = (product) => {
-    setCartItems(prevCart => {
-      const existingIndex = prevCart.findIndex(item => item.id === product.id);
-      let newCart;
+const handleAddToCart = (product) => {
+  setCartItems(prevCart => {
+    const existingIndex = prevCart.findIndex(item => item.id === product.id);
+    let newCart;
 
-      if (existingIndex >= 0) {
-        newCart = [...prevCart];
-        newCart[existingIndex] = {
-          ...newCart[existingIndex],
-          quantity: newCart[existingIndex].quantity + 1,
-        };
-      } else {
-       newCart = [
-  ...prevCart,
-  {
-    ...product,
-          userId: userId, 
+    if (existingIndex >= 0) {
+      newCart = [...prevCart];
+      newCart[existingIndex] = {
+        ...newCart[existingIndex],
+        quantity: newCart[existingIndex].quantity + 1,
+      };
+    } else {
+      newCart = [
+        ...prevCart,
+        {
+          ...product,
+          userId: userId,
+          quantity: 1
+        }
+      ];
+    }
 
-              
-    quantity: 1
-  }
-];
-      }
+    updateUserBasket(userId, newCart)
+      .then(resp => {
+        if (!resp.data) {
+          enqueueSnackbar("Failed to update basket on server", { variant: "error" });
+        }
+      })
+      .catch(() => {
+        enqueueSnackbar("Server error while updating basket", { variant: "error" });
+      });
 
-      updateUserBasket(userId, newCart)
-        .then(resp => {
-          if (!resp.data) {
-            enqueueSnackbar("Failed to update basket on server", { variant: "error" });
-          }
-        })
-        .catch(() => {
-          enqueueSnackbar("Server error while updating basket", { variant: "error" });
-        });
+    return newCart;
+  });
 
-      return newCart;
-    });
-  };
+  enqueueSnackbar("Product added to cart", { variant: "success" });
+};
 
   const handleAddToCartWithSnackbar = (product) => {
     handleAddToCart(product);
-    enqueueSnackbar("Product added to cart", {
-      variant: "success",
-      autoHideDuration: 2000,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "right",
-      },
-    });
+    enqueueSnackbar("Product added to cart", { variant: "success" });
   };
 
-  useEffect(() => {
-    localStorage.setItem("basket", JSON.stringify(cartItems));
-  }, [cartItems]);
+
+
   useEffect(() => {
     if (userId !== "defaultUserId") {
       fetchUserBasket(userId).then(resp => {
@@ -132,30 +121,17 @@ const renderStars = (rating, maxRating = 5) => {
   }, [userId]);
 
 
-const toggleFavorite = (product) => {
-  const isFav = favorites.find((f) => f.id === product.id);
-  if (isFav) {
-    setFavorites(favorites.filter((f) => f.id !== product.id));
-    enqueueSnackbar("Removed from favorites", {
-      variant: "success",
-      autoHideDuration: 2000,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "right",
-      },
-    });
-  } else {
-    setFavorites([...favorites, product]);
-    enqueueSnackbar("Added to favorites", {
-      variant: "success",
-      autoHideDuration: 2000,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "right",
-      },
-    });
-  }
-};
+  const toggleFavorite = (product) => {
+    const isFav = favorites.find(f => f.id === product.id);
+
+    if (isFav) {
+      setFavorites(favorites.filter(f => f.id !== product.id));
+      enqueueSnackbar("Removed from favorites", { variant: "success" });
+    } else {
+      setFavorites([...favorites, product]);
+      enqueueSnackbar("Added to favorites", { variant: "success" });
+    }
+  };
 
 
   useEffect(() => {
@@ -284,17 +260,20 @@ const toggleFavorite = (product) => {
                   <h3 className="text-xl text-center text-shadow-neutral-600 font-normal mb-2 mt-2 ">
                     {p.title}
                   </h3>
-                  <span
-                    className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
+                  {userId && (
+                    <span
+                      className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
     text-lg sm:text-xl md:text-2xl"
-                    onClick={() => toggleFavorite(p)}
-                  >
-                    {favorites.find((f) => f.id === p.id) ? (
-                      <FavoriteIcon className="text-red-800 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-                    ) : (
-                      <IoMdHeartEmpty className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-                    )}
-                  </span>
+                      onClick={() => toggleFavorite(p)}
+                    >
+                      {favorites.find((f) => f.id === p.id) ? (
+                        <FavoriteIcon className="text-red-800 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                      ) : (
+                        <IoMdHeartEmpty className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                      )}
+                    </span>
+                  )}
+
 
                   <Link to={`/product/${p.id}`} className="text-2xl cursor-pointer z-10">
                     <img
@@ -315,11 +294,11 @@ const toggleFavorite = (product) => {
                   </div>
                   <div className="flex items-center justify-between text-sm text-gray-700">
 
-                 <div className="flex items-center gap-1 text-lg text-[#352411b5]">
-  {renderStars(p.rating)}
-  <span className="ml-1 text-[#352411b5]">{p.rating}</span>
+                    <div className="flex items-center gap-1 text-lg text-[#352411b5]">
+                      {renderStars(p.rating)}
+                      <span className="ml-1 text-[#352411b5]">{p.rating}</span>
 
-</div>
+                    </div>
                   </div>
                   <div className="mt-2 text-md text-[#352411b5] text-md font-medium"> {p.inStock}  in stock</div>
                 </div>
@@ -328,7 +307,7 @@ const toggleFavorite = (product) => {
                   type="submit"
 
                   id="submit"
-                  onClick={() => handleAddToCartWithSnackbar(p)}
+           onClick={() => handleAddToCart(p)}
                   className="bg-neutral-700 opacity-0 text-md w-full group-hover:opacity-100 flex justify-center gap-3 transition-opacity cursor-pointer duration-200 border border-black text-white px-6 py-2  shadow  mt-4"
                 >
 
