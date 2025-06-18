@@ -33,6 +33,8 @@ const Home = () => {
   (p.description?.toLowerCase() || "").includes(search.toLowerCase())
 );
 
+
+
   return (
     <div>
       <Slider />

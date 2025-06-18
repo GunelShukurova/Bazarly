@@ -8,10 +8,14 @@ export const getUserCart = async (userId) => {
 };
 
 
-export const addToCart = async (userId, item) => {
-  return await instance.post(`${endpoints.users}/${userId}/basketItems`, item);
-};
+export const addToCart = async (userId, newItem) => {
+  const user = await instance.get(`${endpoints.users}/${userId}`);
+  const updatedBasketItems = [...user.data.basketItems, newItem];
 
+  return await instance.patch(`${endpoints.users}/${userId}`, {
+    basketItems: updatedBasketItems,
+  });
+};
 
 export const updateCartItem = async (userId, itemId, newQuantity) => {
   const user = await instance.get(`${endpoints.users}/${userId}`);

@@ -111,6 +111,22 @@
           "brand": "Apple",
           "price": 999.99,
           "userId": "795d",
+          "quantity": 1
+        },
+        {
+          "id": "1",
+          "title": "Herschel Retreat Backpack",
+          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
+          "category": "accessories",
+          "available": true,
+          "description": "Classic design backpack with laptop sleeve.",
+          "rating": 3.3,
+          "inStock": 44,
+          "isOnSale": false,
+          "salePercentage": 0,
+          "brand": "Herschel",
+          "price": 89,
+          "userId": "795d",
           "quantity": 5
         }
       ]
@@ -408,16 +424,6 @@
       "fullName": "Gunel Shukurov",
       "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
       "createdAt": "2025-06-18T12:59:56.081Z"
-    },
-    {
-      "id": "128f",
-      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
-      "productId": "2",
-      "comment": "сссс",
-      "rating": 3,
-      "fullName": "Gunel Shukurov",
-      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "createdAt": "2025-06-18T13:00:07.309Z"
     }
   ]
 }

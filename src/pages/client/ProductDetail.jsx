@@ -14,6 +14,7 @@ import moment from "moment";
 import { useNavigate } from 'react-router-dom';
 
 import { useSnackbar } from "notistack";
+import { updateUserBasket } from "../../services/users/requests";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -26,9 +27,43 @@ const ProductDetail = () => {
   const [reviews, setReviews] = useState([]);
   const [reviewRating, setReviewRating] = useState(0);
 
-  const user = useSelector((state) => state.user.users);
 
-const { enqueueSnackbar } = useSnackbar();
+  const [cartItems, setCartItems] = useState(() => {
+
+    const saved = localStorage.getItem("basket");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [quantity, setQuantity] = useState(1);
+
+  const user = useSelector((state) => state.user.users);
+  const userId = user?.id || "defaultUserId";
+
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem("favorites");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const toggleFavorite = () => {
+    setFavorites(prevFavorites => {
+      let newFavorites;
+
+      const isAlreadyFavorite = prevFavorites.some(item => item.id === product.id);
+
+      if (isAlreadyFavorite) {
+
+        newFavorites = prevFavorites.filter(item => item.id !== product.id);
+        enqueueSnackbar("Product removed from favorites", { variant: "success" });
+      } else {
+
+        newFavorites = [...prevFavorites, product];
+        enqueueSnackbar("Product added to favorites", { variant: "success" });
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  };
+  const { enqueueSnackbar } = useSnackbar();
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -51,7 +86,7 @@ const { enqueueSnackbar } = useSnackbar();
 
         setReviewMessage("");
         setReviewRating(0);
-       await rewId();
+        await rewId();
       } else {
         console.error(message);
       }
@@ -61,35 +96,35 @@ const { enqueueSnackbar } = useSnackbar();
       setIsSubmitting(false);
     }
   };
-const handleDeleteReview = async (reviewId) => {
- 
+  const handleDeleteReview = async (reviewId) => {
 
-  try {
-    const { success, message } = await deleteReview(reviewId);
-    if (success) {
-      await rewId();
-      enqueueSnackbar("Review deleted successfully!", {
-        variant: "success",
-        autoHideDuration: 2000,
-        anchorOrigin: { vertical: "bottom", horizontal: "right" },
-      });
-    } else {
-      console.error(message);
+
+    try {
+      const { success, message } = await deleteReview(reviewId);
+      if (success) {
+        await rewId();
+        enqueueSnackbar("Review deleted successfully!", {
+          variant: "success",
+          autoHideDuration: 2000,
+          anchorOrigin: { vertical: "bottom", horizontal: "right" },
+        });
+      } else {
+        console.error(message);
+      }
+    } catch (error) {
+      console.error("Error deleting review:", error);
     }
-  } catch (error) {
-    console.error("Error deleting review:", error);
-  }
-};
+  };
 
   const rewId = async () => {
-  try {
-    const response = await getReviewsByProductId(id);
-    console.log("Fetched reviews from server:", response.data);
-    setReviews(response.data);
-  } catch (err) {
-    console.error("Error fetching reviews:", err);
-  }
-};
+    try {
+      const response = await getReviewsByProductId(id);
+      console.log("Fetched reviews from server:", response.data);
+      setReviews(response.data);
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+    }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -106,6 +141,58 @@ const handleDeleteReview = async (reviewId) => {
 
     rewId();
   }, [id]);
+
+  const handleQuantityChange = (e) => {
+    const val = Number(e.target.value);
+    if (val < 1) {
+      setQuantity(1);
+    } else if (val > product.inStock) {
+      setQuantity(product.inStock);
+    } else {
+      setQuantity(val);
+    }
+  };
+
+  const handleAddToCart = () => {
+    setCartItems(prevCart => {
+      const existingIndex = prevCart.findIndex(item => item.id === product.id);
+      let newCart;
+
+      if (existingIndex >= 0) {
+
+        const newQuantity = prevCart[existingIndex].quantity + quantity;
+        newCart = [...prevCart];
+        newCart[existingIndex] = {
+          ...newCart[existingIndex],
+          quantity: newQuantity > product.inStock ? product.inStock : newQuantity,
+        };
+      } else {
+        newCart = [
+          ...prevCart,
+          {
+            ...product,
+            userId: userId,
+            quantity: quantity > product.inStock ? product.inStock : quantity,
+          }
+        ];
+      }
+      localStorage.setItem("basket", JSON.stringify(newCart));
+
+
+      if (userId !== "defaultUserId") {
+        updateUserBasket(userId, newCart)
+          .then(() => {
+            enqueueSnackbar("Product added to cart", { variant: "success" });
+          })
+          .catch(() => {
+            enqueueSnackbar("Error updating cart on server", { variant: "error" });
+          });
+      } else {
+        enqueueSnackbar("Product added to cart", { variant: "success" });
+      }
+
+    });
+  };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -182,13 +269,22 @@ const handleDeleteReview = async (reviewId) => {
                     type="number"
                     min="1"
                     max="99"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
                     className="w-16 py-2 px-4 border border-gray-300 rounded-lg text-center"
-                    defaultValue="1"
+
                   />
                 </div>
                 <div className="flex gap-3 text-white">
-                  <button className="bg-[#ccbe94] px-6 py-2 rounded-lg">< FavoriteIcon /></button>
-                  <button className="px-6 py-3 bg-[#ccbe94] cursor-pointer hover:bg-[#b1a478]  text-white text-lg font-semibold rounded-lg ">
+                  <button
+                    onClick={toggleFavorite}
+                    className={`px-4 py-2 rounded-lg transition-colors ${favorites.some(item => item.id === product.id) ? 'bg-red-900 text-white' : 'bg-[#ccbe94] text-white'
+                      }`}
+                    aria-label="Toggle favorite"
+                  >
+                    <FavoriteIcon />
+                  </button>
+                  <button onClick={handleAddToCart} className="px-6 py-3 bg-[#ccbe94] cursor-pointer hover:bg-[#b1a478]  text-white text-lg font-semibold rounded-lg ">
                     Add to Cart
                   </button>
                 </div>
@@ -227,9 +323,9 @@ const handleDeleteReview = async (reviewId) => {
                   </div>
                   <div>
                     <button
-               type="button" 
-  onClick={() => handleDeleteReview(review.id)}
-  id="submit"
+                      type="button"
+                      onClick={() => handleDeleteReview(review.id)}
+                      id="submit"
                       className="bg-red-800 border  text-white text-md rounded px-3  py-1 cursor-pointer w-20  mt-2 ml-1 hover:bg-neutral-600"
                     >
                       Delete

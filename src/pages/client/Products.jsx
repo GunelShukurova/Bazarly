@@ -3,7 +3,8 @@ import { GoStar } from "react-icons/go";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { getAllProducts } from '../../services/products/requests';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import { FaStar, FaRegStar } from "react-icons/fa";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
 import { fetchUserBasket, updateUserBasket } from '../../services/users/requests';
@@ -31,6 +32,28 @@ const Products = () => {
   const [priceRange, setPriceRange] = useState("all");
 
   const userId = JSON.parse(localStorage.getItem("userId") || "defaultUserId");
+
+const renderStars = (rating, maxRating = 5) => {
+  const filled = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  const empty = maxRating - filled - (half ? 1 : 0);
+
+  const stars = [];
+
+  for (let i = 0; i < filled; i++) {
+    stars.push(<FaStar key={`filled-${i}`} className="text-yellow-500" />);
+  }
+
+  if (half) {
+    stars.push(<StarHalfIcon key="half" className="text-yellow-500" />);
+  }
+
+  for (let i = 0; i < empty; i++) {
+    stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
+  }
+
+  return stars;
+};
 
 
 
@@ -109,14 +132,30 @@ const Products = () => {
   }, [userId]);
 
 
-  const toggleFavorite = (product) => {
-    const isFav = favorites.find((f) => f.id === product.id);
-    if (isFav) {
-      setFavorites(favorites.filter((f) => f.id !== product.id));
-    } else {
-      setFavorites([...favorites, product]);
-    }
-  };
+const toggleFavorite = (product) => {
+  const isFav = favorites.find((f) => f.id === product.id);
+  if (isFav) {
+    setFavorites(favorites.filter((f) => f.id !== product.id));
+    enqueueSnackbar("Removed from favorites", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "right",
+      },
+    });
+  } else {
+    setFavorites([...favorites, product]);
+    enqueueSnackbar("Added to favorites", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "right",
+      },
+    });
+  }
+};
 
 
   useEffect(() => {
@@ -276,16 +315,11 @@ const Products = () => {
                   </div>
                   <div className="flex items-center justify-between text-sm text-gray-700">
 
-                    <div className="flex items-center gap-1 text-lg text-[#352411b5]">
-                      <GoStar />
-                      <GoStar />
-                      <GoStar />
-                      <GoStar />
-                      <GoStar />
-                      <span className="ml-1 text-[#352411b5]">{p.rating}</span>
-                    </div>
+                 <div className="flex items-center gap-1 text-lg text-[#352411b5]">
+  {renderStars(p.rating)}
+  <span className="ml-1 text-[#352411b5]">{p.rating}</span>
 
-
+</div>
                   </div>
                   <div className="mt-2 text-md text-[#352411b5] text-md font-medium"> {p.inStock}  in stock</div>
                 </div>
