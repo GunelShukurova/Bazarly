@@ -203,24 +203,49 @@ export async function addBalance(id, balance) {
     }
 }
  
-export async function updatePassword(id, currentPassword, newPassword) {
+
+export async function fetchUserBasket(userId) {
   try {
-    const response = await instance.patch(`${endpoints.users}/${id}/password`, {
-      currentPassword,
-      newPassword,
-    });
-    
+    const response = await getUserById(userId);
     return {
-      data: response.data,
-      message: "Password updated successfully!",
+      data: response.data?.basketItems || [],
+      message: "Basket fetched successfully!",
+      success: true,
     };
-  } catch (error) {    return {
+  } catch (error) {
+    return {
       data: null,
-      message: error.response?.data?.message || "Password update failed!",
+      message: "Failed to fetch user basket!",
+      success: false,
     };
   }
 }
- 
+
+
+
+
+export const updatePassword = async (userId, currentPassword, newPassword) => {
+  try {
+
+    const { data: user } = await instance.get(`/users/${userId}`);
+
+
+    if (user.password !== currentPassword) {
+      return { data: null, message: "Current password is incorrect." };
+    }
+
+
+    const { data } = await instance.patch(`/users/${userId}`, {
+      password: newPassword,
+    });
+
+    return { data, message: "Password updated successfully." };
+  } catch (error) {
+    return { data: null, message: "Failed to update password." };
+  }
+};
+
+
 
 export async function update(endpoint, id, updateInfo) {
   try {

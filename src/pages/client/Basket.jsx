@@ -3,88 +3,107 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import { useSnackbar } from 'notistack';
 import { getAllProducts } from '../../services/products/requests';
-import { getUserById } from '../../services/users/requests';
+import { fetchUserBasket, getUserById } from '../../services/users/requests';
+import { clearUserCart, deleteCartItem, updateCartItem } from '../../services/basket/requests';
+import { endpoints } from '../../constants';
+
 
 
 const Basket = () => {
 
     const [balance, setBalance] = useState(0);
     const [products, setProducts] = useState([]);
-    console.log(products)
+
 
 
     const { enqueueSnackbar } = useSnackbar();
-    const handleClearAll = () => setProducts([]);
-    const loadBasket = async () => {
+  
+ const loadBasket = async () => {
+  try {
+    const userId = JSON.parse(localStorage.getItem("userId"));
 
+    if (!userId || userId === "null") {
+      enqueueSnackbar("User not logged in!", { variant: "warning" });
+      setProducts([]);
+      setBalance(0);
+      return;
+    }
 
-        try {
-            const userId = JSON.parse(localStorage.getItem("userId"));
-            if (!userId || userId === "null") {
-                enqueueSnackbar("User not logged in!", { variant: "warning" });
-                setProducts([]);
-                setBalance(0);
-                return;
-            }
-            const userRes = await getUserById(userId);
-            const productsRes = await getAllProducts();
+  const basketRes = await fetchUserBasket(userId);
 
-            if (userRes.data && productsRes.data) {
-                const basketItems = userRes.data.basketItems || [];
-console.log(basketItems)
-                const allProducts = productsRes.data;
+    if (basketRes.success) {
+      setProducts(basketRes.data || []);
 
+    
+      const userRes = await getUserById(userId);
+      if (userRes.success && userRes.data) {
+        setBalance(userRes.data.balance || 0);
+      } else {
+        setBalance(0);
+      }
+    } else {
+      enqueueSnackbar(basketRes.message, { variant: "warning" });
+      setProducts([]);
+      setBalance(0);
+    }
+  } catch (e) {
+    enqueueSnackbar("Failed to load basket", { variant: "error" });
+  }
+};
 
-                const basketProducts = basketItems.map(basketItem => {
-                    const product = allProducts.find(p => p.id.toString() === basketItem.productId.toString());
-                    if (!product) return null;
-
-                    return {
-                        ...product,
-                        quantity: basketItem.quantity,
-                        basketItemId: basketItem.id,
-                    };
-                }).filter(Boolean);
-
-                console.log("basket pro", basketProducts)
-
-                setProducts(basketProducts);
-                setBalance(userRes.data.balance);
-            }
-        } catch (e) {
-            enqueueSnackbar("Failed to load basket", { variant: "error" });
-        }
-    };
 
     useEffect(() => {
         loadBasket();
     }, []);
 
-    const handleIncrement = (productId) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((item) =>
-                item.id === productId
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            )
-        );
-    };
+ const handleIncrement = async (productId) => {
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  
+  try {
 
-    const handleDecrement = (productId) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((item) =>
-                item.id === productId && item.quantity > 1
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            )
-        );
-    };
+    const product = products.find(item => item.id === productId);
+    if (!product) return;
 
-    const handleRemove = (productId) => {
-        setProducts((prevProducts) =>
-            prevProducts.filter(item => item.id !== productId)
-        );
-    };
+    const newQuantity = product.quantity + 1;
+
+
+    await updateCartItem(userId, productId, newQuantity);
+
+   
+    setProducts(prevProducts =>
+      prevProducts.map(item =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+
+    enqueueSnackbar("Quantity updated", { variant: "success" });
+  } catch (error) {
+    enqueueSnackbar("Failed to update quantity", { variant: "error" });
+  }
+};
+
+const handleDecrement = async (productId) => {
+  const userId = JSON.parse(localStorage.getItem("userId"));
+
+  try {
+    const product = products.find(item => item.id === productId);
+    if (!product || product.quantity <= 1) return; 
+
+    const newQuantity = product.quantity - 1;
+
+    await updateCartItem(userId, productId, newQuantity);
+
+    setProducts(prevProducts =>
+      prevProducts.map(item =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+
+    enqueueSnackbar("Quantity updated", { variant: "success" });
+  } catch (error) {
+    enqueueSnackbar("Failed to update quantity", { variant: "error" });
+  }
+};
 
 
     const [searchText, setSearchText] = useState('');
@@ -106,7 +125,29 @@ console.log(basketItems)
         return item.price;
     };
 
+const handleRemove = async (basketItemId) => {
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  try {
+    await deleteCartItem(userId, basketItemId);
+    setProducts(prev => prev.filter(item => item.id !== basketItemId));
+    enqueueSnackbar("Product successfully removed from cart", { variant: "success" });
+  } catch (error) {
+    enqueueSnackbar("Error removing product from cart", { variant: "error" });
+  }
+}
 
+const handleClearAll = async () => {
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  try {
+    await clearUserCart(userId);
+    setProducts([]);
+  enqueueSnackbar("Cart has been cleared", { variant: "success" });
+} catch (error) {
+  enqueueSnackbar("Failed to clear the cart", { variant: "error" });
+}
+
+}
+    
     const getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
             <div style={{ padding: 8 }} onKeyDown={e => e.stopPropagation()}>
@@ -243,10 +284,11 @@ console.log(basketItems)
             key: 'action',
             width: '15%',
             render: (_, record) => (
+                
                 <Button
                     type="default"
                     danger
-                    onClick={() => handleRemove(record.id)}
+             onClick={() => handleRemove(record.id)} 
                     style={{ border: '1px solid red', color: 'red' }}
                 >
                     Delete
@@ -280,13 +322,13 @@ console.log(basketItems)
                                 className="min-w-[600px] md:min-w-full"
                                 columns={columns1}
                                 dataSource={products}
-                                rowKey="basketItemId"
+                                rowKey="id"
                                 pagination={false}
                             />
                         </div>
                     </div>
                 </div>
-  
+
 
                 <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4  sm:w-100 md:w-100  lg:w-110  rounded-lg w-full h-fit mt-10 xl:mt-35">
                     <div>

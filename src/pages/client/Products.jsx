@@ -6,19 +6,23 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
-import { updateUserBasket } from '../../services/users/requests';
-
+import { fetchUserBasket, updateUserBasket } from '../../services/users/requests';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Products = () => {
 
 
   const { enqueueSnackbar } = useSnackbar();
-  const [cartItems, setCartItems] = useState([]);
- const [favorites, setFavorites] = useState(() => {
+  const [cartItems, setCartItems] = useState(() => {
+    const saved = localStorage.getItem("basket");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [favorites, setFavorites] = useState(() => {
     const stored = localStorage.getItem("favorites");
     return stored ? JSON.parse(stored) : [];
   });
+
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -27,6 +31,8 @@ const Products = () => {
   const [priceRange, setPriceRange] = useState("all");
 
   const userId = JSON.parse(localStorage.getItem("userId") || "defaultUserId");
+
+
 
   useEffect(() => {
     getAllProducts().then((resp) => {
@@ -48,7 +54,16 @@ const Products = () => {
           quantity: newCart[existingIndex].quantity + 1,
         };
       } else {
-        newCart = [...prevCart, { ...product, quantity: 1 }];
+       newCart = [
+  ...prevCart,
+  {
+    ...product,
+          userId: userId, 
+
+              
+    quantity: 1
+  }
+];
       }
 
       updateUserBasket(userId, newCart)
@@ -64,6 +79,7 @@ const Products = () => {
       return newCart;
     });
   };
+
   const handleAddToCartWithSnackbar = (product) => {
     handleAddToCart(product);
     enqueueSnackbar("Product added to cart", {
@@ -79,7 +95,18 @@ const Products = () => {
   useEffect(() => {
     localStorage.setItem("basket", JSON.stringify(cartItems));
   }, [cartItems]);
-
+  useEffect(() => {
+    if (userId !== "defaultUserId") {
+      fetchUserBasket(userId).then(resp => {
+        if (resp.data) {
+          setCartItems(resp.data);
+          localStorage.setItem("basket", JSON.stringify(resp.data));
+        }
+      }).catch(() => {
+        enqueueSnackbar("Failed to load basket from server", { variant: "error" });
+      });
+    }
+  }, [userId]);
 
 
   const toggleFavorite = (product) => {

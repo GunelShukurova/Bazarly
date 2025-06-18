@@ -14,16 +14,24 @@ export const addToCart = async (userId, item) => {
 
 
 export const updateCartItem = async (userId, itemId, newQuantity) => {
-  return await instance.put(`${endpoints.users}/${userId}/basketItems/${itemId}`, {
-    quantity: newQuantity,
-  });
+  const user = await instance.get(`${endpoints.users}/${userId}`);
+  const updatedBasketItems = user.data.basketItems.map(item =>
+    item.id === itemId ? { ...item, quantity: newQuantity } : item
+  );
+
+  return await instance.patch(`${endpoints.users}/${userId}`, { basketItems: updatedBasketItems });
 };
 
-export const deleteCartItem = async (userId, itemId) => {
-  return await instance.delete(`${endpoints.users}/${userId}/basketItems/${itemId}`);
+export  const deleteCartItem = async (userId, basketItemId) => {
+
+  const user = await instance.get(`${endpoints.users}/${userId}`);
+  const updatedBasketItems = user.data.basketItems.filter(item => item.id !== basketItemId);
+
+
+  return await instance.patch(`${endpoints.users}/${userId}`, { basketItems: updatedBasketItems });
 };
-
-
 export const clearUserCart = async (userId) => {
-  return await instance.delete(`${endpoints.users}/${userId}/basketItems`);
+ return await instance.patch(`${endpoints.users}/${userId}`, {
+    basketItems: []
+  });
 };

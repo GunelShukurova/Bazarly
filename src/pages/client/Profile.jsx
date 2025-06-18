@@ -92,18 +92,24 @@ onSubmit: async (values, actions) => {
       values.newPassword
     );
 
-    enqueueSnackbar(response.message, {
-      autoHideDuration: 2000,
-      variant: "success",
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "right",
-      },
-    });
+    if (response.data) {
+      enqueueSnackbar(response.message, {
+        autoHideDuration: 2000,
+        variant: "success",
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+      });
 
-    actions.resetForm();
+      actions.resetForm();
+    } else {
+      enqueueSnackbar(response.message || "Failed to update password.", {
+        variant: "error",
+      });
+    }
   } catch (error) {
-    enqueueSnackbar("Failed to update password.", { variant: "error" });
+    enqueueSnackbar("Something went wrong!", { variant: "error" });
   }
 }
 

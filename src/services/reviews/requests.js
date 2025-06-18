@@ -1,5 +1,6 @@
-import instance from "../instance";
 import { endpoints } from "../../constants";
+import instance from "../instance";
+
 
 
 
@@ -35,39 +36,41 @@ export async function getReviewsByProductId(id) {
 }
 
 export async function deleteReview(id) {
-    try {
-        const response = await instance.delete(endpoints.reviews + `/${id}`);
-        return {
-            data: response.data,
-            message: "Review deleted successfully"
-        };
-    } catch (error) {
-        console.error("Error deleting review:", error);
-        return {
-            data: null,
-            message: error.message || "Failed to delete review!"
-        };
-    }
+  try {
+    const response = await instance.delete(`${endpoints.reviews}/${id}`);
+    return {
+      success: true,
+      message: "Review deleted successfully",
+      data: response.data
+    };
+  } catch (error) {
+    console.error("Error deleting review:", error);
+    return {
+      success: false,
+      message: error.message || "Failed to delete review"
+    };
+  }
 }
 
-export async function addReview(Newreview) {
-    try {
-        const response = await instance.post(endpoints.reviews, Newreview);
-        if (response.status === 201) { 
-            return {
-                data: response.data,
-                message: "Review created successfully"
-            };
-        }
-        return {
-            data: null,
-            message: "Failed to create review"
-        };
-    } catch (error) {
-        console.error("Error creating review:", error);
-        return {
-            data: null,
-            message: error.message || "Failed to create review"
-        };
+export async function addProductReview(newReview) {
+  try {
+    const response = await instance.post(endpoints.reviews, newReview);
+    if (response.status === 201) {
+      return {
+        data: response.data,
+        message: "Review created successfully"
+      };
     }
+    return {
+      data: null,
+      message: "Failed to create review"
+    };
+  } catch (error) {
+    console.error("Error creating review:", error);
+    return {
+      data: null,
+      message: error.message || "Failed to create review"
+    };
+  }
 }
+  

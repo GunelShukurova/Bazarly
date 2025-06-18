@@ -27,11 +27,11 @@ const Home = () => {
 
   }, [])
 
-  const filteredProducts = products.filter((p) =>
-    p.title.toLowerCase().includes(search.toLowerCase()) ||
-    p.category.toLowerCase().includes(search.toLowerCase()) ||
-    p.description.toLowerCase().includes(search.toLowerCase())
-  );
+ const filteredProducts = (products || []).filter((p) =>
+  (p.title?.toLowerCase() || "").includes(search.toLowerCase()) ||
+  (p.category?.toLowerCase() || "").includes(search.toLowerCase()) ||
+  (p.description?.toLowerCase() || "").includes(search.toLowerCase())
+);
 
   return (
     <div>

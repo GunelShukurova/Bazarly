@@ -7,11 +7,13 @@ import { useParams } from "react-router";
 import { FaStar } from "react-icons/fa6";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import { addReview } from "../../services/reviews/requests";
+import { addProductReview, deleteReview, getReviewsByProductId } from "../../services/reviews/requests";
 import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useNavigate } from 'react-router-dom';
+
+import { useSnackbar } from "notistack";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -26,59 +28,84 @@ const ProductDetail = () => {
 
   const user = useSelector((state) => state.user.users);
 
-  useEffect(() => {
-    
-    setIsLoading(true);
-    getProductsById(id).then((response) => {
-
-      setProduct(response.data);
-      setReviews(response.data.reviews || []);
-      setIsLoading(false);
-
-    });
-  }, [id]);
-
-
+const { enqueueSnackbar } = useSnackbar();
   const handleReviewSubmit = async (e) => {
-
     e.preventDefault();
-
     if (isSubmitting) return;
-
     setIsSubmitting(true);
 
-
     try {
-  const { data, message } = await addReview({
-    userId: user?.id || null,
-    productId: id,
-    comment: reviewMessage,
-    rating: reviewRating,
-    fullName: user?.fullName,
-    profileImage: user?.profileImage,
-      createdAt: new Date().toISOString(),
-  });
+      const { data, message } = await addProductReview({
+        userId: user?.id,
+        productId: id,
+        comment: reviewMessage,
+        rating: reviewRating,
+        fullName: user?.fullName,
+        profileImage: user?.profileImage,
+        createdAt: new Date().toISOString(),
+      });
 
-  console.log("response", { data, message });
+      console.log("response", { data, message });
 
-  if (data) {
-          const updatedProduct = await getProductsById(id);
-      setProduct(updatedProduct.data);
-      setReviews(updatedProduct.data.reviews || []);
+      if (data) {
 
-
-    setReviewMessage("");
-    setReviewRating(0);
-  } else {
-    console.error(message);
-  }
-} catch (error) {
-  console.error('Error submitting review:', error);
-} finally {
-  setIsSubmitting(false);
-}
+        setReviewMessage("");
+        setReviewRating(0);
+       await rewId();
+      } else {
+        console.error(message);
+      }
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+const handleDeleteReview = async (reviewId) => {
+ 
 
+  try {
+    const { success, message } = await deleteReview(reviewId);
+    if (success) {
+      await rewId();
+      enqueueSnackbar("Review deleted successfully!", {
+        variant: "success",
+        autoHideDuration: 2000,
+        anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      });
+    } else {
+      console.error(message);
+    }
+  } catch (error) {
+    console.error("Error deleting review:", error);
+  }
+};
+
+  const rewId = async () => {
+  try {
+    const response = await getReviewsByProductId(id);
+    console.log("Fetched reviews from server:", response.data);
+    setReviews(response.data);
+  } catch (err) {
+    console.error("Error fetching reviews:", err);
+  }
+};
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    getProductsById(id)
+      .then((response) => {
+        setProduct(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error submitting review:", err);
+        setIsLoading(false);
+      });
+
+    rewId();
+  }, [id]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -110,21 +137,19 @@ const ProductDetail = () => {
   return (
     <>
       <div className="max-w-7xl mx-auto px-2 pt-16">
-        <button onClick={() => navigate("/products")}  className="px-3 py-1 bg-[#ccbe94] mt-10 cursor-pointer hover:bg-[#b1a478]  text-white text-md font-semibold rounded-lg ">
+        <button onClick={() => navigate("/products")} className="px-3 py-1 bg-[#ccbe94] mt-10 cursor-pointer hover:bg-[#b1a478]  text-white text-md font-semibold rounded-lg ">
           Back to Products
         </button>
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-10">
-
-
-        <div className="flex justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-10">
+          <div className="flex justify-center">
             <img
               src={product.image} alt={product.title}
-      className="w-full h-85 max-w-xl object-contain rounded-lg shadow-md"
+              className="w-full h-85 max-w-xl object-contain rounded-lg shadow-md"
             />
           </div>
           <div>
             <div className="bg-[#FDFBF7] p-6 rounded-lg shadow-md">
-           <h3 className="text-2xl sm:text-3xl font-semibold text-[#352411b5] mb-2">{product.title}</h3>
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#352411b5] mb-2">{product.title}</h3>
 
               <div className="text-2xl text-gray-700 mb-2">{product.category}</div>
 
@@ -149,7 +174,7 @@ const ProductDetail = () => {
                   In Stock ({product.inStock} available)
                 </div>
               </div>
-             <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between text-lg font-semibold text-gray-800">
+              <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between text-lg font-semibold text-gray-800">
 
                 <div className="flex items-center gap-4">
                   <span>Quantity</span>
@@ -182,15 +207,15 @@ const ProductDetail = () => {
                     <div id="reviews" className="border-amber-900 rounded-lg pt-4 max-w-full">
                       <img
                         className="w-20 h-20 rounded-full"
-                        src={review.profileImage || "https://via.placeholder.com/80"}
+                        src={review.profileImage || "https://placehold.co/80x80"}
                         alt={review.fullName || "User Avatar"}
                       />
                     </div>
-               <div key={review.id} className="flex flex-col gap-4 mt-6 border-b border-gray-300 pb-4">
+                    <div className="flex flex-col gap-4 mt-6 border-b border-gray-300 pb-4">
 
                       <span className="font-semibold pb-1 text-xl">{review.fullName}</span>
 
-                    <span>{review.createdAt ? moment(review.createdAt).format('DD MMMM YYYY') : ''}</span>
+                      <span>{review.createdAt ? moment(review.createdAt).format('DD MMMM YYYY') : ''}</span>
                     </div>
                   </div>
                   <div className="flex mt-2">
@@ -202,9 +227,9 @@ const ProductDetail = () => {
                   </div>
                   <div>
                     <button
-                      type="submit"
-
-                      id="submit"
+               type="button" 
+  onClick={() => handleDeleteReview(review.id)}
+  id="submit"
                       className="bg-red-800 border  text-white text-md rounded px-3  py-1 cursor-pointer w-20  mt-2 ml-1 hover:bg-neutral-600"
                     >
                       Delete
@@ -218,7 +243,7 @@ const ProductDetail = () => {
             </div>
           </div>
           <div>
-          <form onSubmit={handleReviewSubmit} className="w-full max-w-2xl" id="add-review-form">
+            <form onSubmit={handleReviewSubmit} className="w-full max-w-2xl" id="add-review-form">
 
               <div className="flex items-center gap-4">
 
