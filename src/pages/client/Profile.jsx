@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -7,7 +7,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useFormik } from "formik";
 import { updateProfile } from "../../redux/features/userSlice";
 import { enqueueSnackbar } from "notistack";
-import { update, updatePassword } from "../../services/users/requests";
+import { getUserOrders, update, updatePassword} from "../../services/users/requests";
 import { endpoints } from "../../constants";
 import updateProfileValidationSchema from "../../validations/updateProfileValidation";
 import updatePasswordValidationSchema from "../../validations/updatePasswordValidatons";
@@ -19,11 +19,33 @@ const tabHeaders = [
   "Change Password"
 ];
 
-
+ 
 
 const Profile = () => {
   
+const [orders, setOrders] = useState([]);
+
  const user = useSelector((state) => state.user.users);
+
+useEffect(() => {
+  const loadOrders = async () => {
+    try {
+      const res = await getUserOrders(user.id);
+      console.log('userOrders response:', res);
+      if (res.success) {
+        setOrders(res.data);
+      }
+    } catch (e) {
+      enqueueSnackbar("Failed to load orders", { variant: "error" });
+    }
+  };
+
+  if (user?.id) {
+    loadOrders();
+  }
+}, [user]);
+
+
 
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(0);
@@ -148,7 +170,7 @@ onSubmit: async (values, actions) => {
               </div>
               <div className="flex justify-between text-sm text-gray-600">
                 <span className="font-medium text-lg">Total Orders:</span>
-                <span className="text-gray-700 font-semibold text-lg">1</span>
+               <span className="text-gray-700 font-semibold text-lg">{orders.length}</span>
               </div>
             </div>
 
@@ -172,30 +194,36 @@ onSubmit: async (values, actions) => {
               <div className="bg-[#F8F6F0] p-4 rounded shadow w-full">
                 <span className="text-2xl font-semibold">{tabHeaders[activeTab]}</span>
 
-              {activeTab === 0 && (
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full border my-3 border-gray-300 text-sm sm:text-base">
-                      <thead>
-                        <tr>
-                          <th className="py-2 px-4 text-left">Order ID</th>
-                          <th className="py-2 px-4 text-left">Date</th>
-                          <th className="py-2 px-4 text-left">Items</th>
-                          <th className="py-2 px-4 text-left">Total</th>
-                          <th className="py-2 px-4 text-left">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="py-2 px-4">#12345</td>
-                          <td className="py-2 px-4">2024-05-12</td>
-                          <td className="py-2 px-4">2 items</td>
-                          <td className="py-2 px-4">$120.00</td>
-                          <td className="py-2 px-4 text-green-600 font-semibold">Delivered</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                     </div>
-                )}
+         {activeTab === 0 && (
+  <div className="overflow-x-auto">
+    {orders.length === 0 ? (
+      <p className="text-lg mt-4">No orders yet.</p>
+    ) : (
+      <table className="min-w-full border my-3 border-gray-300 text-sm sm:text-base">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 text-left">Order ID</th>
+            <th className="py-2 px-4 text-left">Date</th>
+            <th className="py-2 px-4 text-left">Items</th>
+            <th className="py-2 px-4 text-left">Total</th>
+            <th className="py-2 px-4 text-left">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map(order => (
+            <tr key={order.id}>
+              <td className="py-2 px-4">#{order.id}</td>
+              <td className="py-2 px-4">{moment(order.createdAt).format('YYYY-MM-DD')}</td>
+              <td className="py-2 px-4">{order.items.length} items</td>
+              <td className="py-2 px-4">${order.totalPrice.toFixed(2)}</td>
+              <td className="py-2 px-4 text-green-600 font-semibold">{order.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+  </div>
+)}
 
               
                   {activeTab === 1 && (

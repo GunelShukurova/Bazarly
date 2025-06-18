@@ -185,6 +185,45 @@ const isEmailTaken= users.some ((user)=>user.email===email);
     }
 }
 
+export const updateUserBalance = async (id, newBalance) => {
+  try {
+    const balanceStr = newBalance.toFixed(2);
+
+    const response = await instance.patch(`/users/${id}`, {
+      balance: balanceStr,
+    });
+
+    return { success: true, data: response.data };
+    
+  } catch (error) {
+    console.error("Balance update error:", error); 
+    return { success: false, message: error.message };
+  }
+};
+
+
+export  const getUserOrders = async (userId) => {
+  try {
+    const response = await instance.get(endpoints.orders); 
+    if (response.data && Array.isArray(response.data)) {
+      const userOrders = response.data.filter(order => order.userId === userId);
+      return { success: true, data: userOrders };
+    } else {
+      return { success: false, message: 'Invalid orders data' };
+    }
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+
+export const createOrder = async (orderData) => {
+  try {
+    const response = await instance.post('/orders', orderData); 
+    return response.data;
+  } catch (error) {
+    return { success: false, message: "Failed to create order" };
+  }
+};
 
 export async function addBalance(id, balance) {
     try {

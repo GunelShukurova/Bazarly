@@ -94,42 +94,9 @@
       "isBanned": false,
       "banUntil": null,
       "favorites": [],
-      "balance": 1500,
+      "balance": "5589.20",
       "registeredAt": "2025-06-18T15:31:50.936Z",
-      "basketItems": [
-        {
-          "id": "2",
-          "title": "Apple iPhone 15",
-          "image": "https://ee2.pigugroup.eu/colours/190/783/98/19078398/apple-iphone-15-128gb-pink-mtp13pxa-d033f_original.jpg",
-          "category": "electronics",
-          "available": true,
-          "description": "Latest model with A17 chip and improved battery life.",
-          "rating": 4.8,
-          "inStock": 12,
-          "isOnSale": false,
-          "salePercentage": 0,
-          "brand": "Apple",
-          "price": 999.99,
-          "userId": "795d",
-          "quantity": 1
-        },
-        {
-          "id": "1",
-          "title": "Herschel Retreat Backpack",
-          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
-          "category": "accessories",
-          "available": true,
-          "description": "Classic design backpack with laptop sleeve.",
-          "rating": 3.3,
-          "inStock": 44,
-          "isOnSale": false,
-          "salePercentage": 0,
-          "brand": "Herschel",
-          "price": 89,
-          "userId": "795d",
-          "quantity": 5
-        }
-      ]
+      "basketItems": []
     }
   ],
   "orders": [
@@ -148,6 +115,40 @@
       "status": "pending",
       "createdAt": "2025-06-15T12:00:00.000Z",
       "totalPrice": 300
+    },
+    {
+      "id": "94b3",
+      "userId": "795d",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 999.99
+        }
+      ],
+      "totalPrice": 1000.61,
+      "shippingAddress": "main street\n",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 556 66 44",
+      "createdAt": "2025-06-18T18:54:41.567Z",
+      "status": "pending"
+    },
+    {
+      "id": "ce39",
+      "userId": "795d",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 2,
+          "price": 999.99
+        }
+      ],
+      "totalPrice": 2000.6,
+      "shippingAddress": "main street",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 23",
+      "createdAt": "2025-06-18T19:16:17.079Z",
+      "status": "pending"
     }
   ],
   "products": [
