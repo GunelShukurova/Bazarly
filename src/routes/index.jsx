@@ -4,7 +4,6 @@ import AuthLayout from '../layout/AuthLayout';
 import ClientLayout from '../layout/ClientLayout';
 import AdminLogin from '../pages/admin/AdminLogin';
 import AdminProducts from '../pages/admin/AdminProducts';
-import AdminReviews from '../pages/admin/AdminMessages';
 import AdminUser from '../pages/admin/AdminUser';
 import Dashboard from '../pages/admin/Dashboard';
 import About from '../pages/client/About';
@@ -20,6 +19,8 @@ import Register from '../pages/client/Register';
 import AdminMessages from '../pages/admin/AdminMessages';
 import AdminProductsOrders from '../pages/admin/AdminProductsOrders';
 import ProtectedRoute from '../common/ProtectedRoute';
+import AdminReviews from '../pages/admin/AdminReviews';
+
 
 const ROUTES = [
     {
@@ -48,6 +49,10 @@ const ROUTES = [
                     {
                         path: "/admin/products/orders",
                         element: <AdminProductsOrders />,
+                    },
+                      {
+                        path: "/admin/reviews",
+                        element: <AdminReviews />,
                     },
 
                 ],

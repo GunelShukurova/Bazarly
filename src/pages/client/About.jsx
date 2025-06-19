@@ -9,15 +9,11 @@ const About = () => {
         <div>
             <div>
                 <div className="pt-15  py-5">
-
                     <div className="bg-[#F8F6F0] w-full">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 py-5">
                             <h3 className="text-3xl font-semibold mb-6">About Bazarly</h3>
-
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-
                                 <div>
-
                                     <p className="text-2xl pr-0 md:pr-5">Founded in 2023, Bazarly began with a simple mission: to make everyday shopping more convenient, affordable, and accessible for everyone. What started as a small online store has grown into a comprehensive marketplace serving thousands of customers.
 
                                         We believe that shopping for essentials shouldn't be a hassle. That's why we've curated a wide selection of quality products from trusted brands, all available at competitive prices with fast, reliable delivery.
@@ -32,7 +28,6 @@ const About = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className=" mt-10">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 py-12">
@@ -74,7 +69,6 @@ const About = () => {
                             </div>
                         </div>
                     </div>
-
                     <div className="bg-[#F8F6F0] mt-12 w-full">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 py-12">
                             <div className="px-4 sm:px-6 lg:px-10">
@@ -96,7 +90,6 @@ const About = () => {
                                             Liam brings 14 years of experience in building scalable e-commerce platforms. He leads our tech team to deliver a seamless and secure shopping experience.
                                         </p>
                                     </div>
-
                                     <div className="p-6 flex flex-col items-center justify-center text-center rounded-lg">
                                         <img
                                             className="w-40 h-40 object-cover rounded-full"
@@ -109,7 +102,6 @@ const About = () => {
                                             With over a decade in online retail marketing, Emily crafts campaigns that connect with our customers and keep them coming back.
                                         </p>
                                     </div>
-
                                     <div className="p-6 flex flex-col items-center justify-center text-center rounded-lg">
                                         <img
                                             className="w-40 h-40 object-cover rounded-full"

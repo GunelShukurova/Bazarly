@@ -21,23 +21,18 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [reviewMessage, setReviewMessage] = useState("");
-
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewRating, setReviewRating] = useState(0);
-
-
   const [cartItems, setCartItems] = useState(() => {
 
     const saved = localStorage.getItem("basket");
     return saved ? JSON.parse(saved) : [];
   });
   const [quantity, setQuantity] = useState(1);
-
   const user = useSelector((state) => state.user.users);
   const userId = user?.id || "defaultUserId";
-
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
@@ -46,19 +41,14 @@ const ProductDetail = () => {
   const toggleFavorite = () => {
     setFavorites(prevFavorites => {
       let newFavorites;
-
       const isAlreadyFavorite = prevFavorites.some(item => item.id === product.id);
-
       if (isAlreadyFavorite) {
-
         newFavorites = prevFavorites.filter(item => item.id !== product.id);
         enqueueSnackbar("Product removed from favorites", { variant: "success" });
       } else {
-
         newFavorites = [...prevFavorites, product];
         enqueueSnackbar("Product added to favorites", { variant: "success" });
       }
-
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
       return newFavorites;
     });
@@ -81,9 +71,7 @@ const ProductDetail = () => {
       });
 
       console.log("response", { data, message });
-
       if (data) {
-
         setReviewMessage("");
         setReviewRating(0);
         await rewId();
@@ -96,9 +84,8 @@ const ProductDetail = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleDeleteReview = async (reviewId) => {
-
-
     try {
       const { success, message } = await deleteReview(reviewId);
       if (success) {
@@ -128,7 +115,6 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
     getProductsById(id)
       .then((response) => {
         setProduct(response.data);
@@ -159,7 +145,6 @@ const ProductDetail = () => {
       let newCart;
 
       if (existingIndex >= 0) {
-
         const newQuantity = prevCart[existingIndex].quantity + quantity;
         newCart = [...prevCart];
         newCart[existingIndex] = {
@@ -177,8 +162,6 @@ const ProductDetail = () => {
         ];
       }
       localStorage.setItem("basket", JSON.stringify(newCart));
-
-
       if (userId !== "defaultUserId") {
         updateUserBasket(userId, newCart)
           .then(() => {
@@ -198,7 +181,6 @@ const ProductDetail = () => {
 
   const rating = product.rating || 0;
   const maxRating = 5;
-
   const renderStars = (rating) => {
     const filledStars = Math.floor(rating);
     const isHalfFilled = rating % 1 >= 0.5;
@@ -220,7 +202,6 @@ const ProductDetail = () => {
     return stars;
   };
 
-
   return (
     <>
       <div className="max-w-7xl mx-auto px-2 pt-16">
@@ -237,32 +218,25 @@ const ProductDetail = () => {
           <div>
             <div className="bg-[#FDFBF7] p-6 rounded-lg shadow-md">
               <h3 className="text-2xl sm:text-3xl font-semibold text-[#352411b5] mb-2">{product.title}</h3>
-
               <div className="text-2xl text-gray-700 mb-2">{product.category}</div>
-
               <div className="mb-6">
-
                 <p className="text-xl text-neutral-600 mt-2">
                   {product.description}
                 </p>
               </div>
               <div className="mb-6">
-
                 <span className="text-2xl text-neutral-600 mt-2">${product.price}</span>
               </div>
-
               <div className="flex items-center justify-between text-sm text-gray-700 mb-6">
                 <div className="flex items-center gap-1 text-lg text-[#352411b5]">
                   {renderStars(rating)}
                   <span className="ml-2 text-[#352411b5]">{rating} out of {maxRating}</span>
                 </div>
-
                 <div className="text-md font-medium text-gray-700">
                   In Stock ({product.inStock} available)
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between text-lg font-semibold text-gray-800">
-
                 <div className="flex items-center gap-4">
                   <span>Quantity</span>
                   <input
@@ -270,7 +244,7 @@ const ProductDetail = () => {
                     min="1"
                     max="99"
                     value={quantity}
-                    onChange={(e) => setQuantity(Number(e.target.value))}
+           onChange={(e) => handleQuantityChange(e)}
                     className="w-16 py-2 px-4 border border-gray-300 rounded-lg text-center"
 
                   />
@@ -288,14 +262,11 @@ const ProductDetail = () => {
                     Add to Cart
                   </button>
                 </div>
-
               </div>
             </div>
           </div>
-
           <div>
             <h2 className="font-bold text-2xl sm:text-3xl  text-[#2f1f0cb5] mb-2">Reviews</h2>
-
             {reviews.length > 0 ? (
               reviews.map((review) => (
                 <div key={review.id} className="flex flex-col gap-4">
@@ -308,14 +279,11 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col gap-4 mt-6 border-b border-gray-300 pb-4">
-
                       <span className="font-semibold pb-1 text-xl">{review.fullName}</span>
-
                       <span>{review.createdAt ? moment(review.createdAt).format('DD MMMM YYYY') : ''}</span>
                     </div>
                   </div>
                   <div className="flex mt-2">
-
                     {renderStars(review.rating)}
                   </div>
                   <div>
@@ -340,10 +308,7 @@ const ProductDetail = () => {
           </div>
           <div>
             <form onSubmit={handleReviewSubmit} className="w-full max-w-2xl" id="add-review-form">
-
               <div className="flex items-center gap-4">
-
-
                 <label htmlFor="textarea" className="font-bold text-2xl sm:text-3xl  text-[#2f1f0cb5] mb-1">
                   Add Your Review
                 </label>
@@ -362,9 +327,7 @@ const ProductDetail = () => {
                   </div></div>
               </div>
               <div id="rating-stars" className="flex gap-1 mb-3">
-
               </div>
-
               <textarea
                 id="review-message"
                 name="reviewMessage"
@@ -374,19 +337,15 @@ const ProductDetail = () => {
                 className="w-full border-2 border-gray- text-xl text-blue-950  border-[#ccbe94] rounded-lg p-3"
                 placeholder="Write your review..."
               />
-
               <button
                 type="submit"
                 disabled={isSubmitting || !reviewMessage || reviewRating === 0}
-
                 className="bg-[#ccbe94] cursor-pointer hover:bg-[#ada178] text-white mt-5 mb-10 w-full sm:w-60 rounded px-2 py-4"
               >
                 Submit Review
               </button>
             </form>
           </div>
-
-
         </div>
       </div>
     </>

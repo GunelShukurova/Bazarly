@@ -12,93 +12,79 @@ import StarHalfIcon from "@mui/icons-material/StarHalf";
 const Favorites = () => {
 
   const [favorites, setFavorites] = useState([])
-
   const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
     const stored = localStorage.getItem("favorites");
     if (stored) setFavorites(JSON.parse(stored));
   }, []);
 
- const renderStars = (rating, maxRating = 5) => {
-  const filled = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
-  const empty = maxRating - filled - (half ? 1 : 0);
+  const renderStars = (rating, maxRating = 5) => {
+    const filled = Math.floor(rating);
+    const half = rating % 1 >= 0.5;
+    const empty = maxRating - filled - (half ? 1 : 0);
+    const stars = [];
 
-  const stars = [];
+    for (let i = 0; i < filled; i++) {
+      stars.push(<FaStar key={`filled-${i}`} className="text-yellow-500" />);
+    }
+    if (half) {
+      stars.push(<StarHalfIcon key="half" className="text-yellow-500" />);
+    }
+    for (let i = 0; i < empty; i++) {
+      stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
+    }
+    return stars;
+  };
 
-  for (let i = 0; i < filled; i++) {
-    stars.push(<FaStar key={`filled-${i}`} className="text-yellow-500" />);
-  }
+  const handleAddToCart = async (product) => {
+    const userId = JSON.parse(localStorage.getItem("userId"));
 
-  if (half) {
-    stars.push(<StarHalfIcon key="half" className="text-yellow-500" />);
-  }
-
-  for (let i = 0; i < empty; i++) {
-    stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
-  }
-
-  return stars;
-};
-
-
-
- const handleAddToCart = async (product) => {
-  const userId = JSON.parse(localStorage.getItem("userId"));
-
-  if (!userId || userId === "null") {
-    enqueueSnackbar("Please log in to add items to the cart.", { variant: "warning" });
-    return;
-  }
-
-  try {
-   
-    const userRes = await fetchUserBasket(userId);
-    if (!userRes.success) {
-      enqueueSnackbar("Failed to fetch basket", { variant: "error" });
+    if (!userId || userId === "null") {
+      enqueueSnackbar("Please log in to add items to the cart.", { variant: "warning" });
       return;
     }
 
-    const basketItems = userRes.data;
-    const existingItem = basketItems.find(item => item.id === product.id);
+    try {
 
-    if (existingItem) {
+      const userRes = await fetchUserBasket(userId);
+      if (!userRes.success) {
+        enqueueSnackbar("Failed to fetch basket", { variant: "error" });
+        return;
+      }
 
-      await updateCartItem(userId, product.id, existingItem.quantity + 1);
-    } else {
-   
-      await addToCart(userId, { ...product, quantity: 1 });
+      const basketItems = userRes.data;
+      const existingItem = basketItems.find(item => item.id === product.id);
+
+      if (existingItem) {
+
+        await updateCartItem(userId, product.id, existingItem.quantity + 1);
+      } else {
+
+        await addToCart(userId, { ...product, quantity: 1 });
+      }
+
+      enqueueSnackbar("Product added to cart!", { variant: "success" });
+
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar("Failed to add to cart.", { variant: "error" });
     }
+  };
 
-    enqueueSnackbar("Product added to cart!", { variant: "success" });
-
-  } catch (error) {
-    console.error(error);
-    enqueueSnackbar("Failed to add to cart.", { variant: "error" });
-  }
-};
-
-
-
- const removeFavorite = (productId) => {
-  const updated = favorites.filter((f) => f.id !== productId);
-  setFavorites(updated);
-  localStorage.setItem("favorites", JSON.stringify(updated));
-
-  enqueueSnackbar("Product removed from favorites", { variant: "success" });
-};
+  const removeFavorite = (productId) => {
+    const updated = favorites.filter((f) => f.id !== productId);
+    setFavorites(updated);
+    localStorage.setItem("favorites", JSON.stringify(updated));
+    enqueueSnackbar("Product removed from favorites", { variant: "success" });
+  };
 
   return (
     <div>
       <div className="bg-[#FDFBF7] pt-15">
-
         <div className="mx-auto max-w-8xl py-4 px-4 sm:px-6 lg:px-8">
-
           <div className="mx-2 sm:mx-10">
             <h3 className="text-3xl font-semibold mb-6">My Favorites</h3>
             <p className="text-xl mb-10">Products you've saved for later</p>
-
             {favorites.length ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 md:gap-8">
                 {favorites.map((f) => (
@@ -111,13 +97,11 @@ const Favorites = () => {
                         {f.salePercentage}%
                       </span>
                     )}
-
                     <div className='flex flex-col justify-center items-center relative'>
 
                       <h3 className="text-xl text-center text-shadow-neutral-600 font-normal mb-2 mt-2 ">
                         {f.title}
                       </h3>
-
                       <span
                         className="text-2xl absolute top-0 right-1 text-red-800 cursor-pointer z-20"
                         onClick={() => removeFavorite(f.id)}
@@ -125,15 +109,11 @@ const Favorites = () => {
                       >
                         <FavoriteIcon />
                       </span>
-
                       <img
                         className="w-full max-w-xs h-78 sm:h-66 md:h-64 lg:h-72 xl:h-88 object-cover rounded"
                         src={f.image}
                         alt={f.title}
                       />
-
-
-
                       <div className="mb-4 px-2 sm:px-4">
                         <p className="text-lg text-center text-neutral-600 mb-2">
                           {f.description}
@@ -142,19 +122,15 @@ const Favorites = () => {
                           {f.category}
                         </span>
                       </div>
-
                       <div className="flex items-center justify-between text-sm text-gray-700 w-full px-4">
-                      <div className="flex items-center gap-1 text-lg text-[#352411b5]">
-  {renderStars(f.rating)}
-  <span className="ml-1 text-[#352411b5]">{f.rating}</span>
-</div>
-
-
+                        <div className="flex items-center gap-1 text-lg text-[#352411b5]">
+                          {renderStars(f.rating)}
+                          <span className="ml-1 text-[#352411b5]">{f.rating}</span>
+                        </div>
                         <div className="text-md font-medium text-[#352411b5]">
                           {f.inStock} in stock
                         </div>
                       </div>
-
                       <button
                         type="button"
                         onClick={() => handleAddToCart(f)}

@@ -30,7 +30,6 @@ const Contact = () => {
                         values.profileImage ||
                         "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg",
 
-
                 });
                 enqueueSnackbar("your message sent to admin!", {
                     variant: "success",
@@ -39,11 +38,9 @@ const Contact = () => {
                         vertical: "bottom",
                         horizontal: "right",
                     },
-
                 });
                 action.resetForm();
             }
-
             catch (error) {
                 enqueueSnackbar('Failed to send message.', {
                     variant: 'error',
@@ -54,17 +51,16 @@ const Contact = () => {
     return (
         <div>
             <div className="bg-[#FDFBF7] ">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 pt-15 px-4 sm:px-6 lg:px-20 gap-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 pt-15 px-4 sm:px-6 lg:px-20 gap-10">
                     <form
                         onSubmit={formik.handleSubmit}
                         id="register-form"
-                   className="w-full max-w-2xl mx-auto mt-12 shadow-md p-6 border rounded-lg mb-10 sm:mb-0"
+                        className="w-full max-w-2xl mx-auto mt-12 shadow-md p-6 border rounded-lg mb-10 sm:mb-0"
                     >
                         <h2 className="text-2xl  font-bold mt-5">
                             Send us a Message
                         </h2>
-
-                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="flex flex-col">
                                 <label
                                     htmlFor="fullName"
@@ -73,7 +69,6 @@ const Contact = () => {
                                     Full Name
                                 </label>
                                 <input
-
                                     type="text"
                                     id="fullName"
                                     name="fullName"
@@ -89,7 +84,6 @@ const Contact = () => {
                                     <span className="text-red-700 text-sm pl-2 pt-2">
                                         {formik.errors.fullName}
                                     </span>)}
-
                             </div>
                             <div className="flex flex-col">
                                 <label
@@ -99,7 +93,6 @@ const Contact = () => {
                                     Email
                                 </label>
                                 <input
-
                                     type="email"
                                     id="email"
                                     name="email"
@@ -125,7 +118,6 @@ const Contact = () => {
                                 Subject
                             </label>
                             <input
-
                                 type="text"
                                 id="subject"
                                 name="subject"
@@ -141,9 +133,6 @@ const Contact = () => {
                                     {formik.errors.subject}
                                 </span>
                             )} </div>
-
-
-
                         <div className="flex flex-col">
                             <label
                                 htmlFor="profileImage"
@@ -151,9 +140,7 @@ const Contact = () => {
                             >
                                 Message
                             </label>
-
                             <textarea
-
                                 type="text"
                                 id="message"
                                 name="message"
@@ -169,9 +156,7 @@ const Contact = () => {
                                 </span>
                             )}
                         </div>
-
-
-                          <div className="flex flex-col w-full items-center mt-6">
+                        <div className="flex flex-col w-full items-center mt-6">
                             <button
                                 type="submit"
 
@@ -181,13 +166,13 @@ const Contact = () => {
                                     Object.entries(formik.errors).length > 0 ||
                                     !formik.dirty
                                 }
-                               className="bg-[#333333] border border-black text-white text-lg px-14 py-3 cursor-pointer w-full hover:bg-neutral-800 max-w-xs sm:max-w-full"
+                                className="bg-[#333333] border border-black text-white text-lg px-14 py-3 cursor-pointer w-full hover:bg-neutral-800 max-w-xs sm:max-w-full"
                             >
                                 Send Message
                             </button>
                         </div>
                     </form>
-                 <div className='px-4 sm:px-0'>
+                    <div className='px-4 sm:px-0'>
                         <h3 className="text-2xl font-bold mt-10 sm:mt-5">
                             Get in Touch
                         </h3>

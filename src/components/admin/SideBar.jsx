@@ -1,11 +1,20 @@
 import { Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems } from "flowbite-react";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser,HiLogout, } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdReviews } from "react-icons/md";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 
 export function SideBar() {
+
+    const navigate = useNavigate();
+
+  const handleSignOut = () => {
+
+    localStorage.removeItem("admin"); 
+
+    navigate("/admin/login");
+  };
   return (
     <Sidebar    className="custom-sidebar"  style={{ height: "100vh",  position: "fixed" }} >
       <SidebarItems>
@@ -32,7 +41,7 @@ export function SideBar() {
             <Link to="/admin/messages">Messages</Link>
           </SidebarItem>
 
-          <SidebarItem icon={HiLogout}>
+          <SidebarItem icon={HiLogout}  onClick={handleSignOut}>
             <span>Sign Out</span>
           </SidebarItem>
         </SidebarItemGroup>

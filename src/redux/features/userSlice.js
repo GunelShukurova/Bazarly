@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { getUserById } from "../../services/users/requests";
-
-
-
 
 const initialState = { users: null, balance: 0 };
 

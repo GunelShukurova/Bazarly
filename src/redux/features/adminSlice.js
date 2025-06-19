@@ -5,14 +5,10 @@ import { getUserById } from "../../services/users/requests";
 const adminId = localStorage.getItem("adminId");
 
   const initialState = { admin: null };
-
-
 if (JSON.parse(adminId)) {
 
 const response = await getUserById(adminId);
-
 const admin = response.data;
-
 
   if (admin?.id) {
     delete admin.password;
@@ -20,7 +16,6 @@ const admin = response.data;
   }} else {
   localStorage.setItem("adminId", JSON.stringify(null));
 }
-
 
 const adminSlice = createSlice({
   name: "admin",

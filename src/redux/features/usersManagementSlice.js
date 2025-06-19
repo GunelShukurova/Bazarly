@@ -28,3 +28,4 @@ const userSlice = createSlice({
 
 export const { updateUsers, logout } = userSlice.actions;
 export default userSlice.reducer;
+

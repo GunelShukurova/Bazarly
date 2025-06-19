@@ -199,6 +199,50 @@
       "phoneNumber": "+994 55 666 44 33",
       "createdAt": "2025-06-18T19:44:05.704Z",
       "status": "pending"
+    },
+    {
+      "id": "2380",
+      "userId": null,
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 10,
+          "price": 159.99200000000002
+        },
+        {
+          "productId": "1",
+          "quantity": 4,
+          "price": 89
+        },
+        {
+          "productId": "7",
+          "quantity": 4,
+          "price": 1103.0800000000002
+        }
+      ],
+      "totalPrice": 6368.860000000001,
+      "shippingAddress": "main street",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 25",
+      "createdAt": "2025-06-19T05:48:02.704Z",
+      "status": "pending"
+    },
+    {
+      "id": "edac",
+      "userId": null,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 999.99
+        }
+      ],
+      "totalPrice": 1000.61,
+      "shippingAddress": "main street\n",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 23",
+      "createdAt": "2025-06-19T06:28:04.650Z",
+      "status": "pending"
     }
   ],
   "products": [
@@ -460,30 +504,30 @@
       "subject": "product request",
       "messages": "salam",
       "submittedAt": "2025-06-18T19:28:05.046Z",
+      "profileImage": "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg",
+      "isRead": "responded"
+    },
+    {
+      "id": "ccc9",
+      "fullName": "Gunel Shukurova",
+      "email": "gunel23_23@mail.ru",
+      "subject": "product request",
+      "messages": "salam",
+      "submittedAt": "2025-06-19T05:36:13.118Z",
       "profileImage": "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
     }
   ],
   "reviews": [
     {
-      "id": "295aa3b6-f24c-46c6-8305-8e6c86a44c47",
-      "comment": "salam",
-      "userId": null,
-      "userName": "gunel",
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://media.istockphoto.com/id/1317804584/photo/one-businesswoman-studio-portrait-looking-at-the-camera.jpg?s=612x612&w=0&k=20&c=Tx3nGQfxaI781gi97Siw7DIEBbKg1oBxl8n0JEwMQ6s=",
-      "rating": 5,
-      "productId": "3",
-      "createdAt": "2025-06-17T12:34:56.789Z"
-    },
-    {
-      "id": "25b8",
-      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
+      "id": "0e6f",
+      "userId": "ad4a",
       "productId": "2",
-      "comment": "сссс",
+      "comment": "nice",
       "rating": 3,
-      "fullName": "Gunel Shukurov",
+      "email": "gunel23_23@mail.ru",
+      "fullName": "Gunel Shukurova",
       "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "createdAt": "2025-06-18T12:59:56.081Z"
+      "createdAt": "2025-06-19T06:50:43.002Z"
     }
   ]
 }

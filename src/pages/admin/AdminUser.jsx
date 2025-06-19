@@ -38,6 +38,18 @@ const AdminUser = () => {
   };
 
   const columns = [
+        { 
+  title: 'Profile Image', 
+  dataIndex: 'profileImage', 
+  width: '5%',
+  render: (img) => (
+    <img 
+      src={img} 
+      alt="profile" 
+      style={{ width: 60, height: 60, borderRadius: '50%', objectFit: 'cover' }} 
+    />
+  )
+},
     {
       title: 'Fullname',
       dataIndex: 'fullName',
@@ -63,57 +75,54 @@ const AdminUser = () => {
       },
     },
     { title: 'Balance', dataIndex: 'balance', width: '7%', render: (balance) => `$${balance}` },
-{
-  title: 'Action',
-    dataIndex: 'action',
+    {
+      title: 'Action',
+      dataIndex: 'action',
       width: '10%',
-        render: (_, record) => (
-          <Button
-            type="primary"
-            color="red" variant="outlined"
+      render: (_, record) => (
+        <Button
+          type="primary"
+          color="red" variant="outlined"
 
-            onClick={() => {
-              handleDelete(record.id);
-              enqueueSnackbar("User deleted successfully", {
-                variant: "success",
-                autoHideDuration: 2000,
-                anchorOrigin: {
-                  vertical: "bottom",
-                  horizontal: "right",
-                },
-              });
-            }}
-          >
-            Delete
-          </Button>
-        ),
-}
+          onClick={() => {
+            handleDelete(record.id);
+            enqueueSnackbar("User deleted successfully", {
+              variant: "success",
+              autoHideDuration: 2000,
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "right",
+              },
+            });
+          }}
+        >
+          Delete
+        </Button>
+      ),
+    }
   ];
 
+  const tableStyle = {
+    width: '90%',
+    backgroundColor: '#f3ead375',
+    borderRadius: '8px',
+    marginLeft: "260px",
+    position: "fixed",
+    color: "#352411b5"
 
+  };
 
-const tableStyle = {
-  width: '90%',
-  backgroundColor: '#f3ead375',
-  borderRadius: '8px',
-  marginLeft: "260px",
-  position: "fixed",
-  color: "#352411b5"
-
-};
-
-return (
-  <>
-    <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 mt-2'>Users Management</h1>
-    <Table
-      columns={columns}
-      dataSource={users}
-      rowKey="id"
-
-      style={tableStyle}
-    />
-  </>
-)
+  return (
+    <>
+      <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 mt-2'>Users Management</h1>
+      <Table
+        columns={columns}
+        dataSource={users}
+        rowKey="id"
+        style={tableStyle}
+      />
+    </>
+  )
 };
 
 

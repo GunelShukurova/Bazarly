@@ -8,8 +8,8 @@ const addProductvalidationSchema = Yup.object({
     salePercentage: Yup.number().min(5).max(80).required('Required'),
     image: Yup.string().url().required('Required'),
     brand: Yup.string().required('Required'),
-        price: Yup.number().min(10).required('Required'),
-        inStock:Yup.number().min(1).required('Required'),
+    price: Yup.number().min(10).required('Required'),
+    inStock: Yup.number().min(1).required('Required'),
 });
 
 

@@ -9,7 +9,7 @@ import addProductvalidationSchema from '../../validations/addProductValidations'
 
 
 const AdminProducts = () => {
-        const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showAddModal = () => {
@@ -19,7 +19,6 @@ const AdminProducts = () => {
     const handleAddCancel = () => {
         setIsModalOpen(false);
     };
-
 
     const addFormik = useFormik({
         initialValues: {
@@ -32,8 +31,6 @@ const AdminProducts = () => {
 
         }, validationSchema: addProductvalidationSchema,
         onSubmit: async (values, { resetForm }) => {
-
-
             const formattedValues = {
                 ...values,
 
@@ -41,13 +38,9 @@ const AdminProducts = () => {
                 salePercentage: Number(values.salePercentage),
                 inStock: Number(values.inStock),
             };
-
             try {
-
                 const response = await postProducts(formattedValues);
-
                 if (response?.data) {
-
                     setProducts(prev => [...prev, response.data]);
                     enqueueSnackbar("Product created successfully!", { variant: "success" });
                     setIsModalOpen(false);
@@ -61,10 +54,6 @@ const AdminProducts = () => {
 
 
     const [products, setProducts] = useState([])
-
-
-
-
     useEffect(() => {
 
         getAllProducts().then((resp) => {
@@ -73,7 +62,6 @@ const AdminProducts = () => {
             }
         })
     }, [])
-
 
 
     const columns = [
@@ -211,16 +199,14 @@ const AdminProducts = () => {
 
     };
 
-
     return (
         <>
             <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 '>Products Management</h1>
             <Button
-       
                 type="primary"
                 onClick={showAddModal}
                 style={{ float: "right", marginRight: "3%", marginBottom: "10px" }}
-                
+
             >
                 Create
             </Button>
@@ -230,18 +216,14 @@ const AdminProducts = () => {
                 dataSource={products}
                 style={tableStyle}
             />
-
-
             <Modal
                 title="Add New Product"
                 closable
                 open={isModalOpen}
                 onCancel={handleAddCancel}
-          onOk={addFormik.submitForm}
+                onOk={addFormik.submitForm}
             >
-
-<form onSubmit={addFormik.handleSubmit}
-
+                <form onSubmit={addFormik.handleSubmit}
                     className="flex flex-col gap-2 mt-3.5"
                 >
                     <Input
@@ -354,9 +336,6 @@ const AdminProducts = () => {
                             {addFormik.errors.image}
                         </div>
                     )}
-
-
-
                 </form>
             </Modal>
 

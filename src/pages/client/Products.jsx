@@ -19,22 +19,16 @@ const Products = () => {
   const { favorites, setFavorites } = useFavorites();
   const { cartItems, setCartItems } = useCart();
   const { enqueueSnackbar } = useSnackbar();
-
-
-
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("all");
-
   const userId = JSON.parse(localStorage.getItem("userId") || "null");
-
   const renderStars = (rating, maxRating = 5) => {
     const filled = Math.floor(rating);
     const half = rating % 1 >= 0.5;
     const empty = maxRating - filled - (half ? 1 : 0);
-
     const stars = [];
 
     for (let i = 0; i < filled; i++) {
@@ -52,8 +46,6 @@ const Products = () => {
     return stars;
   };
 
-
-
   useEffect(() => {
     getAllProducts().then((resp) => {
       if (resp.data) {
@@ -62,49 +54,41 @@ const Products = () => {
     });
   }, []);
 
-const handleAddToCart = (product) => {
-  setCartItems(prevCart => {
-    const existingIndex = prevCart.findIndex(item => item.id === product.id);
-    let newCart;
+  const handleAddToCart = (product) => {
+    setCartItems(prevCart => {
+      const existingIndex = prevCart.findIndex(item => item.id === product.id);
+      let newCart;
+      if (existingIndex >= 0) {
+        newCart = [...prevCart];
+        newCart[existingIndex] = {
+          ...newCart[existingIndex],
+          quantity: newCart[existingIndex].quantity + 1,
+        };
+      } else {
+        newCart = [
+          ...prevCart,
+          {
+            ...product,
+            userId: userId,
+            quantity: 1
+          }
+        ];
+      }
 
-    if (existingIndex >= 0) {
-      newCart = [...prevCart];
-      newCart[existingIndex] = {
-        ...newCart[existingIndex],
-        quantity: newCart[existingIndex].quantity + 1,
-      };
-    } else {
-      newCart = [
-        ...prevCart,
-        {
-          ...product,
-          userId: userId,
-          quantity: 1
-        }
-      ];
-    }
+      updateUserBasket(userId, newCart)
+        .then(resp => {
+          if (!resp.data) {
+            enqueueSnackbar("Failed to update basket on server", { variant: "error" });
+          }
+        })
+        .catch(() => {
+          enqueueSnackbar("Server error while updating basket", { variant: "error" });
+        });
 
-    updateUserBasket(userId, newCart)
-      .then(resp => {
-        if (!resp.data) {
-          enqueueSnackbar("Failed to update basket on server", { variant: "error" });
-        }
-      })
-      .catch(() => {
-        enqueueSnackbar("Server error while updating basket", { variant: "error" });
-      });
-
-    return newCart;
-  });
-
-  enqueueSnackbar("Product added to cart", { variant: "success" });
-};
-
-  const handleAddToCartWithSnackbar = (product) => {
-    handleAddToCart(product);
+      return newCart;
+    });
     enqueueSnackbar("Product added to cart", { variant: "success" });
   };
-
 
 
   useEffect(() => {
@@ -138,8 +122,6 @@ const handleAddToCart = (product) => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-
-
   const filteredProducts = products
     .filter((p) => {
       const matchesSearch =
@@ -148,14 +130,11 @@ const handleAddToCart = (product) => {
         p.description?.toLowerCase().includes(search.toLowerCase());
 
       const matchesFilter = filter === "All" || p.category === filter;
-
       const matchesPrice =
         priceRange === "all" ||
         (priceRange === "under50" && p.price < 50) ||
         (priceRange === "50to200" && p.price >= 50 && p.price <= 200) ||
         (priceRange === "over200" && p.price > 200);
-
-
       return matchesSearch && matchesFilter && matchesPrice;
     })
 
@@ -183,7 +162,6 @@ const handleAddToCart = (product) => {
     "accessories"
   ];
 
-
   return (
     <>
       <div className='mx-4 sm:mx-10 md:mx-20 lg:mx-40'>
@@ -191,7 +169,6 @@ const handleAddToCart = (product) => {
           <h3 className="text-2xl sm:text-3xl font-semibold mb-6">Our Products</h3>
           <p className="text-base sm:text-xl mb-5">Discover our wide range of quality products</p>
         </div>
-
         <div className="w-full max-w-8xl flex flex-wrap items-center gap-4 bg-[#F8F6F0] p-4 sm:p-6 shadow-sm mt-5 border border-gray-200">
           <input
             value={search}
@@ -203,12 +180,9 @@ const handleAddToCart = (product) => {
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-
             className="px-3 py-2 border text-lg border-gray-300 rounded-md w-full sm:w-[23%]"
-
             name="sort"
             id="sort"
-
           >
             <option value="All">All Categories</option>
             {types &&
@@ -219,10 +193,7 @@ const handleAddToCart = (product) => {
                   </option>
                 );
               })}
-
-
           </select>
-
           <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
@@ -242,12 +213,9 @@ const handleAddToCart = (product) => {
 
           </select>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-8 mt-10 bg-[#FDFBF6]">
-
           {sortedProducts.length ? (
             sortedProducts.map((p) => (
-
               <div key={p.id} className="max-w-lg  shadow-md overflow-hidden p-4 bg-[#F8F6F0] cursor-pointer relative group">
                 {p.isOnSale && (
                   <span className="absolute top-6 left-5 bg-red-800 text-white px-4 py-1 text-sm font-semibold rounded z-10">
@@ -255,8 +223,6 @@ const handleAddToCart = (product) => {
                   </span>
                 )}
                 <div className='flex flex-col justify-center items-center relative'>
-
-
                   <h3 className="text-xl text-center text-shadow-neutral-600 font-normal mb-2 mt-2 ">
                     {p.title}
                   </h3>
@@ -273,8 +239,6 @@ const handleAddToCart = (product) => {
                       )}
                     </span>
                   )}
-
-
                   <Link to={`/product/${p.id}`} className="text-2xl cursor-pointer z-10">
                     <img
                       className="w-75 h-65 my-17 object-cover rounded"
@@ -282,9 +246,7 @@ const handleAddToCart = (product) => {
                       alt={p.title}
                     />
                   </Link>
-
                   <div className="mb-4">
-
                     <p className="text-lg text-center text-neutral-600 mb-2">
                       {p.description}
                     </p>
@@ -293,24 +255,20 @@ const handleAddToCart = (product) => {
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm text-gray-700">
-
                     <div className="flex items-center gap-1 text-lg text-[#352411b5]">
                       {renderStars(p.rating)}
                       <span className="ml-1 text-[#352411b5]">{p.rating}</span>
-
                     </div>
                   </div>
                   <div className="mt-2 text-md text-[#352411b5] text-md font-medium"> {p.inStock}  in stock</div>
                 </div>
-
                 <button
                   type="submit"
 
                   id="submit"
-           onClick={() => handleAddToCart(p)}
+                  onClick={() => handleAddToCart(p)}
                   className="bg-neutral-700 opacity-0 text-md w-full group-hover:opacity-100 flex justify-center gap-3 transition-opacity cursor-pointer duration-200 border border-black text-white px-6 py-2  shadow  mt-4"
                 >
-
                   ADD TO CART
                   {p.isOnSale ? (
                     <div className="flex gap-2 items-center justify-center">
@@ -325,8 +283,6 @@ const handleAddToCart = (product) => {
                     <span className="ml-4 font-semibold">${p.price.toFixed(2)}</span>
                   )}
                 </button>
-
-
               </div>
             ))
           ) : (

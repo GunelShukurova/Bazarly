@@ -12,8 +12,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const formik = useFormik({
@@ -25,11 +24,9 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       confirmPassword: "",
       balance: "",
       profileImage: "",
-
     },
     validationSchema: registerValidationSchema,
     onSubmit: async (values, action) => {
-
       const response = await getAllUsers();
       const users = response.data || [];
       const duplicateEmail = users.find((u) => u.email === values.email);
@@ -89,8 +86,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
             <h3 className='text-2xl font-normal'>Create your account</h3>
             <p className='text-2xl text-gray-600 font-thin'>Join Bazarly and start shopping today!</p>
           </div>
-
-
           <div className="flex flex-col">
             <label
               htmlFor="fullName"
@@ -99,7 +94,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Full Name
             </label>
             <input
-
               type="text"
               id="fullName"
               name="fullName"
@@ -113,8 +107,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.fullName}
               </span>)}
-
-
           </div>
           <div className="flex flex-col">
             <label
@@ -124,7 +116,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Email address
             </label>
             <input
-
               type="email"
               id="email"
               name="email"
@@ -150,7 +141,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Phone Number
             </label>
             <input
-
               type="tel"
               id="phone"
               name="phone"
@@ -166,8 +156,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               </span>
             )}
           </div>
-
-
           <div className="flex flex-col relative">
             <label
               htmlFor="password"
@@ -176,8 +164,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Password
             </label>
             <input
-
-             type={showPassword ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               value={formik.values.password}
@@ -186,12 +173,12 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               placeholder="Create a password"
               required
               className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-           />    <span
-    onClick={() => setShowPassword((prev) => !prev)}
-    className="absolute right-5 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
-  >
-    {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-  </span>
+            />    <span
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-5 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+            >
+              {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+            </span>
             {formik.errors.password && formik.touched.password && (
               <span className="text-red-700 text-lg  pl-2 pt-2">
                 {formik.errors.password}
@@ -206,8 +193,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Confirm Password
             </label>
             <input
-
-                type={showConfirmPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               value={formik.values.confirmPassword}
@@ -216,14 +202,13 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               placeholder="Confirm your password"
               required
               className="bg-[#F8F6F0] border text-lg text-blue-950 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-            />  
-  <span
-    onClick={() => setShowConfirmPassword((prev) => !prev)}
-    className="absolute right-3 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
-  >
-    {showConfirmPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-  </span>
-
+            />
+            <span
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute right-3 top-21 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+            >
+              {showConfirmPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+            </span>
             {formik.errors.confirmPassword &&
               formik.touched.confirmPassword && (
                 <span className="text-red-700 text-lg  pl-2 pt-2">
@@ -239,7 +224,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Balance
             </label>
             <input
-
               name="balance"
               value={formik.values.balance}
               onChange={formik.handleChange}
@@ -255,7 +239,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               </span>
             )}
           </div>
-
           <div className="flex flex-col">
             <label
               htmlFor="profileImage"
@@ -264,7 +247,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               Profile Image URL (Optional)
             </label>
             <input
-
               type="text"
               id="profileImage"
               name="profileImage"
@@ -280,7 +262,6 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
               </span>
             )}
           </div>
-
           <div className="flex flex-col w-full items-center">
             <button
               type="submit"

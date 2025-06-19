@@ -7,10 +7,9 @@ import Footer from '../components/client/Footer';
 const ClientLayout = () => {
   return (
     <div>
-
-        <Header/>
-      <Outlet/>
-      <Footer/>
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   )
 }

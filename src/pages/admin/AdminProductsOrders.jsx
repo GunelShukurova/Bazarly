@@ -1,10 +1,10 @@
 
-import { Input, Modal, Table } from 'antd';
+import {Table } from 'antd';
 import { useSnackbar } from 'notistack';
 import { Button } from 'antd';
-import { deleteProducts, getAllOrders, getAllProducts } from '../../services/products/requests';
+import { deleteProducts, getAllOrders, getAllProducts, updateOrderStatus } from '../../services/products/requests';
 import { useEffect, useState } from 'react';
-import { Select } from 'flowbite-react';
+import { Select } from 'antd';
 
 
 
@@ -15,10 +15,12 @@ const AdminProductsOrders = () => {
     const [orders, setOrders] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
 
-
     const loadData = async () => {
-        try {
+
             const productsResponse = await getAllProducts();
+
+        try {
+        
             if (productsResponse.data) setProducts(productsResponse.data);
 
             const usersResponse = await getAllUsers();
@@ -27,7 +29,9 @@ const AdminProductsOrders = () => {
 
             const ordersResponse = await getAllOrders();
             if (ordersResponse.data) setOrders(ordersResponse.data);
-        } catch (error) {
+        
+        }
+ catch (error) {
             enqueueSnackbar("Failed to load data", { variant: "error" });
         }
     };
@@ -35,8 +39,6 @@ const AdminProductsOrders = () => {
     useEffect(() => {
         loadData();
     }, []);
-
-
 
     const columns = [
         {
@@ -98,9 +100,7 @@ const AdminProductsOrders = () => {
                 return (
                     <Select
                         onChange={async (updatedStatus) => {
-                            await update(endpoints.rentals, value, {
-                                status: updatedStatus,
-                            });
+                         await updateOrderStatus(record.id, { status: updatedStatus });
                             enqueueSnackbar("Order status updated successfully!", {
                                 anchorOrigin: {
                                     vertical: "bottom",
@@ -123,34 +123,33 @@ const AdminProductsOrders = () => {
                 );
             },
         }, {
-  title: 'Ordered Products',
-  dataIndex: 'basketItems',
-  width: '20%',
-  render: (basketItems) => {
-    if (!Array.isArray(basketItems)) return null;
+            title: 'Ordered Products',
+            dataIndex: 'basketItems',
+            width: '20%',
+            render: (basketItems) => {
+                if (!Array.isArray(basketItems)) return null;
 
-    return (
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        {basketItems.map(item => {
-          const product = products.find(p => p.id === item.productId);
-          if (!product) return null;
+                return (
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {basketItems.map(item => {
+                            const product = products.find(p => p.id === item.productId);
+                            if (!product) return null;
 
-          return (
-            <img
-              key={item.id}
-              src={product.image}
-              alt={product.title}
-              style={{ width: '90px', height: '70px', objectFit: 'cover' }}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
-,
+                            return (
+                                <img
+                                    key={item.id}
+                                    src={product.image}
+                                    alt={product.title}
+                                    style={{ width: '90px', height: '70px', objectFit: 'cover' }}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+            }
+        }
+        ,
         {
-
             title: "Delete",
             dataIndex: "id",
             width: '3%',
@@ -197,9 +196,6 @@ const AdminProductsOrders = () => {
                 >
                     Delete
                 </Button>
-
-
-
             )
         }
 
@@ -215,25 +211,18 @@ const AdminProductsOrders = () => {
 
     };
 
-
     return (
         <>
             <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 '>Products in Orders</h1>
-
             <Table
                 columns={columns}
                 rowKey="id"
                 dataSource={orders}
                 style={tableStyle}
             />
-
-
-
         </>
     )
 };
-
-
 
 
 export default AdminProductsOrders

@@ -27,8 +27,6 @@ const AdminLogin = () => {
     fetchAdmins();
   }, []);
 
-  
-
   const formik = useFormik({
     initialValues: {
       email: "",

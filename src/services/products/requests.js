@@ -87,3 +87,7 @@ export const getAllOrders = async () => {
     throw error;
   }
 };
+
+export const updateOrderStatus = (id, status) => {
+  return instance(`/orders/${id}`, { status });
+};

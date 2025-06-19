@@ -12,13 +12,13 @@ import { FavoriteProvider } from './context/favoriteContext.jsx'
 createRoot(document.getElementById('root')).render(
 
   <StrictMode>
-  
-        <FavoriteProvider>
-    <CartProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </CartProvider>
+
+    <FavoriteProvider>
+      <CartProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </CartProvider>
     </FavoriteProvider>
 
   </StrictMode>,

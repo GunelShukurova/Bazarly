@@ -13,8 +13,6 @@ import { useState } from 'react';
 const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
-
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -23,40 +21,40 @@ const Login = () => {
       password: "",
     },
     validationSchema: loginValidationSchema,
-   onSubmit: async (values, actions) => {
-  const response = await getAllUsers();
-  const users = response.data || [];
+    onSubmit: async (values, actions) => {
+      const response = await getAllUsers();
+      const users = response.data || [];
 
-  const validUser = users.find(
-    (u) =>
-      u.email === values.email &&
-      u.password === values.password &&
-      u.role === "client"
-  );
+      const validUser = users.find(
+        (u) =>
+          u.email === values.email &&
+          u.password === values.password &&
+          u.role === "client"
+      );
 
-  if (!validUser) {
-    enqueueSnackbar("Invalid credentials", {
-      variant: "error",
-      autoHideDuration: 2000,
-      anchorOrigin: { vertical: "bottom", horizontal: "right" },
-    });
-    actions.resetForm();
-    return;
-  }
+      if (!validUser) {
+        enqueueSnackbar("Invalid credentials", {
+          variant: "error",
+          autoHideDuration: 2000,
+          anchorOrigin: { vertical: "bottom", horizontal: "right" },
+        });
+        actions.resetForm();
+        return;
+      }
 
-  actions.resetForm();
-  enqueueSnackbar("User signed in successfully!", {
-    variant: "success",
-    autoHideDuration: 2000,
-    anchorOrigin: { vertical: "bottom", horizontal: "right" },
-  });
+      actions.resetForm();
+      enqueueSnackbar("User signed in successfully!", {
+        variant: "success",
+        autoHideDuration: 2000,
+        anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      });
 
-  const user = { ...validUser };
-  delete user.password;
-  localStorage.setItem("userId", JSON.stringify(user.id));
-  dispatch(login(user));
-  navigate("/profile");
-},
+      const user = { ...validUser };
+      delete user.password;
+      localStorage.setItem("userId", JSON.stringify(user.id));
+      dispatch(login(user));
+      navigate("/profile");
+    },
 
   });
   return (

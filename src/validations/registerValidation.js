@@ -14,8 +14,7 @@ const registerValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
   profileImage: Yup.string().url().optional(),
-   balance: Yup.number().min(0).max(2000).required(),
+  balance: Yup.number().min(0).max(10000).required(),
 });
 
 export default registerValidationSchema;
- 

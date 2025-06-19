@@ -14,7 +14,6 @@ const Basket = () => {
 
     const [balance, setBalance] = useState(0);
     const [products, setProducts] = useState([]);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orderForm] = Form.useForm();
     const handleOpenModal = () => setIsModalOpen(true);
@@ -22,81 +21,67 @@ const Basket = () => {
         setIsModalOpen(false);
         orderForm.resetFields();
     };
+    const handleOrderSubmit = async () => {
+        const userId = JSON.parse(localStorage.getItem("userId"));
+        try {
+            if (products.length === 0) {
+                enqueueSnackbar("Your basket is empty!", { variant: "warning" });
+                return;
+            }
+            const values = await orderForm.validateFields();
+            if (total > balance) {
+                enqueueSnackbar("Insufficient balance!", { variant: "error" });
+                return;
+            }
+            const order = {
+                userId: JSON.parse(localStorage.getItem("userId")),
+                items: products.map(item => ({
+                    productId: item.id,
+                    quantity: item.quantity,
+                    price: getDiscountedPrice(item),
+                })),
+                totalPrice: total,
+                shippingAddress: values.address,
+                fullName: values.fullName,
+                phoneNumber: values.phone,
+                createdAt: new Date().toISOString(),
+                status: "pending"
+            };
 
-   const handleOrderSubmit = async () => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
-  try {
-    if (products.length === 0) {
-      enqueueSnackbar("Your basket is empty!", { variant: "warning" });
-      return;
-    }
-
-    const values = await orderForm.validateFields();
-
-    if (total > balance) {
-      enqueueSnackbar("Insufficient balance!", { variant: "error" });
-      return;
-    }
-
-    const order = {
-      userId: JSON.parse(localStorage.getItem("userId")),
-      items: products.map(item => ({
-        productId: item.id,
-        quantity: item.quantity,
-        price: getDiscountedPrice(item),
-      })),
-      totalPrice: total,
-      shippingAddress: values.address,
-      fullName: values.fullName,
-      phoneNumber: values.phone,
-      createdAt: new Date().toISOString(),
-      status: "pending"
+            const handleRemove = async (basketItemId) => {
+                const userId = JSON.parse(localStorage.getItem("userId"));
+                try {
+                    await deleteCartItem(userId, basketItemId);
+                    const newProducts = product.filter(item => item.id !== basketItemId);
+                    updateBasket(newProducts);
+                    setProducts(newProducts);
+                    enqueueSnackbar("Product successfully removed from cart", { variant: "success" });
+                } catch (error) {
+                    enqueueSnackbar("Error removing product from cart", { variant: "error" });
+                }
+            }
+            await createOrder(order);
+            const newBalance = balance - total;
+            const updateBalanceRes = await updateUserBalance(userId, newBalance);
+            if (!updateBalanceRes.success) {
+                enqueueSnackbar("Failed to update balance", { variant: "error" });
+                return;
+            }
+            setBalance(newBalance);
+            enqueueSnackbar("Order placed successfully!", { variant: "success" });
+            handleCloseModal();
+            await clearUserCart(order.userId);
+            setProducts([]);
+        } catch (error) {
+            console.error("Failed to submit order:", error);
+            enqueueSnackbar("Please fill all fields correctly", { variant: "error" });
+        }
     };
 
-
-const handleRemove = async (basketItemId) => {
-    const userId = JSON.parse(localStorage.getItem("userId"));
-    try {
-        await deleteCartItem(userId, basketItemId);
-        const newProducts = product.filter(item => item.id !== basketItemId);
-        updateBasket(newProducts); 
-        setProducts(newProducts);  
-        enqueueSnackbar("Product successfully removed from cart", { variant: "success" });
-    } catch (error) {
-        enqueueSnackbar("Error removing product from cart", { variant: "error" });
-    }
-}
-
-
-    await createOrder(order); 
-
-   const newBalance = balance - total;
-    const updateBalanceRes = await updateUserBalance(userId, newBalance);
-
-    if (!updateBalanceRes.success) {
-      enqueueSnackbar("Failed to update balance", { variant: "error" });
-      return;
-    }
-   setBalance(newBalance);
-
-    enqueueSnackbar("Order placed successfully!", { variant: "success" });
-    handleCloseModal();
-    await clearUserCart(order.userId);
-    setProducts([]);
-  } catch (error) {
-    console.error("Failed to submit order:", error);
-    enqueueSnackbar("Please fill all fields correctly", { variant: "error" });
-  }
-};
-
-
-
     const { enqueueSnackbar } = useSnackbar();
-
     const loadBasket = async () => {
         try {
             const userId = JSON.parse(localStorage.getItem("userId"));
-
             if (!userId || userId === "null") {
                 enqueueSnackbar("User not logged in!", { variant: "warning" });
                 setProducts([]);
@@ -105,11 +90,8 @@ const handleRemove = async (basketItemId) => {
             }
 
             const basketRes = await fetchUserBasket(userId);
-
             if (basketRes.success) {
                 setProducts(basketRes.data || []);
-
-
                 const userRes = await getUserById(userId);
                 if (userRes.success && userRes.data) {
                     setBalance(userRes.data.balance || 0);
@@ -126,60 +108,44 @@ const handleRemove = async (basketItemId) => {
         }
     };
 
-
     useEffect(() => {
         loadBasket();
     }, []);
 
     const handleIncrement = async (productId) => {
         const userId = JSON.parse(localStorage.getItem("userId"));
-
         try {
-
             const product = products.find(item => item.id === productId);
             if (!product) return;
-
             const newQuantity = product.quantity + 1;
-
-
             await updateCartItem(userId, productId, newQuantity);
-
-
             setProducts(prevProducts =>
                 prevProducts.map(item =>
                     item.id === productId ? { ...item, quantity: newQuantity } : item
                 )
             );
-
             enqueueSnackbar("Quantity updated", { variant: "success" });
         } catch (error) {
             enqueueSnackbar("Failed to update quantity", { variant: "error" });
         }
     };
-
     const handleDecrement = async (productId) => {
         const userId = JSON.parse(localStorage.getItem("userId"));
-
         try {
             const product = products.find(item => item.id === productId);
             if (!product || product.quantity <= 1) return;
-
             const newQuantity = product.quantity - 1;
-
             await updateCartItem(userId, productId, newQuantity);
-
             setProducts(prevProducts =>
                 prevProducts.map(item =>
                     item.id === productId ? { ...item, quantity: newQuantity } : item
                 )
             );
-
             enqueueSnackbar("Quantity updated", { variant: "success" });
         } catch (error) {
             enqueueSnackbar("Failed to update quantity", { variant: "error" });
         }
     };
-
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -385,14 +351,14 @@ const handleRemove = async (basketItemId) => {
                 onCancel={handleCloseModal}
                 okText="Confirm Order"
                 cancelText="Cancel"
-      
+
             >
                 <Form layout="vertical" form={orderForm}>
                     <Form.Item
                         label="Full Name"
                         name="fullName"
                         rules={[{ required: true, message: "Please enter your name" }]}
-                        
+
                     >
                         <Input placeholder="John Doe" />
                     </Form.Item>
@@ -419,19 +385,16 @@ const handleRemove = async (basketItemId) => {
             </Modal>
 
             <div className="bg-[#FDFBF7]  pt-15 grid grid-cols-1 xl:grid-cols-2 gap-10 px-4 sm:px-6 md:px-10 lg:px-20">
-
                 <div className="w-full xl:w-full  py-4">
                     <div className="mx-0 sm:mx-4 md:mx-8">
                         <h3 className="text-2xl sm:text-3xl font-bold mb-6">Shopping Basket</h3>
                         <p className="text-lg sm:text-xl mb-8">Review your items before checkout</p>
-
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 w-full bg-[#eadfd2] rounded-md">
                             <span className="text-xl font-semibold mb-2 sm:mb-0">
                                 Basket Items <span>({products.length})</span>
                             </span>
                             <Button danger onClick={handleClearAll}>Clear All</Button>
                         </div>
-
                         <div className="overflow-x-auto mt-4">
                             <Table
                                 className="min-w-[600px] md:min-w-full"
@@ -443,42 +406,33 @@ const handleRemove = async (basketItemId) => {
                         </div>
                     </div>
                 </div>
-
-
                 <div className="bg-[#f5ebdf] shadow-md p-6 text-center space-y-4  sm:w-100 md:w-100  lg:w-110  rounded-lg w-full h-fit mt-10 xl:mt-35">
                     <div>
                         <h2 className="text-2xl font-bold text-gray-800">Order Summary</h2>
                     </div>
-
                     <div className="flex justify-between text-sm text-gray-600">
                         <span className="font-medium text-lg">Subtotal:</span>
                         <span className="text-lg font-semibold text-gray-700">${subtotal.toFixed(2)}</span>
                     </div>
-
                     <div className="flex justify-between text-sm text-gray-600">
                         <span className="font-medium text-lg">Shipping:</span>
                         <span className="text-gray-700 font-semibold text-lg">Free</span>
                     </div>
-
                     <div className="flex justify-between text-sm text-gray-600">
                         <span className="font-medium text-lg">Tax:</span>
                         <span className="text-gray-700 font-semibold text-lg">${fixedTax.toFixed(2)}</span>
                     </div>
-
                     <hr className="border-gray-400" />
-
                     <div className="flex justify-between text-sm text-gray-600">
                         <span className="font-bold text-xl text-gray-800">Total:</span>
                         <span className="text-gray-700 font-semibold text-lg">${total.toFixed(2)}</span>
                     </div>
-
                     <div className="flex justify-between text-sm text-gray-600">
                         <span className="font-bold text-xl text-gray-800">Your Balance:</span>
                         <span className="text-gray-700 font-semibold text-lg">${balance}</span>
                     </div>
-
-                    <button  onClick={handleOpenModal}
-  disabled={products.length === 0} className="bg-[#ccbe94] border border-black text-lg px-6 py-2 cursor-pointer w-full sm:w-40 mt-5 hover:bg-[#d2c7a3]">
+                    <button onClick={handleOpenModal}
+                        disabled={products.length === 0} className="bg-[#ccbe94] border border-black text-lg px-6 py-2 cursor-pointer w-full sm:w-40 mt-5 hover:bg-[#d2c7a3]">
                         Place Order
                     </button>
                 </div>

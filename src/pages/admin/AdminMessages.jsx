@@ -22,7 +22,6 @@ useEffect(() => {
   });
 }, []);
 
-
   const handleStatusChange = async (id, updatedStatus) => {
     try {
            await updateContactIsRead(id, updatedStatus);
@@ -50,12 +49,11 @@ const handleDelete = async (id) => {
   }
 };
 
-
   const columns = [
     { title: 'Fullname', dataIndex: 'fullName', width: '12%' },
     { title: 'Email', dataIndex: 'email', width: '12%' },
     { title: 'Subject', dataIndex: 'subject', width: '12%' },
-    { title: 'Message', dataIndex: 'message', width: '12%' },
+    { title: 'Message', dataIndex: 'messages', width: '12%' },
      {
       title: "Message Status",
       dataIndex: "id" ,
@@ -76,7 +74,6 @@ const handleDelete = async (id) => {
     { value: "spam", label: "spam" },
   ]}
 />
-
         );
       },
     },
@@ -109,7 +106,6 @@ const handleDelete = async (id) => {
     color: "#352411b5"
 
   };
-
 
   return (
     <>
