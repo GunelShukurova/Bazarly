@@ -89,5 +89,15 @@ export const getAllOrders = async () => {
 };
 
 export const updateOrderStatus = (id, status) => {
-  return instance(`/orders/${id}`, { status });
+  return instance.patch(`/orders/${id}`, status);
+};
+
+export const deleteOrder = async (id) => {
+  try {
+    const response = await instance.delete(`/orders/${id}`);
+    return response;
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    throw error;
+  }
 };

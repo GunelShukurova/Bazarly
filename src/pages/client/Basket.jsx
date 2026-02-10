@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import { useSnackbar } from 'notistack';
-import { getAllProducts } from '../../services/products/requests';
 import { createOrder, fetchUserBasket, getUserById, updateUserBalance } from '../../services/users/requests';
 import { clearUserCart, deleteCartItem, updateCartItem } from '../../services/basket/requests';
+import { useCart } from '../../context/cartContext';
 
 import { Modal, Form } from 'antd';
 
@@ -13,7 +13,7 @@ import { Modal, Form } from 'antd';
 const Basket = () => {
 
     const [balance, setBalance] = useState(0);
-    const [products, setProducts] = useState([]);
+    const { cartItems, setCartItems } = useCart();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orderForm] = Form.useForm();
     const handleOpenModal = () => setIsModalOpen(true);
@@ -24,7 +24,7 @@ const Basket = () => {
     const handleOrderSubmit = async () => {
         const userId = JSON.parse(localStorage.getItem("userId"));
         try {
-            if (products.length === 0) {
+            if (cartItems.length === 0) {
                 enqueueSnackbar("Your basket is empty!", { variant: "warning" });
                 return;
             }
@@ -35,7 +35,7 @@ const Basket = () => {
             }
             const order = {
                 userId: JSON.parse(localStorage.getItem("userId")),
-                items: products.map(item => ({
+                items: cartItems.map(item => ({
                     productId: item.id,
                     quantity: item.quantity,
                     price: getDiscountedPrice(item),
@@ -71,7 +71,7 @@ const Basket = () => {
             enqueueSnackbar("Order placed successfully!", { variant: "success" });
             handleCloseModal();
             await clearUserCart(order.userId);
-            setProducts([]);
+            setCartItems([]);
         } catch (error) {
             console.error("Failed to submit order:", error);
             enqueueSnackbar("Please fill all fields correctly", { variant: "error" });
@@ -84,14 +84,14 @@ const Basket = () => {
             const userId = JSON.parse(localStorage.getItem("userId"));
             if (!userId || userId === "null") {
                 enqueueSnackbar("User not logged in!", { variant: "warning" });
-                setProducts([]);
+                setCartItems([]);
                 setBalance(0);
                 return;
             }
 
             const basketRes = await fetchUserBasket(userId);
             if (basketRes.success) {
-                setProducts(basketRes.data || []);
+                setCartItems(basketRes.data || []);
                 const userRes = await getUserById(userId);
                 if (userRes.success && userRes.data) {
                     setBalance(userRes.data.balance || 0);
@@ -100,7 +100,7 @@ const Basket = () => {
                 }
             } else {
                 enqueueSnackbar(basketRes.message, { variant: "warning" });
-                setProducts([]);
+                setCartItems([]);
                 setBalance(0);
             }
         } catch (e) {
@@ -115,11 +115,11 @@ const Basket = () => {
     const handleIncrement = async (productId) => {
         const userId = JSON.parse(localStorage.getItem("userId"));
         try {
-            const product = products.find(item => item.id === productId);
+            const product = cartItems.find(item => item.id === productId);
             if (!product) return;
             const newQuantity = product.quantity + 1;
             await updateCartItem(userId, productId, newQuantity);
-            setProducts(prevProducts =>
+            setCartItems(prevProducts =>
                 prevProducts.map(item =>
                     item.id === productId ? { ...item, quantity: newQuantity } : item
                 )
@@ -132,11 +132,11 @@ const Basket = () => {
     const handleDecrement = async (productId) => {
         const userId = JSON.parse(localStorage.getItem("userId"));
         try {
-            const product = products.find(item => item.id === productId);
+            const product = cartItems.find(item => item.id === productId);
             if (!product || product.quantity <= 1) return;
             const newQuantity = product.quantity - 1;
             await updateCartItem(userId, productId, newQuantity);
-            setProducts(prevProducts =>
+            setCartItems(prevProducts =>
                 prevProducts.map(item =>
                     item.id === productId ? { ...item, quantity: newQuantity } : item
                 )
@@ -170,7 +170,7 @@ const Basket = () => {
         const userId = JSON.parse(localStorage.getItem("userId"));
         try {
             await deleteCartItem(userId, basketItemId);
-            setProducts(prev => prev.filter(item => item.id !== basketItemId));
+            setCartItems(prev => prev.filter(item => item.id !== basketItemId));
             enqueueSnackbar("Product successfully removed from cart", { variant: "success" });
         } catch (error) {
             enqueueSnackbar("Error removing product from cart", { variant: "error" });
@@ -181,7 +181,7 @@ const Basket = () => {
         const userId = JSON.parse(localStorage.getItem("userId"));
         try {
             await clearUserCart(userId);
-            setProducts([]);
+            setCartItems([]);
             enqueueSnackbar("Cart has been cleared", { variant: "success" });
         } catch (error) {
             enqueueSnackbar("Failed to clear the cart", { variant: "error" });
@@ -338,7 +338,7 @@ const Basket = () => {
             ),
         }
     ];
-    const subtotal = products.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
+    const subtotal = cartItems.reduce((acc, item) => acc + getDiscountedPrice(item) * item.quantity, 0);
     const fixedTax = subtotal > 0 ? 0.62 : 0;
     const total = subtotal + fixedTax;
 
@@ -391,7 +391,7 @@ const Basket = () => {
                         <p className="text-lg sm:text-xl mb-8">Review your items before checkout</p>
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 w-full bg-[#eadfd2] rounded-md">
                             <span className="text-xl font-semibold mb-2 sm:mb-0">
-                                Basket Items <span>({products.length})</span>
+                                Basket Items <span>({cartItems.length})</span>
                             </span>
                             <Button danger onClick={handleClearAll}>Clear All</Button>
                         </div>
@@ -399,7 +399,7 @@ const Basket = () => {
                             <Table
                                 className="min-w-[600px] md:min-w-full"
                                 columns={columns1}
-                                dataSource={products}
+                                dataSource={cartItems}
                                 rowKey="id"
                                 pagination={false}
                             />
@@ -432,7 +432,7 @@ const Basket = () => {
                         <span className="text-gray-700 font-semibold text-lg">${balance}</span>
                     </div>
                     <button onClick={handleOpenModal}
-                        disabled={products.length === 0} className="bg-[#ccbe94] border border-black text-lg px-6 py-2 cursor-pointer w-full sm:w-40 mt-5 hover:bg-[#d2c7a3]">
+                        disabled={cartItems.length === 0} className="bg-[#ccbe94] border border-black text-lg px-6 py-2 cursor-pointer w-full sm:w-40 mt-5 hover:bg-[#d2c7a3]">
                         Place Order
                     </button>
                 </div>

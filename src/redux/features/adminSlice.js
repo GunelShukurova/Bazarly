@@ -1,35 +1,77 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getUserById } from "../../services/users/requests";
 
+const storedAdmin = JSON.parse(localStorage.getItem("admin"));
 
-const adminId = localStorage.getItem("adminId");
+export const initAdmin = createAsyncThunk(
+  "admin/initAdmin",
+  async () => {
+    const adminId = JSON.parse(localStorage.getItem("adminId"));
 
-  const initialState = { admin: null };
-if (JSON.parse(adminId)) {
+    if (!adminId) return null;
 
-const response = await getUserById(adminId);
-const admin = response.data;
+    const response = await getUserById(adminId);
+    const admin = response.data;
 
-  if (admin?.id) {
-    delete admin.password;
-    initialState.admin = { ...admin };
-  }} else {
-  localStorage.setItem("adminId", JSON.stringify(null));
-}
+    if (admin?.id) {
+      const safeAdmin = { ...admin };
+      delete safeAdmin.password;
+      return safeAdmin;
+    }
+
+    return null;
+  }
+);
+
+
+const initialState = {
+  admin: storedAdmin || null,
+};
+
 
 const adminSlice = createSlice({
   name: "admin",
-  initialState: initialState,
+  initialState,
   reducers: {
     login(state, action) {
-      state.admin = { ...action.payload };
+      const safeAdmin = action.payload ? { ...action.payload } : null;
+      if (safeAdmin) {
+        delete safeAdmin.password;
+      }
+      state.admin = safeAdmin;
+      localStorage.setItem(
+        "adminId",
+        JSON.stringify(safeAdmin?.id ?? null)
+      );
+      if (safeAdmin) {
+        localStorage.setItem("admin", JSON.stringify(safeAdmin));
+      } else {
+        localStorage.removeItem("admin");
+      }
     },
+
     updateProfile(state, action) {
-      state.admin = { ...state.admin, ...action.payload };
+      if (state.admin) {
+        state.admin = { ...state.admin, ...action.payload };
+      }
     },
+
     logout(state) {
       state.admin = null;
+      localStorage.setItem("adminId", JSON.stringify(null));
+      localStorage.removeItem("admin");
     },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(initAdmin.fulfilled, (state, action) => {
+      state.admin = action.payload;
+      if (action.payload) {
+        localStorage.setItem("admin", JSON.stringify(action.payload));
+      } else {
+        localStorage.removeItem("admin");
+      }
+    });
   },
 });
 

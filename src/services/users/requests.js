@@ -2,6 +2,7 @@ import instance from "../instance";
 import { endpoints } from "../../constants";
 
 
+
 export async function getAllUsers() {
   try {
     const response = await instance.get(endpoints.users)
@@ -300,44 +301,36 @@ export async function update(endpoint, id, updateInfo) {
     };
   }
 }
-
 export async function banUser(id, banMinutes) {
   try {
+    const banUntil = new Date(Date.now() + banMinutes * 60 * 1000); // дата и время окончания бана
     const response = await instance.patch(endpoints.users + `/${id}`, {
       isBanned: true,
-      banDate: new Date(Date.now() + banMinutes * 60 * 1000)
-    })
+      banUntil, // сохраняем именно banUntil
+    });
     return {
       data: response.data,
-      message: "user banned successfully!",
+      message: "User banned successfully!",
     }
-  }
-  catch (error) {
-    return {
-      data: null,
-      message: "failed to ban user"
-    }
+  } catch (error) {
+    return { data: null, message: "Failed to ban user" };
   }
 }
+
 export async function unBanUser(id) {
   try {
     const response = await instance.patch(endpoints.users + `/${id}`, {
       isBanned: false,
-      banDate: null
-    })
+      banUntil: null, // очищаем дату окончания бана
+    });
     return {
       data: response.data,
-      message: "user unbanned successfully!",
+      message: "User unbanned successfully!",
     }
-  }
-  catch (error) {
-    return {
-      data: null,
-      message: "failed to unban user"
-    }
+  } catch (error) {
+    return { data: null, message: "Failed to unban user" };
   }
 }
-
 
 
 export async function deleteUser(id) {
@@ -420,3 +413,4 @@ export async function adminLogin(email, password) {
     };
   }
 }
+

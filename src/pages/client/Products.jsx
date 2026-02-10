@@ -223,9 +223,18 @@ const Products = () => {
                   </span>
                 )}
                 <div className='flex flex-col justify-center items-center relative'>
-                  <h3 className="text-xl text-center text-shadow-neutral-600 font-normal mb-2 mt-2 ">
-                    {p.title}
-                  </h3>
+  <div className="flex  gap-20 mb-2 mt-2 ml-30">
+  <h3 className="text-xl text-center text-shadow-neutral-600 font-normal">
+    {p.title}
+  </h3>
+  <button
+    type="button"
+    onClick={() => window.location.href = `/product/${p.id}`}
+    className="underline  cursor-pointer text-sm"
+  >
+    Detail
+  </button>
+</div>
                   {userId && (
                     <span
                       className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
@@ -283,6 +292,7 @@ const Products = () => {
                     <span className="ml-4 font-semibold">${p.price.toFixed(2)}</span>
                   )}
                 </button>
+ 
               </div>
             ))
           ) : (

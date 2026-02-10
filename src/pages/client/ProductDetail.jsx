@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSnackbar } from "notistack";
 import { updateUserBasket } from "../../services/users/requests";
+import { useCart } from "../../context/cartContext";
+import { useFavorites } from "../../context/favoriteContext";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -25,18 +27,11 @@ const ProductDetail = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewRating, setReviewRating] = useState(0);
-  const [cartItems, setCartItems] = useState(() => {
-
-    const saved = localStorage.getItem("basket");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { cartItems, setCartItems } = useCart();
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user.users);
   const userId = user?.id || "defaultUserId";
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem("favorites");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { favorites, setFavorites } = useFavorites();
 
   const toggleFavorite = () => {
     setFavorites(prevFavorites => {
@@ -49,7 +44,6 @@ const ProductDetail = () => {
         newFavorites = [...prevFavorites, product];
         enqueueSnackbar("Product added to favorites", { variant: "success" });
       }
-      localStorage.setItem("favorites", JSON.stringify(newFavorites));
       return newFavorites;
     });
   };
@@ -161,7 +155,6 @@ const ProductDetail = () => {
           }
         ];
       }
-      localStorage.setItem("basket", JSON.stringify(newCart));
       if (userId !== "defaultUserId") {
         updateUserBasket(userId, newCart)
           .then(() => {
@@ -173,7 +166,7 @@ const ProductDetail = () => {
       } else {
         enqueueSnackbar("Product added to cart", { variant: "success" });
       }
-
+      return newCart;
     });
   };
 
@@ -244,7 +237,7 @@ const ProductDetail = () => {
                     min="1"
                     max="99"
                     value={quantity}
-           onChange={(e) => handleQuantityChange(e)}
+                    onChange={(e) => handleQuantityChange(e)}
                     className="w-16 py-2 px-4 border border-gray-300 rounded-lg text-center"
 
                   />
@@ -289,6 +282,12 @@ const ProductDetail = () => {
                   <div>
                     <p className="text-lg">{review.comment}</p>
                   </div>
+                  {review.adminReply && (
+                    <div className="bg-gray-100 border-l-4 border-amber-700 p-3 rounded">
+                      <p className="text-sm font-semibold text-gray-700">Admin reply</p>
+                      <p className="text-base text-gray-700">{review.adminReply}</p>
+                    </div>
+                  )}
                   <div>
                     <button
                       type="button"

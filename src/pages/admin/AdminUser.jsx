@@ -1,129 +1,137 @@
-
-import { Table } from 'antd';
+import { Table, Button, Tag, Popconfirm } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, getAllUsers } from '../../services/users/requests';
-import { useEffect, useState } from 'react';
+import { banUser, deleteUser, getAllUsers, unBanUser } from '../../services/users/requests';
+import { useEffect } from 'react';
 import { updateUsers } from '../../redux/features/usersManagementSlice';
-import { Button } from 'antd';
 import { enqueueSnackbar } from "notistack";
+import moment from 'moment';
 
 const AdminUser = () => {
-
   const dispatch = useDispatch();
-  const [localUsers, setLocalUsers] = useState([]);
 
   useEffect(() => {
-    getAllUsers().then((resp) => {
-      if (resp.data) {
-        dispatch(updateUsers(resp.data));
-      }
-    });
+    fetchUsers();
   }, [dispatch]);
 
-  const users = useSelector(state => state.usersManagement.users);
-
-
-
-  const handleDelete = async (id) => {
+  const fetchUsers = async () => {
     try {
-      await deleteUser(id)
-
       const resp = await getAllUsers();
-      if (resp.data) {
-        dispatch(updateUsers(resp.data));
-      }
+      if (resp.data) dispatch(updateUsers(resp.data));
     } catch (err) {
-      console.error("Failed to delete user", err);
+      console.error("Failed to fetch users", err);
     }
   };
 
+  const users = useSelector(state => state.usersManagement.users);
+
+  // Delete user
+  const handleDelete = async (id) => {
+    try {
+      await deleteUser(id);
+      enqueueSnackbar("User deleted successfully", { variant: "success" });
+      fetchUsers();
+    } catch (err) {
+      enqueueSnackbar("Failed to delete user", { variant: "error" });
+    }
+  };
+
+
+  const handleBanToggle = async (user) => {
+    try {
+      if (user.isBanned) {
+        await unBanUser(user.id);
+        enqueueSnackbar(`User ${user.fullName} unbanned`, { variant: 'success' });
+      } else {
+        await banUser(user.id, 60); // бан на 60 минут
+        enqueueSnackbar(`User ${user.fullName} banned for 1 hour`, { variant: 'success' });
+      }
+      fetchUsers();
+    } catch (err) {
+      enqueueSnackbar('Failed to update ban status', { variant: 'error' });
+    }
+  };
+
+
   const columns = [
-        { 
-  title: 'Profile Image', 
-  dataIndex: 'profileImage', 
-  width: '5%',
-  render: (img) => (
-    <img 
-      src={img} 
-      alt="profile" 
-      style={{ width: 60, height: 60, borderRadius: '50%', objectFit: 'cover' }} 
-    />
-  )
-},
-    {
-      title: 'Fullname',
-      dataIndex: 'fullName',
-      width: '12%',
+    { 
+      title: 'Profile', 
+      dataIndex: 'profileImage', 
+      width: '2%',
+      render: (img) => (
+        <img 
+          src={img} 
+          alt="profile" 
+          style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover' }} 
+        />
+      )
     },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      width: '12%',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-      width: '12%',
-    },
-    {
-      title: "Joined at",
-      dataIndex: "registeredAt",
+    { title: 'Fullname', dataIndex: 'fullName', width: '15%' },
+    { title: 'Email', dataIndex: 'email', width: '20%' },
+    { title: 'Phone', dataIndex: 'phone', width: '12%' },
+    { 
+      title: "Joined at", 
+      dataIndex: "registeredAt", 
       width: '12%',
       sorter: (a, b) => new Date(a.registeredAt) - new Date(b.registeredAt),
-      render: (value) => {
-        return <span>{new Date(value).toDateString()}</span>;
-      },
+      render: (value) => moment(value).format("MMM DD, YYYY"),
     },
-    { title: 'Balance', dataIndex: 'balance', width: '7%', render: (balance) => `$${balance}` },
+    { 
+      title: 'Balance', 
+      dataIndex: 'balance', 
+      width: '8%', 
+      render: (balance) => <span>${balance}</span> 
+    },
     {
-      title: 'Action',
-      dataIndex: 'action',
+      title: 'Status',
+      dataIndex: 'isBanned',
+      width: '5%',
+      render: (isBanned, record) => (
+        isBanned 
+          ? <Tag color="red">Banned until {moment(record.banUntil).format("MMM DD")}</Tag> 
+          : <Tag color="green">Active</Tag>
+      ),
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'actions',
       width: '10%',
       render: (_, record) => (
-        <Button
-          type="primary"
-          color="red" variant="outlined"
+        <div className="flex gap-2">
+          <Popconfirm
+            title="Are you sure delete this user?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" danger>Delete</Button>
+          </Popconfirm>
 
-          onClick={() => {
-            handleDelete(record.id);
-            enqueueSnackbar("User deleted successfully", {
-              variant: "success",
-              autoHideDuration: 2000,
-              anchorOrigin: {
-                vertical: "bottom",
-                horizontal: "right",
-              },
-            });
-          }}
-        >
-          Delete
-        </Button>
+          <Button 
+            type={record.isBanned ? "default" : "primary"} 
+            style={{ backgroundColor: record.isBanned ? "#10b981" : "#f87171", color: "white" }}
+            onClick={() => handleBanToggle(record)}
+          >
+            {record.isBanned ? "Unban" : "Ban"}
+          </Button>
+        </div>
       ),
     }
   ];
 
-  const tableStyle = {
-    width: '90%',
-    backgroundColor: '#f3ead375',
-    borderRadius: '8px',
-    marginLeft: "260px",
-    position: "fixed",
-    color: "#352411b5"
-
-  };
-
   return (
-    <>
-      <h1 className='text-2xl font-semibold  text-[#352411b5] text-center mb-5 mt-2'>Users Management</h1>
+    <div className="px-6 pt-6 w-[88%] min-h-screen bg-gray-50 ml-[239px]">
+      <h1 className='text-3xl font-bold text-center text-gray-800 mb-6'>Users Management</h1>
+
       <Table
         columns={columns}
         dataSource={users}
         rowKey="id"
-        style={tableStyle}
+        pagination={{ pageSize: 8 }}
+        rowClassName={(record) => record.isBanned ? 'bg-red-50' : ''}
+        bordered
       />
-    </>
-  )
+    </div>
+  );
 };
-
 
 export default AdminUser;

@@ -74,3 +74,39 @@ export async function addProductReview(newReview) {
   }
 }
   
+
+export async function updateReviewStatus(reviewId, updateInfo) {
+  try {
+    const response = await instance.patch(`${endpoints.reviews}/${reviewId}`, updateInfo);
+    return {
+      success: true,
+      data: response.data,
+      message: "Review status updated successfully",
+    };
+  } catch (error) {
+    console.error("Failed to update review status:", error);
+    return {
+      success: false,
+      data: null,
+      message: error.message || "Failed to update review status",
+    };
+  }
+}
+
+export async function updateReview(reviewId, updateInfo) {
+  try {
+    const response = await instance.patch(`${endpoints.reviews}/${reviewId}`, updateInfo);
+    return {
+      success: true,
+      data: response.data,
+      message: "Review updated successfully",
+    };
+  } catch (error) {
+    console.error("Failed to update review:", error);
+    return {
+      success: false,
+      data: null,
+      message: error.message || "Failed to update review",
+    };
+  }
+}

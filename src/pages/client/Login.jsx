@@ -140,7 +140,9 @@ const Login = () => {
             >
               Sign in
             </button>
-            <span className='mt-7 text-md'>Don't have an account? <span onClick={() => navigate("/register")} className='cursor-pointer font-semibold'>Sign up here</span></span>
+            <span className='mt-5 text-lg underline cursor-pointer' onClick={()=>navigate("/admin/login")}>Go to Admin Login </span>
+            <span className='mt-7 text-lg'>Don't have an account? <span onClick={() => navigate("/register")} className='cursor-pointer font-semibold'>Sign up here</span></span>
+
           </div>
         </form>
       </div >

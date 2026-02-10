@@ -74,8 +74,13 @@ const AdminLogin = () => {
         >
           <div className='flex justify-center items-center flex-col gap-3'>
 
-            <h3 className='text-2xl font-normal'>Admin Login</h3>
+            <h3 className='text-2xl font-semibold'>Admin Login</h3>
             <p className='text-2xl text-gray-600 font-thin'>Access the admin panel</p>
+            <div className='text-xl flex flex-col'>
+          <span>email: admin@gmail.com</span>
+            <span>password: Hello123!</span>
+            </div>
+  
           </div>
           <div className="flex flex-col">
             <label
@@ -131,7 +136,8 @@ const AdminLogin = () => {
               </span>
             )}
           </div>
-          <div className="flex flex-col w-full items-center">
+          <div className="flex flex-col w-full">
+          
             <button
               disabled={
                 formik.isSubmitting ||
@@ -145,7 +151,7 @@ const AdminLogin = () => {
             >
               Sign in to Admin Panel
             </button>
-
+  <button onClick={()=>navigate("/")} className='mt-5 text-lg cursor-pointer text-start underline'>Back to Home</button>
           </div>
         </form>
       </div >

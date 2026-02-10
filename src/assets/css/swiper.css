@@ -1,74 +1,69 @@
 #app {
-    height: 100%;
-  }
-  html,
-  body {
-    position: relative;
-    height: 100%;
-  }
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
 
-  body {
+body {
   font-family: "Ysabeau Office", sans-serif;
   font-optical-sizing: auto;
 
   font-style: normal;
-  
-    font-size: 14px;
-color: #333333;
-background-color: #FDFBF7;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .swiper {
-    width: 100%;
-    height: 100%;
 
-  }
-  
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #444;
-  
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .swiper-slide img {
+  font-size: 14px;
+  color: #333333;
+  background-color: #fdfbf7;
+  margin: 0;
+  padding: 0;
+}
 
-  width: 100vw; 
-   height: 90vh; 
-    object-fit: cover;
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #444;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100vw;
+  height: 90vh;
+  object-fit: cover;
   display: block;
-  }
-  
+}
+
 .ant-table-tbody > tr:hover > td {
-  background-color: #eadfd2  !important;
+  background-color: #eadfd2 !important;
   transition: background-color 0.3s ease;
 }
 
 .ant-table-container {
-  background-color: #f3ead375; 
-  
-  border-radius: 0%  !important; 
+  background-color: #f3ead375;
 
+  border-radius: 0% !important;
 }
 .ant-table-thead > tr > th {
-  background-color: #eadfd2 !important; 
-  color: #3b2f1b; 
+  background-color: #eadfd2 !important;
+  color: #3b2f1b;
   font-weight: 600;
   text-align: center;
-    border-radius: 0%  !important; 
+  border-radius: 0% !important;
 }
 
 .ant-table-footer {
-  background-color: #D0C1AF !important; 
+  background-color: #d0c1af !important;
   color: #3b2f1b;
   font-weight: 600;
   text-align: center;
   padding: 12px;
-}  
-
+}

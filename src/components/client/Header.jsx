@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../redux/features/userSlice';
+import { initUser, logout } from '../../redux/features/userSlice';
 import { LuLogOut } from "react-icons/lu";
 import { SlBasket } from "react-icons/sl";
 import { HiOutlineMenu } from "react-icons/hi";
@@ -37,12 +37,8 @@ const Header = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
-
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, []);
+    dispatch(initUser());
+  }, [dispatch]);
 
   const links = [
     {

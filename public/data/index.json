@@ -1,89 +1,37 @@
 {
   "users": [
     {
-      "id": "3f485a15-588c-4913-b2f1-a079b946db55",
-      "username": "gunel",
-      "fullName": "Gunel Shukurov",
-      "balance": "1500.00",
-      "email": "gunel53_80@mail.ru",
-      "role": "client",
-      "phone": "+994 50 705 57 22",
-      "basketItems": [
-        {
-          "id": "1",
-          "title": "Herschel Retreat Backpack",
-          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
-          "category": "accessories",
-          "available": true,
-          "description": "Classic design backpack with laptop sleeve.",
-          "rating": 3.3,
-          "inStock": 44,
-          "isOnSale": false,
-          "salePercentage": 0,
-          "brand": "Herschel",
-          "price": 89,
-          "quantity": 3
-        }
-      ],
-      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "isBanned": false,
-      "banDate": null,
-      "password": "Salam123!",
-      "createdAt": "2025-06-01T10:15:30.000Z",
-      "lastLogin": "2025-06-10T18:42:00.000Z",
-      "address": {
-        "country": "",
-        "city": "",
-        "street": ""
-      },
-      "newPassword": ""
-    },
-    {
       "id": "6619",
       "fullName": "Gunel Shukurova",
-      "email": "gunel23_25@mail.ru",
-      "password": "Salam123!",
+      "email": "admin@gmail.com",
+      "password": "Hello123!",
       "profileImage": "https://media.istockphoto.com/id/1452895487/photo/portrait-of-a-charming-business-woman-in-the-office.jpg?s=612x612&w=0&k=20&c=fZAe285E2Tq-9dtvSygGZe90NTRK8LN4cGqTrAmKmEo=",
       "role": "admin",
-      "phone": "+994 50 705 57 22",
+      "phone": "+7466466466432",
       "isBanned": false,
       "banUntil": null,
       "favorites": [],
       "registeredAt": "2025-06-13T13:58:14.321Z",
       "balance": 1020,
       "currentPassword": "",
-      "newPassword": "Salam1234!",
-      "confirmNewPassword": "Salam1234!"
+      "newPassword": "Hello123!",
+      "confirmNewPassword": "Hello123!",
+      "banDate": "2026-02-10T18:17:11.274Z"
     },
     {
-      "id": "1265",
+      "id": "c33b",
       "fullName": "Gunel Shukurova",
-      "email": "gunel60@mail.ru",
-      "password": "Salam1223!",
-      "profileImage": "https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg",
+      "email": "gunel23@mail.ru",
+      "password": "Gunel1223",
+      "profileImage": "https://media.licdn.com/dms/image/v2/D4E03AQG33fp2NfP7Ow/profile-displayphoto-scale_400_400/B4EZr7M4fcGoAg-/0/1765151054088?e=2147483647&v=beta&t=pakx_Qsxl62A3Tkp42pSPvreCtsaLvaAS1x0Mu-ABN0",
       "role": "client",
-      "phone": "+994 50 705 57 23",
+      "phone": "+957738883884",
       "isBanned": false,
       "banUntil": null,
       "favorites": [],
-      "balance": 1000,
-      "registeredAt": "2025-06-13T14:06:35.218Z",
+      "balance": "1999.39",
+      "registeredAt": "2026-02-10T15:50:05.465Z",
       "basketItems": [
-        {
-          "id": "1",
-          "title": "Herschel Retreat Backpack",
-          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
-          "category": "accessories",
-          "available": true,
-          "description": "Classic design backpack with laptop sleeve.",
-          "rating": 3.3,
-          "inStock": 44,
-          "isOnSale": false,
-          "salePercentage": 0,
-          "brand": "Herschel",
-          "price": 89,
-          "quantity": 5
-        },
         {
           "id": "2",
           "title": "Apple iPhone 15",
@@ -97,61 +45,16 @@
           "salePercentage": 0,
           "brand": "Apple",
           "price": 999.99,
-          "userId": "1265",
-          "quantity": 4
+          "userId": "c33b",
+          "quantity": 1
         }
       ]
-    },
-    {
-      "id": "ad4a",
-      "fullName": "Gunel Shukurova",
-      "email": "gunel23_23@mail.ru",
-      "password": "Salam123!",
-      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "role": "client",
-      "phone": "+994 50 556 66 44",
-      "isBanned": false,
-      "banUntil": null,
-      "favorites": [],
-      "balance": 2000,
-      "registeredAt": "2025-06-18T15:29:30.073Z"
-    },
-    {
-      "id": "795d",
-      "fullName": "Gunel ",
-      "email": "gunel25@mail.ru",
-      "password": "Salam12345!",
-      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "role": "client",
-      "phone": "+994 55 666 44 55",
-      "isBanned": false,
-      "banUntil": null,
-      "favorites": [],
-      "balance": "2588.61",
-      "registeredAt": "2025-06-18T15:31:50.936Z",
-      "basketItems": []
     }
   ],
   "orders": [
     {
-      "id": "order1",
-      "userId": "3f485a15-588c-4913-b2f1-a079b946db55",
-      "products": [
-        {
-          "productId": "3",
-          "title": "Product Title",
-          "image": "https://maufeitio.pt/onlineshop/128635-large_default/herschel-retreat-backpack-navy.jpg",
-          "quantity": 3,
-          "price": 100
-        }
-      ],
-      "status": "pending",
-      "createdAt": "2025-06-15T12:00:00.000Z",
-      "totalPrice": 300
-    },
-    {
       "id": "94b3",
-      "userId": "795d",
+      "userId": null,
       "items": [
         {
           "productId": "2",
@@ -164,11 +67,11 @@
       "fullName": "Gunel Shukurova",
       "phoneNumber": "+994 50 556 66 44",
       "createdAt": "2025-06-18T18:54:41.567Z",
-      "status": "pending"
+      "status": "shipped"
     },
     {
       "id": "ce39",
-      "userId": "795d",
+      "userId": null,
       "items": [
         {
           "productId": "2",
@@ -185,7 +88,7 @@
     },
     {
       "id": "8367",
-      "userId": "795d",
+      "userId": null,
       "items": [
         {
           "productId": "2",
@@ -243,6 +146,94 @@
       "phoneNumber": "+994 50 705 57 23",
       "createdAt": "2025-06-19T06:28:04.650Z",
       "status": "pending"
+    },
+    {
+      "id": "096d",
+      "userId": null,
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1,
+          "price": 89
+        },
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 999.99
+        },
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 159.99200000000002
+        }
+      ],
+      "totalPrice": 1249.6019999999999,
+      "shippingAddress": "main street\n",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 23",
+      "createdAt": "2025-06-19T07:22:15.672Z",
+      "status": "pending"
+    },
+    {
+      "id": "3d15",
+      "userId": null,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 4,
+          "price": 999.99
+        }
+      ],
+      "totalPrice": 4000.58,
+      "shippingAddress": "main street",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 23",
+      "createdAt": "2025-06-19T11:42:45.570Z",
+      "status": "pending"
+    },
+    {
+      "id": "c425",
+      "userId": null,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 999.99
+        },
+        {
+          "productId": "3",
+          "quantity": 1,
+          "price": 159.99200000000002
+        },
+        {
+          "productId": "1",
+          "quantity": 1,
+          "price": 89
+        }
+      ],
+      "totalPrice": 1249.6019999999999,
+      "shippingAddress": "main street",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994 50 705 57 23",
+      "createdAt": "2025-06-19T20:06:59.725Z",
+      "status": "pending"
+    },
+    {
+      "id": "5b4c",
+      "userId": "c33b",
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1,
+          "price": 999.99
+        }
+      ],
+      "totalPrice": 1000.61,
+      "shippingAddress": "main street",
+      "fullName": "Gunel Shukurova",
+      "phoneNumber": "+994507055723",
+      "createdAt": "2026-02-10T15:57:02.259Z",
+      "status": "pending"
     }
   ],
   "products": [
@@ -256,7 +247,7 @@
       "rating": 3.3,
       "inStock": 44,
       "isOnSale": false,
-      "salePercentage": 0,
+      "salePercentage": 5,
       "brand": "Herschel",
       "price": 89
     },
@@ -374,20 +365,6 @@
       "price": 65
     },
     {
-      "id": "10",
-      "title": "Timberland Waterproof Boots",
-      "image": "https://noirfonce.eu/cdn/shop/files/Timberland_Premium_6-Inch_Lace_Up_Waterproof_Boot_Medium_Blue_TB0A2QXQEJI.jpg?v=1726223584",
-      "category": "shoes",
-      "available": true,
-      "description": "Iconic waterproof boots for all-weather wear.",
-      "rating": 4.7,
-      "inStock": 18,
-      "isOnSale": false,
-      "salePercentage": 0,
-      "brand": "Timberland",
-      "price": 180
-    },
-    {
       "id": "11",
       "title": "Logitech Wireless Mouse",
       "image": "https://resource.logitech.com/b_white/content/dam/logitech/en/products/mice/m220/gallery/m220-rose-gallery-1.png",
@@ -446,7 +423,7 @@
     {
       "id": "16",
       "title": "Ray-Ban Sunglasses",
-      "image": "https://mx2games.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-28-at-8.45.38-PM-2.jpeg",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "category": "accessories",
       "available": true,
       "description": "Timeless frame with polarized lenses.",
@@ -505,7 +482,7 @@
       "messages": "salam",
       "submittedAt": "2025-06-18T19:28:05.046Z",
       "profileImage": "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg",
-      "isRead": "responded"
+      "isRead": "pending"
     },
     {
       "id": "ccc9",
@@ -514,20 +491,18 @@
       "subject": "product request",
       "messages": "salam",
       "submittedAt": "2025-06-19T05:36:13.118Z",
+      "profileImage": "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg",
+      "isRead": "spam"
+    },
+    {
+      "id": "fc6c",
+      "fullName": "Gunel Shukurova",
+      "email": "gunel23_23@mail.ru",
+      "subject": "product request",
+      "messages": "salam",
+      "submittedAt": "2025-06-19T11:37:11.861Z",
       "profileImage": "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
     }
   ],
-  "reviews": [
-    {
-      "id": "0e6f",
-      "userId": "ad4a",
-      "productId": "2",
-      "comment": "nice",
-      "rating": 3,
-      "email": "gunel23_23@mail.ru",
-      "fullName": "Gunel Shukurova",
-      "profileImage": "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
-      "createdAt": "2025-06-19T06:50:43.002Z"
-    }
-  ]
+  "reviews": []
 }

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { GoStar } from "react-icons/go";
 import { useSnackbar } from 'notistack';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -7,16 +5,15 @@ import { addToCart, updateCartItem } from "../../services/basket/requests";
 import { fetchUserBasket } from "../../services/users/requests";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
+import { useFavorites } from "../../context/favoriteContext";
+import { useCart } from "../../context/cartContext";
 
 
 const Favorites = () => {
 
-  const [favorites, setFavorites] = useState([])
+  const { favorites, setFavorites } = useFavorites();
+  const { setCartItems } = useCart();
   const { enqueueSnackbar } = useSnackbar();
-  useEffect(() => {
-    const stored = localStorage.getItem("favorites");
-    if (stored) setFavorites(JSON.parse(stored));
-  }, []);
 
   const renderStars = (rating, maxRating = 5) => {
     const filled = Math.floor(rating);
@@ -34,6 +31,12 @@ const Favorites = () => {
       stars.push(<FaRegStar key={`empty-${i}`} className="text-yellow-500" />);
     }
     return stars;
+  };
+
+  const formatPrice = (value) => {
+    const numberValue = Number(value);
+    if (!Number.isFinite(numberValue)) return "N/A";
+    return numberValue.toFixed(2);
   };
 
   const handleAddToCart = async (product) => {
@@ -55,13 +58,20 @@ const Favorites = () => {
       const basketItems = userRes.data;
       const existingItem = basketItems.find(item => item.id === product.id);
 
+      let updatedBasketItems = [];
+
       if (existingItem) {
-
-        await updateCartItem(userId, product.id, existingItem.quantity + 1);
+        const newQuantity = existingItem.quantity + 1;
+        await updateCartItem(userId, product.id, newQuantity);
+        updatedBasketItems = basketItems.map(item =>
+          item.id === product.id ? { ...item, quantity: newQuantity } : item
+        );
       } else {
-
         await addToCart(userId, { ...product, quantity: 1 });
+        updatedBasketItems = [...basketItems, { ...product, quantity: 1 }];
       }
+
+      setCartItems(updatedBasketItems);
 
       enqueueSnackbar("Product added to cart!", { variant: "success" });
 
@@ -74,7 +84,6 @@ const Favorites = () => {
   const removeFavorite = (productId) => {
     const updated = favorites.filter((f) => f.id !== productId);
     setFavorites(updated);
-    localStorage.setItem("favorites", JSON.stringify(updated));
     enqueueSnackbar("Product removed from favorites", { variant: "success" });
   };
 
@@ -87,7 +96,16 @@ const Favorites = () => {
             <p className="text-xl mb-10">Products you've saved for later</p>
             {favorites.length ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 md:gap-8">
-                {favorites.map((f) => (
+                {favorites.map((f) => {
+                  const priceValue = Number(f.price);
+                  const salePercentageValue = Number(f.salePercentage);
+                  const hasValidPrice = Number.isFinite(priceValue);
+                  const hasValidSale = Number.isFinite(salePercentageValue);
+                  const showSale = f.isOnSale && hasValidPrice && hasValidSale;
+                  const salePrice = hasValidPrice && hasValidSale
+                    ? priceValue * (1 - salePercentageValue / 100)
+                    : null;
+                  return (
                   <div
                     key={f.id}
                     className="max-w-full shadow-md overflow-hidden p-4 bg-[#F8F6F0] cursor-pointer relative group"
@@ -137,22 +155,23 @@ const Favorites = () => {
                         className="w-full mt-4 bg-neutral-700 text-white text-sm px-6 py-2 rounded shadow border border-black opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex justify-center gap-3 cursor-pointer max-w-full"
                       >
                         ADD TO CART
-                        {f.isOnSale ? (
+                        {showSale ? (
                           <div className="flex gap-2 items-center justify-center">
                             <span className="line-through text-md text-gray-300">
-                              ${f.price.toFixed(2)}
+                              ${formatPrice(priceValue)}
                             </span>
                             <span className="font-semibold text-md text-gray-100">
-                              ${(f.price * (1 - f.salePercentage / 100)).toFixed(2)}
+                              ${formatPrice(salePrice)}
                             </span>
                           </div>
                         ) : (
-                          <span className="ml-4 font-semibold">${f.price.toFixed(2)}</span>
+                          <span className="ml-4 font-semibold">${formatPrice(priceValue)}</span>
                         )}
                       </button>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <p className="text-2xl text-gray-500 text-center">You have no favorite products yet.</p>
