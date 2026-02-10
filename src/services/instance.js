@@ -1,5 +1,5 @@
 const STORAGE_KEY = "bazarly-data";
-const DATA_URL = new URL("data/index.json", import.meta.env.BASE_URL).toString();
+const DATA_URL = `${import.meta.env.BASE_URL}data/index.json`;
 
 const createId = () => {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
