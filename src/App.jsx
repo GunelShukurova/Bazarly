@@ -7,7 +7,9 @@ import ROUTES from './routes';
 import { SnackbarProvider } from 'notistack';
 
 
-const routes = createBrowserRouter(ROUTES);
+const routes = createBrowserRouter(ROUTES, {
+  basename: import.meta.env.BASE_URL,
+});
 
 function App() {
 
