@@ -262,7 +262,7 @@ const Products = () => {
                     />
                   </Link>
                   <div className="mb-4">
-                    <p className="text-lg text-center text-neutral-600 mb-2">
+                    <p className="text-lg text-center text-neutral-700 mb-2">
                       {p.description}
                     </p>
                     <span className="block font-normal text-xl text-center mt-3">
