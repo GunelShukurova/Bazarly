@@ -55,6 +55,10 @@ const Products = () => {
   }, []);
 
   const handleAddToCart = (product) => {
+    if (!userId) {
+      enqueueSnackbar("Please log in to add items to the cart.", { variant: "warning" });
+      return;
+    }
     setCartItems(prevCart => {
       const existingIndex = prevCart.findIndex(item => item.id === product.id);
       let newCart;
@@ -92,16 +96,19 @@ const Products = () => {
 
 
   useEffect(() => {
-    if (userId !== "defaultUserId") {
-      fetchUserBasket(userId).then(resp => {
+    if (!userId) {
+      return;
+    }
+    fetchUserBasket(userId)
+      .then(resp => {
         if (resp.data) {
           setCartItems(resp.data);
           localStorage.setItem("basket", JSON.stringify(resp.data));
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         enqueueSnackbar("Failed to load basket from server", { variant: "error" });
       });
-    }
   }, [userId]);
 
 
@@ -227,13 +234,12 @@ const Products = () => {
   <h3 className="text-xl text-center text-shadow-neutral-600 font-normal">
     {p.title}
   </h3>
-  <button
-    type="button"
-    onClick={() => window.location.href = `/product/${p.id}`}
-    className="underline  cursor-pointer text-sm"
+  <Link
+    to={`/product/${p.id}`}
+    className="underline cursor-pointer text-sm"
   >
     Detail
-  </button>
+  </Link>
 </div>
                   {userId && (
                     <span

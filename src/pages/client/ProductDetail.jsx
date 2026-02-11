@@ -30,7 +30,7 @@ const ProductDetail = () => {
   const { cartItems, setCartItems } = useCart();
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user.users);
-  const userId = user?.id || "defaultUserId";
+  const userId = user?.id;
   const { favorites, setFavorites } = useFavorites();
 
   const toggleFavorite = () => {
@@ -50,6 +50,10 @@ const ProductDetail = () => {
   const { enqueueSnackbar } = useSnackbar();
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
+    if (!userId) {
+      enqueueSnackbar("Please log in to submit a review.", { variant: "warning" });
+      return;
+    }
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -134,6 +138,10 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
+    if (!userId) {
+      enqueueSnackbar("Please log in to add items to the cart.", { variant: "warning" });
+      return;
+    }
     setCartItems(prevCart => {
       const existingIndex = prevCart.findIndex(item => item.id === product.id);
       let newCart;
@@ -155,17 +163,13 @@ const ProductDetail = () => {
           }
         ];
       }
-      if (userId !== "defaultUserId") {
-        updateUserBasket(userId, newCart)
-          .then(() => {
-            enqueueSnackbar("Product added to cart", { variant: "success" });
-          })
-          .catch(() => {
-            enqueueSnackbar("Error updating cart on server", { variant: "error" });
-          });
-      } else {
-        enqueueSnackbar("Product added to cart", { variant: "success" });
-      }
+      updateUserBasket(userId, newCart)
+        .then(() => {
+          enqueueSnackbar("Product added to cart", { variant: "success" });
+        })
+        .catch(() => {
+          enqueueSnackbar("Error updating cart on server", { variant: "error" });
+        });
       return newCart;
     });
   };
@@ -314,7 +318,13 @@ const ProductDetail = () => {
                 <div className="text-sm text-gray-700 ">
                   <div className="flex items-center gap-1 text-lg text-[#352411b5] cursor-pointer">
                     {[...Array(5)].map((_, index) => (
-                      <span key={index} onClick={() => setReviewRating(index + 1)}>
+                      <span
+                        key={index}
+                        onClick={() => {
+                          if (!userId) return;
+                          setReviewRating(index + 1);
+                        }}
+                      >
                         {index < reviewRating ? (
                           <FaStar className="text-yellow-500" />
                         ) : (
@@ -333,12 +343,18 @@ const ProductDetail = () => {
                 rows="4"
                 value={reviewMessage}
                 onChange={(e) => setReviewMessage(e.target.value)}
+                disabled={!userId}
                 className="w-full border-2 border-gray- text-xl text-blue-950  border-[#ccbe94] rounded-lg p-3"
                 placeholder="Write your review..."
               />
+              {!userId && (
+                <p className="text-sm text-gray-600 mt-2">
+                  Please log in to write a review.
+                </p>
+              )}
               <button
                 type="submit"
-                disabled={isSubmitting || !reviewMessage || reviewRating === 0}
+                disabled={isSubmitting || !reviewMessage || reviewRating === 0 || !userId}
                 className="bg-[#ccbe94] cursor-pointer hover:bg-[#ada178] text-white mt-5 mb-10 w-full sm:w-60 rounded px-2 py-4"
               >
                 Submit Review
