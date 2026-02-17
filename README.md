@@ -6,8 +6,7 @@
 
 ## ✨ Live Demo
 
-> *(Add your deployed link here)*
-> 👉 [[https://your-demo-link.com](https://your-demo-link.com](https://bazarly-virid.vercel.app/)
+ [[https://your-demo-link.com](https://your-demo-link.com](https://bazarly-virid.vercel.app/)
 
 ---
 
@@ -111,12 +110,6 @@ Available endpoints:
 /orders
 /messages
 /reviews
-```
-
-## 4. Start development server
-
-```bash
-npm run dev
 ```
 
 App runs at:
