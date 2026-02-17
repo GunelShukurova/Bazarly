@@ -74,8 +74,8 @@ const Login = () => {
           </div>
           <div className="flex flex-col">
             <div className='flex flex-col mt-5 justify-center items-center'>
-        <span className='text-xl'>Email: gunel23@gmail.com</span>
-            <span className='text-xl'>Password: Gunel2323</span>
+        <span className='text-xl'>Email: gunel23@mail.ru</span>
+            <span className='text-xl'>Password: Gunel1223</span>
             </div>
     
             <label
