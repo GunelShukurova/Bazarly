@@ -5,13 +5,21 @@ import { endpoints } from "../../constants";
 export async function getAllProducts() {
     try {
         const response = await instance.get(endpoints.products)
+        const payload = response.data;
+        const products = Array.isArray(payload)
+            ? payload
+            : Array.isArray(payload?.products)
+                ? payload.products
+                : Array.isArray(payload?.data)
+                    ? payload.data
+                    : [];
         return {
-            data: response.data,
+            data: products,
             message: "products received successfully"
         }
     } catch (error) {
         return {
-            data: null,
+            data: [],
             message: "failed to fetch products"
         }
     }
