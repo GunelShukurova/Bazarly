@@ -120,6 +120,12 @@ const Products = () => {
   }, [userId]);
 
   const toggleFavorite = (product) => {
+    if (!userId) {
+      enqueueSnackbar("Please log in to add favorites.", {
+        variant: "warning",
+      });
+      return;
+    }
     const isFav = favorites.find((f) => f.id === product.id);
 
     if (isFav) {
@@ -238,36 +244,40 @@ const Products = () => {
                 key={p.id}
                 className="max-w-lg  shadow-md overflow-hidden p-4 bg-[#F8F6F0] cursor-pointer relative group"
               >
-                {p.isOnSale && (
-                  <span className="absolute top-6 left-5 bg-red-800 text-white px-4 py-1 text-sm font-semibold rounded z-10">
-                    {p.salePercentage}%
-                  </span>
-                )}
                 <div className="flex flex-col justify-center items-center relative">
-                  <div className="flex  gap-20 mb-2 mt-2 ml-30">
+                  <div className="grid w-full grid-cols-3 items-center mb-2 mt-2">
+                    <div className="flex items-center justify-start">
+                      {p.isOnSale && (
+                        <span className="bg-red-800 text-white px-4 py-1 text-sm font-semibold rounded">
+                          {p.salePercentage}%
+                        </span>
+                      )}
+                    </div>
                     <h3 className="text-xl text-center text-shadow-neutral-600 font-normal">
                       {p.title}
                     </h3>
-                    <Link
-                      to={`/product/${p.id}`}
-                      className="underline cursor-pointer text-sm"
-                    >
-                      Detail
-                    </Link>
-                  </div>
-                  {userId && (
-                    <span
-                      className="cursor-pointer z-10 absolute top-1 right-4 text-gray-700
-    text-lg sm:text-xl md:text-2xl"
-                      onClick={() => toggleFavorite(p)}
-                    >
-                      {favorites.find((f) => f.id === p.id) ? (
-                        <FavoriteIcon className="text-red-800 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-                      ) : (
-                        <IoMdHeartEmpty className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                    <div className="flex items-center justify-end gap-3">
+                      <Link
+                        to={`/product/${p.id}`}
+                        className="underline cursor-pointer text-sm"
+                      >
+                        Detail
+                      </Link>
+                      {userId && (
+                        <span
+                          className="cursor-pointer text-gray-700 text-lg sm:text-xl md:text-2xl"
+                          onClick={() => toggleFavorite(p)}
+                        >
+                          {favorites.find((f) => f.id === p.id) ? (
+                            <FavoriteIcon className="text-red-800 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                          ) : (
+                            <IoMdHeartEmpty className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                          )}
+                        </span>
                       )}
-                    </span>
-                  )}
+                    </div>
+                  </div>
+                 
                   <Link
                     to={`/product/${p.id}`}
                     className="text-2xl cursor-pointer z-10"

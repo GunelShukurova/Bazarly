@@ -34,6 +34,12 @@ const ProductDetail = () => {
   const { favorites, setFavorites } = useFavorites();
 
   const toggleFavorite = () => {
+    if (!userId) {
+      enqueueSnackbar("Please log in to add favorites.", {
+        variant: "warning",
+      });
+      return;
+    }
     setFavorites(prevFavorites => {
       let newFavorites;
       const isAlreadyFavorite = prevFavorites.some(item => item.id === product.id);
@@ -250,8 +256,9 @@ const ProductDetail = () => {
                   <button
                     onClick={toggleFavorite}
                     className={`px-4 py-2 rounded-lg transition-colors ${favorites.some(item => item.id === product.id) ? 'bg-red-900 text-white' : 'bg-[#ccbe94] text-white'
-                      }`}
+                      } ${!userId ? 'cursor-not-allowed opacity-60' : ''}`}
                     aria-label="Toggle favorite"
+                    aria-disabled={!userId}
                   >
                     <FavoriteIcon />
                   </button>
