@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import loginValidationSchema from '../../validations/loginValidations';
 import { useFormik } from 'formik';
 import { login } from '../../redux/features/userSlice';
-import { getAllUsers, update } from '../../services/users/requests';
+import { getAllUsers } from '../../services/users/requests';
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -73,6 +73,11 @@ const Login = () => {
             <p className='text-2xl text-gray-600 font-thin'>Welcome back! Please enter your details.</p>
           </div>
           <div className="flex flex-col">
+            <div className='flex flex-col mt-5 justify-center items-center'>
+        <span className='text-xl'>Email: gunel23@gmail.com</span>
+            <span className='text-xl'>Password: Gunel2323</span>
+            </div>
+    
             <label
               htmlFor="email"
               className="block mb-2 text-lg font-medium  pt-6"

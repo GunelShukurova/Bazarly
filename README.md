@@ -4,7 +4,13 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 ## Environment
 
-Set `VITE_API_BASE_URL` to point at your backend when deploying. Leave it unset to use the bundled `public/data/index.json` data source.
+Run a local JSON server so POST/PATCH/DELETE update the data file:
+
+```bash
+npm run server
+```
+
+By default the app targets `http://localhost:3000`. To override it, set `VITE_API_BASE_URL` in your env.
 
 Currently, two official plugins are available:
 
