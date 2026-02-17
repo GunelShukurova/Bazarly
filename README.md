@@ -10,7 +10,7 @@ Run a local JSON server so POST/PATCH/DELETE update the data file:
 npm run server
 ```
 
-By default the app targets `http://localhost:3000`. To override it, set `VITE_API_BASE_URL` in your env.
+In dev the app targets `http://localhost:3000`. In production it uses the current site origin unless you set `VITE_API_BASE_URL`.
 
 Currently, two official plugins are available:
 
